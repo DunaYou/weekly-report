@@ -1,0 +1,41 @@
+name: 游泰仁週報自動生成
+
+on:
+  schedule:
+    # 每週日 21:00 UTC = 週日 05:00 台北時間
+    - cron: "0 21 * * 0"
+  workflow_dispatch:  # 手動觸發（測試用）
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install anthropic requests
+
+      - name: Generate weekly report
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+          LINE_CHANNEL_ACCESS_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
+          LINE_USER_ID: ${{ secrets.LINE_USER_ID }}
+        run: python generate_report.py
+
+      - name: Commit and push
+        run: |
+          git config user.name "游泰仁"
+          git config user.email "dunayou.ef@gmail.com"
+          git add -A
+          git diff --cached --quiet || git commit -m "週報自動生成 $(date +%Y-W%V)"
+          git push
