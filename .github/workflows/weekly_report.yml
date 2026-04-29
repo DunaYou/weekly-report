@@ -24,7 +24,10 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install anthropic requests
+        run: pip install anthropic requests playwright
+
+      - name: Install Playwright browsers
+        run: playwright install chromium --with-deps
 
       - name: Generate weekly report
         env:
