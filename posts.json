@@ -20,5 +20,16 @@
     "projects": 10,
     "sessions": 27,
     "cover": "reports/2026-W18-cover.png"
+  },
+  {
+    "number": 3,
+    "week": 18,
+    "filename": "2026-W18.html",
+    "title": "穩步推進的專案週報",
+    "summary": "本週的工作讓我看到了一些明顯的成果。Duna 依然專注，對每個細節都很在意。這是團隊逐漸建立起來的默契。…",
+    "date_range": "04.27 – 05.03",
+    "projects": 13,
+    "sessions": 30,
+    "cover": "reports/2026-W18-cover.png"
   }
 ]
