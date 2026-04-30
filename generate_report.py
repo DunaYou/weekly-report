@@ -113,6 +113,9 @@ def generate_report_with_claude(logs, week_num, monday, sunday):
 各專案本週累計工時：
 {{project_hours_text}}
 
+以下 {len(all_projects)} 個專案【必須全部各有一個 section，不能合併也不能省略】：
+{chr(10).join(f"  - {p}" for p in all_projects)}
+
 本週工作日誌：
 {logs_text}
 
@@ -626,11 +629,17 @@ def main():
     report = generate_report_with_claude(logs, week_num, monday, sunday)
     print(f"標題：{report['title']}")
 
-    # Python 端計算各專案累計工時，補填 AI 沒輸出的 duration
+    # Python 端計算各專案累計工時
     _ph: dict = {}
+    _proj_logs: dict = {}
     for l in logs:
         for p in l["projects"]:
             _ph[p] = round(_ph.get(p, 0) + (l.get("hours") or 0), 1)
+            if p not in _proj_logs:
+                _proj_logs[p] = []
+            _proj_logs[p].append({"date": (l["date"] or "")[-5:].replace("-", "/"), "note": l["name"][:30]})
+
+    # 補填 AI 沒輸出的 duration
     for sec in report.get("sections", []):
         if not sec.get("duration"):
             tag = (sec.get("tag") or "").lower()
@@ -643,6 +652,27 @@ def main():
                         best_proj, best_h = proj, h
             if best_h > 0:
                 sec["duration"] = f"累計 {best_h}h"
+
+    # 補上 AI 漏掉的專案 section
+    covered = set()
+    for sec in report.get("sections", []):
+        tag = (sec.get("tag") or "").lower()
+        title = (sec.get("title") or "").lower()
+        for proj in list(_ph.keys()):
+            if proj.lower() in tag or proj.lower() in title or tag in proj.lower() or title in proj.lower():
+                covered.add(proj)
+    for proj in _ph:
+        if proj not in covered:
+            daily = _proj_logs.get(proj, [])
+            report["sections"].append({
+                "tag": proj,
+                "title": proj,
+                "content": f"{proj} 本週工作完成。",
+                "daily_log": daily[:5],
+                "duration": f"累計 {_ph[proj]}h" if _ph[proj] > 0 else "",
+                "optimization": "",
+            })
+            print(f"  → 補上漏掉的專案 section：{proj}")
 
     posts = load_post_registry()
     post_number = len(posts) + 1
