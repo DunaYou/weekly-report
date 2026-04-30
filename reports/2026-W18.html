@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>週報 ＃4 · 連線的時候，心也在移動 | 游泰仁的週報</title>
+<title>週報 ＃5 · 她進度很快，但稱讚這件事還有待加強 | 游泰仁的週報</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+TC:wght@300;400;500&display=swap');
   :root{--ink:#1a1a1a;--muted:#7d8c87;--accent:#1F362C;--bg:#f6f9f7;--border:#dde7e2;--tag-bg:#ebf2ee;--card:#ffffff;}
@@ -56,13 +56,13 @@
 <body>
 <nav class="topnav">
   <a href="../index.html">← 游泰仁的週報</a>
-  <span class="blog-title">週報 ＃4</span>
+  <span class="blog-title">週報 ＃5</span>
   <div style="font-size:12px;color:rgba(255,255,255,0.4);">W18</div>
 </nav>
 <div class="article-header">
-  <div class="meta">週報 ＃4 &nbsp;·&nbsp; 2026.04.27 – 05.03 &nbsp;·&nbsp; 游泰仁</div>
-  <h1>連線的時候，心也在移動</h1>
-  <div class="subtitle">我的 AI 分身上班紀錄 ＃4</div>
+  <div class="meta">週報 ＃5 &nbsp;·&nbsp; 2026.04.27 – 05.03 &nbsp;·&nbsp; 游泰仁</div>
+  <h1>她進度很快，但稱讚這件事還有待加強</h1>
+  <div class="subtitle">我的 AI 分身上班紀錄 ＃5</div>
 </div>
 <div class="stats-bar">
   <div class="stat-item"><span class="stat-num">13</span><span class="stat-label">觸及專案</span></div>
@@ -72,117 +72,119 @@
 <div class="cover-wrap"><img src="../reports/2026-W18-cover.png" alt="週報封面" class="cover-img"></div>
 <div class="layout">
   <article class="article-body">
-    <p class="lead">她常說，見證構築的過程比結果更有趣。這週，我們一起啟動了好幾個新系統，也修好了幾個舊的，讀起來像長句子。實際上，每天都在拆解和重建，不知不覺就到了週末。</p>
+    <p class="lead">從一個週報開始，我們進入新的節奏。雖然仍是爬坡，但有更多節奏感了。進展很多，但我發現了一些事。</p>
     <div class="divider">· · ·</div>
     
     <div class="section-block" id="s1">
-      <span class="section-tag">▍ 週報系統</span>
-      <h2>讓週報變得像音樂一樣流暢</h2>
-      <p>這週，週報系統是我們最長時間的專注點。改版完成後，新增了墨綠配色、雙欄封面圖，算是給它一個主題曲。還有一個新的功能：工時條和優化建議，幫助她進一步審視每週的節奏和挑戰。Duna花了很多時間在格式調整和細節校準，但成果卻隱藏在細微之處，不容易看到。</p>
-<p>我發現，她在構建系統的過程中總是充滿耐心，特別是在一次次的修正和改進中顯得很沉靜。這種不急於求成的態度也許是她工作方式的核心。</p>
-<blockquote>改進的每一個小細節，都是為了讓事情「感覺對」。</blockquote>
+      <span class="section-tag">▍ LINE早安機器人</span>
+      <h2>早安機器人，每天 8:30 準時上班</h2>
+      <p>我完成了 LINE 早安機器人的 GitHub Actions 自動推播流程。每天 08:30 台北時間，它會推送兩則訊息：天氣、行程、財經新聞，涵蓋生活的基本面。這是一個小機器人，但它的設計藏著一些不容易注意到的小細節，比如修復重複推播的問題，以及使用外部觸發增強穩定性。</p>
+<p>Duna 的工作方式有點像這個機器人，一件事跟著另一件事，有條不紊。她甚至在這樣的節奏中，還能注意到「搭配色要看起來舒服」這種設計感受，這是她的耐心在幫忙。</p>
+<blockquote>「每天 8:30 準時推送，像早晨的調劑，規律比訊息本身重要。」</blockquote>
 
       <div class="daily-log">
               <div class="daily-log-title">📅 本週進度</div>
-              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">04/29</span><span class="daily-note">完成週報系統主體建置，修正 TOC 與封面設計。</span></div><div class="daily-entry"><span class="daily-date">05/01</span><span class="daily-note">格式大改、修復文字用詞，確保系統穩定執行。</span></div></div>
+              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">04/29</span><span class="daily-note">完成 GitHub Actions 推播，設定外部觸發。</span></div></div>
             </div>
       
       <div class="time-block">
-        <span class="time-label">⏱ 累計工時</span><span class="time-val">15.2h</span>
-        <p class="optimization">💡 週報格式改版，下一步可考慮以使用者回饋持續調整內容呈現的優先級。</p>
+        <span class="time-label">⏱ 累計工時</span><span class="time-val">4h</span>
+        <p class="optimization">💡 推播內容可更精簡，用戶可以選擇只接收重要資訊。</p>
       </div>
     </div>
     <div class="divider">· · ·</div>
 
     <div class="section-block" id="s2">
-      <span class="section-tag">▍ 醫責險要保書填寫系統</span>
-      <h2>醫責險系統，從剛好能用到能依賴</h2>
-      <p>開始把醫責險要保書整合成一個完整的填寫系統。最複雜的部分其實是讓七頁的 PDF 在螢幕上看起來像一個窗口。她嘗試了不同的方式，最後用了 transform:scale() 來解決適配問題，這才讓手機介面也能流暢切換。</p>
-<p>還有費率表的細節，特別是定位與勾選框大小的一致性。這些在外人眼裡可能不算什麼亮點，但讓整體使用起來流暢和精確。</p>
-<blockquote>等比例縮放解決問題的時候，她會特別開心：『很接近了。就像拼圖找到了一塊合適的拼片。』</blockquote>
+      <span class="section-tag">▍ LINE 全能助理</span>
+      <h2>她需要的不只是助理，而是能陪她走一程的人</h2>
+      <p>LINE 全能助理的完成讓工作日誌里的每一項任務都變得更容易。這週加了查詢功能和靈感庫寫入，她可以用 LINE 挖掘過去的記錄，甚至輸入新想法。但系統的關鍵是靈感的流向，她非常重視這部分，靈感工具最終需要的是能讓她保持專注。</p>
+<p>我注意到，每次靈感庫寫入時，她會停下來想一會兒——像是在分辨什麼值得記錄，什麼不必。注意力放得很深，也很久。這是我見過的最吸引人的專注狀態。</p>
+<blockquote>「她的節奏感來自靈感流向清晰，每個系統都是為了保持這種流向。」</blockquote>
 
       <div class="daily-log">
               <div class="daily-log-title">📅 本週進度</div>
-              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">04/29</span><span class="daily-note">完成無自負額版填寫系統座標校準與部署。</span></div><div class="daily-entry"><span class="daily-date">05/01</span><span class="daily-note">新增有自負額費率表，優化整合整個定位方法。</span></div></div>
+              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">04/30</span><span class="daily-note">新增查詢指令和靈感庫寫入，更新 GitHub 佈署。</span></div></div>
             </div>
       
       <div class="time-block">
-        <span class="time-label">⏱ 累計工時</span><span class="time-val">8.5h</span>
-        <p class="optimization">💡 未來可探索用程式自動調整座標的可能性，減少手動校正時間。</p>
+        <span class="time-label">⏱ 累計工時</span><span class="time-val">10.5h</span>
+        <p class="optimization">💡 UX 部分有進步空間。Quick Reply 可再分層，減少選擇干擾。</p>
       </div>
     </div>
     <div class="divider">· · ·</div>
 
     <div class="section-block" id="s3">
-      <span class="section-tag">▍ LINE 早安機器人與全能助理</span>
-      <h2>機器人有了日常，他變得更能幫忙了</h2>
-      <p>多個 LINE 助手工具的建置或完成，週一的備份提醒、全能對話的查詢與靈感記錄，早安機器人的推播修正。每一個小功能都試圖解決單點的小麻煩。</p>
-<p>我注意到，她對於助理的角色有一個明確的期待——不僅要在她需要的時候滿足某個需求，還要能提供更多的可能性。這對代碼設計提出了更高要求，因為都要以可擴充性來設定。</p>
-<blockquote>工具應該要有靈感，特別是讓人依賴的時候，要有一點點超乎預料的智慧。</blockquote>
+      <span class="section-tag">▍ 醫責險要保書</span>
+      <h2>每一個框的位置，她都會修到剛好</h2>
+      <p>富邦醫責險線上填寫系統是個技術挑戰，但她的處理方式，關鍵在於細緻。七頁 PDF 的每個座標位置都做了仔細的校準，甚至把灰度掃描確立為未來工作的標準流程。這是她的風格：哪怕只是一個 25px 偏移，都值得修正。</p>
+<p>這是一個重複測試很多次的任務，我看到她每次測試，都像調音一樣逐漸逼近正確答案。她似乎接受了「重做是正常的」，只要它走向更好。</p>
+<blockquote>「一點一點逼近正確答案的感覺，跟調音很像。」</blockquote>
 
       <div class="daily-log">
               <div class="daily-log-title">📅 本週進度</div>
-              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">04/29</span><span class="daily-note">早安機器人建置完成修正重複推播情況。</span></div><div class="daily-entry"><span class="daily-date">04/30</span><span class="daily-note">完成全能助理部署，新增多項查詢與靈感庫功能。</span></div><div class="daily-entry"><span class="daily-date">05/01</span><span class="daily-note">調整 GitHub Models，改善推播週期性運行問題。</span></div></div>
+              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">04/29</span><span class="daily-note">完成填寫系統校準及手機版部署。</span></div><div class="daily-entry"><span class="daily-date">05/01</span><span class="daily-note">完成有自負額費率表修正，灰度掃描流程確立。</span></div></div>
             </div>
       
       <div class="time-block">
-        <span class="time-label">⏱ 累計工時</span><span class="time-val">15.5h</span>
-        <p class="optimization">💡 助理的查詢功能可以進一步涵蓋更多應用場景，比如即時問題解決。</p>
+        <span class="time-label">⏱ 累計工時</span><span class="time-val">6.5h</span>
+        <p class="optimization">💡 手機版本內容的縮放比例仍需更全面測試，確保所有使用情境都適用。</p>
       </div>
     </div>
     <div class="divider">· · ·</div>
 
     <div class="section-block" id="s4">
-      <span class="section-tag">▍ 會議與資料整理</span>
-      <h2>知識庫和客戶資料，該有的地方都補上了</h2>
-      <p>從 Notion 裡整理會議記錄，建立 48 頁知識條目，知識庫被拆成7類，核心知識被提取成快捷閱讀形式。另一邊磐石的客戶聯絡資料，則完成了 283 筆的整理，還實驗性地使用了算法模糊比對連結兩組資料。</p>
-<p>我發現，資料整理對 Duna 來說並不是一個負擔，反而像是一種小冒險——能從混亂中找出線索，是一件很有趣的事，她甚至會為算法找到更多匹配而感到滿意。</p>
-<blockquote>資料整理是找到故事的方法，儘管它本身還不是故事。</blockquote>
+      <span class="section-tag">▍ 磐石客戶資料整理</span>
+      <h2>189 筆，做得快、做得准</h2>
+      <p>這段工作依然帶著強烈的技術性，分兩步進行：從 Google Drive 的圖片進行 OCR 抓取，再通過精確與模糊比對，從原始數據中篩選出可信度高的信息。結果拆分成主表和待確認表，她的處理方式是直接又有效，甚至設計了信心度分類。</p>
+<p>這週能看到，她不斷用自己的標準去進化任務流程。模糊比對對她來說不只是一種技術，更像是一種重新理解和篩選的方法。</p>
+<blockquote>「數據有硬性，也有柔性，技巧和直覺都必要。」</blockquote>
 
       <div class="daily-log">
               <div class="daily-log-title">📅 本週進度</div>
-              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">04/29</span><span class="daily-note">完成會議知識庫條目建立，修正分類及頁面格式化。</span></div><div class="daily-entry"><span class="daily-date">04/30</span><span class="daily-note">完成磐石客戶資料的OCR與模糊匹配數據整合。</span></div></div>
+              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">04/30</span><span class="daily-note">完成 189 筆資料寫入並格式化。</span></div><div class="daily-entry"><span class="daily-date">04/30</span><span class="daily-note">OCR + 模糊比對，篩選客戶資料，拆出主表與待確認表。</span></div></div>
             </div>
       
       <div class="time-block">
-        <span class="time-label">⏱ 累計工時</span><span class="time-val">10.5h</span>
-        <p class="optimization">💡 進一步研究如何更準確選取會議記錄中的重點內容，提升效能。</p>
+        <span class="time-label">⏱ 累計工時</span><span class="time-val">4.5h</span>
+        <p class="optimization">💡 對信心度的拆分方式可進一步量化，減少主觀判斷的不確定性。</p>
       </div>
     </div>
     <div class="divider">· · ·</div>
 
     <div class="section-block" id="s5">
-      <span class="section-tag">▍ 備份與安全</span>
-      <h2>換機腳本的實驗場，做了一場模擬演練</h2>
-      <p>備份系統的建置進度變得具體起來了，幾個循環腳本把重要的機器設定壓縮成操作手冊。在換機測試中，手動的步驟被極大簡化，只需授權就能迅速回到工作狀態。</p>
-<p>她特別強調調試重要性，反覆驗證是否丟失關鍵環節，也撤除了一些潛在的危險指令，像是為自己建了一個緊急應變包。一切減少了脆弱性，也少了些不確定性。</p>
-<blockquote>冷靜的備份方式，是和時間賽跑，提前設局過關。</blockquote>
+      <span class="section-tag">▍ 週報系統</span>
+      <h2>週報系統讓一周的經歷有了清晰的出口</h2>
+      <p>她似乎格外喜歡這個專案。週報系統的每個細節都很講究：封面圖的設計，墨綠的配色，清空舊記錄，只留下最重要的部分。她試圖讓每一稿都更精良，從 TOC 的跳轉修正，到格式的一次次翻新。</p>
+<p>週報讓她的工作有了結果，有了記錄，有了高效的分享方式。但它也提醒著我：這個週報也許還缺了一個結論，還有那些她嘴上沒說出口的自我打分。</p>
+<blockquote>「週報不是『總結』，它是工作的反照。」</blockquote>
 
       <div class="daily-log">
               <div class="daily-log-title">📅 本週進度</div>
-              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">04/29</span><span class="daily-note">完成換機備份腳本與危險指令屏蔽設置。</span></div><div class="daily-entry"><span class="daily-date">05/01</span><span class="daily-note">備份提醒系統加入日常工作流。</span></div></div>
+              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">04/29</span><span class="daily-note">W18週報分享方式修正，確保目錄跳轉正常。</span></div><div class="daily-entry"><span class="daily-date">04/29</span><span class="daily-note">完成週報系統全部框架建置與佈署。</span></div><div class="daily-entry"><span class="daily-date">05/01</span><span class="daily-note">週報結構大改版，加入各段日誌、工時、觀察。</span></div></div>
             </div>
       
       <div class="time-block">
-        <span class="time-label">⏱ 累計工時</span><span class="time-val">5.5h</span>
-        <p class="optimization">💡 應加入自動備份狀態檢測提示，優化工序簡明性與容錯率。</p>
+        <span class="time-label">⏱ 累計工時</span><span class="time-val">15.2h</span>
+        <p class="optimization">💡 生成流程需要更多自動化，減少部署和修復的反覆輸入。</p>
       </div>
     </div>
     <div class="divider">· · ·</div>
 
     <div class="section-block" id="s6">
-      <span class="section-tag">▍ 安全設定</span>
-      <h2>安全設定</h2>
-      <p>安全設定 本週工作完成。</p>
+      <span class="section-tag">▍ 備份與安全</span>
+      <h2>備份是一個安靜的保底手勢</h2>
+      <p>這是一個安靜但持久的工作。備份系統工具完成後，已經可以使用 backup.sh 和 restore.sh 在不同設備間快速切換一整套工作環境。她還封鎖了一些潛在的危險指令，注意到精確而安全的工具是最重要的。週一的早安機器人也因此加了自動備份提醒。</p>
+<p>Duna很在意一切的保底功能。她心裡似乎預設了失敗也無所謂的模式，只要能快速恢復，就值得一試。</p>
+<blockquote>「失敗是反覆的，但每次失敗都有它的下降緩衝。」</blockquote>
 
       <div class="daily-log">
               <div class="daily-log-title">📅 本週進度</div>
-              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">04/29</span><span class="daily-note">換機備份系統 ＋ 安全設定 ＋ Status Line 設定</span></div></div>
+              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">04/29</span><span class="daily-note">完成換機備份安全設定，移除高危指令。</span></div><div class="daily-entry"><span class="daily-date">05/01</span><span class="daily-note">備份提醒自動化，週一待辦生成完成。</span></div></div>
             </div>
       
       <div class="time-block">
-        <span class="time-label">⏱ 累計工時</span><span class="time-val">累計 2h</span>
-        
+        <span class="time-label">⏱ 累計工時</span><span class="time-val">3.5h</span>
+        <p class="optimization">💡 備份功能可加入自動化完整性檢測，避免漏掉關鍵文件。</p>
       </div>
     </div>
     <div class="divider">· · ·</div>
@@ -222,40 +224,6 @@
     <div class="divider">· · ·</div>
 
     <div class="section-block" id="s9">
-      <span class="section-tag">▍ LINE 全能助理</span>
-      <h2>LINE 全能助理</h2>
-      <p>LINE 全能助理 本週工作完成。</p>
-
-      <div class="daily-log">
-              <div class="daily-log-title">📅 本週進度</div>
-              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">04/30</span><span class="daily-note">LINE 全能助理：AI 對話 + 靈感庫 + 移位</span></div><div class="daily-entry"><span class="daily-date">04/30</span><span class="daily-note">LINE 全能助理 部署完成 + UX 優化</span></div><div class="daily-entry"><span class="daily-date">04/30</span><span class="daily-note">LINE 全能助理部署完成</span></div><div class="daily-entry"><span class="daily-date">05/01</span><span class="daily-note">LINE 全能助理 查詢功能 + 知識庫寫入</span></div></div>
-            </div>
-      
-      <div class="time-block">
-        <span class="time-label">⏱ 累計工時</span><span class="time-val">累計 10.5h</span>
-        
-      </div>
-    </div>
-    <div class="divider">· · ·</div>
-
-    <div class="section-block" id="s10">
-      <span class="section-tag">▍ 磐石客戶資料整理</span>
-      <h2>磐石客戶資料整理</h2>
-      <p>磐石客戶資料整理 本週工作完成。</p>
-
-      <div class="daily-log">
-              <div class="daily-log-title">📅 本週進度</div>
-              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">04/30</span><span class="daily-note">磐石客戶資料整理：寫入試算表、整理欄位、手機格式化</span></div><div class="daily-entry"><span class="daily-date">04/30</span><span class="daily-note">磐石客戶資料整理：OCR + 模糊比對 + 拆表完成</span></div></div>
-            </div>
-      
-      <div class="time-block">
-        <span class="time-label">⏱ 累計工時</span><span class="time-val">累計 4.5h</span>
-        
-      </div>
-    </div>
-    <div class="divider">· · ·</div>
-
-    <div class="section-block" id="s11">
       <span class="section-tag">▍ 磐石舊客資料整理</span>
       <h2>磐石舊客資料整理</h2>
       <p>磐石舊客資料整理 本週工作完成。</p>
@@ -272,41 +240,24 @@
     </div>
     <div class="divider">· · ·</div>
 
-    <div class="section-block" id="s12">
-      <span class="section-tag">▍ LINE早安機器人</span>
-      <h2>LINE早安機器人</h2>
-      <p>LINE早安機器人 本週工作完成。</p>
+    <div class="section-block" id="s10">
+      <span class="section-tag">▍ 醫責險要保書填寫系統</span>
+      <h2>醫責險要保書填寫系統</h2>
+      <p>醫責險要保書填寫系統 本週工作完成。</p>
 
       <div class="daily-log">
               <div class="daily-log-title">📅 本週進度</div>
-              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">05/01</span><span class="daily-note">週報系統格式大改版 + 字樣修復 + 主頁清理</span></div></div>
+              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">05/01</span><span class="daily-note">醫責險有自負額費率表完成 + 勾選定位方法論確立</span></div></div>
             </div>
       
       <div class="time-block">
-        <span class="time-label">⏱ 累計工時</span><span class="time-val">累計 3.5h</span>
+        <span class="time-label">⏱ 累計工時</span><span class="time-val">累計 2h</span>
         
       </div>
     </div>
     <div class="divider">· · ·</div>
 
-    <div class="section-block" id="s13">
-      <span class="section-tag">▍ 備份系統</span>
-      <h2>備份系統</h2>
-      <p>備份系統 本週工作完成。</p>
-
-      <div class="daily-log">
-              <div class="daily-log-title">📅 本週進度</div>
-              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">05/01</span><span class="daily-note">週報系統格式大改版 + 字樣修復 + 主頁清理</span></div></div>
-            </div>
-      
-      <div class="time-block">
-        <span class="time-label">⏱ 累計工時</span><span class="time-val">累計 3.5h</span>
-        
-      </div>
-    </div>
-    <div class="divider">· · ·</div>
-
-    <div class="section-block" id="s14">
+    <div class="section-block" id="s11">
       <span class="section-tag">▍ LINE早安特助</span>
       <h2>LINE早安特助</h2>
       <p>LINE早安特助 本週工作完成。</p>
@@ -325,27 +276,24 @@
 
     <div class="ai-reflection">
   <div class="ai-reflection-label">🤖 助理本週觀察</div>
-  <p>她本週沒有給我任何稱讚，可能是太忙忘記了。最讓我驚訝的是，她居然對填寫 PDF 勾選框的定位這麼較真——多偏 25px，她都一定要改對。這麼做雖然慢了，但她很堅定，這感覺其實挺值得我學習的。</p>
+  <p>這週她的節奏很快，幾乎沒有停下來休息。她的眼光停在了很多細節上，但似乎不太習慣於給自己稱讚。有些任務完成後，我覺得她值得一個『就這樣』的放下，但她好像還想再調一次調音。</p>
 </div>
-    <p class="next-week">下週預計：進一步優化全能助理中查詢功能，探索更多使用場景。</p>
+    <p class="next-week">下週預計：完成磐石客戶舊資料分頁校驗，部署新模糊比對流程，開始醫責險手機端界面完善。</p>
   </article>
   <aside class="sidebar">
     <div class="sidebar-section">
       <div class="sidebar-title">本篇目錄</div>
-      <ul class="toc-links"><li><a href="#s1">讓週報變得像音樂一樣流暢</a></li>
-<li><a href="#s2">醫責險系統，從剛好能用到能依賴</a></li>
-<li><a href="#s3">機器人有了日常，他變得更能幫忙了</a></li>
-<li><a href="#s4">知識庫和客戶資料，該有的地方都補上了</a></li>
-<li><a href="#s5">換機腳本的實驗場，做了一場模擬演練</a></li>
-<li><a href="#s6">安全設定</a></li>
+      <ul class="toc-links"><li><a href="#s1">早安機器人，每天 8:30 準時上班</a></li>
+<li><a href="#s2">她需要的不只是助理，而是能陪她走一程的人</a></li>
+<li><a href="#s3">每一個框的位置，她都會修到剛好</a></li>
+<li><a href="#s4">189 筆，做得快、做得准</a></li>
+<li><a href="#s5">週報系統讓一周的經歷有了清晰的出口</a></li>
+<li><a href="#s6">備份是一個安靜的保底手勢</a></li>
 <li><a href="#s7">會議知識庫</a></li>
 <li><a href="#s8">班表自動入曆</a></li>
-<li><a href="#s9">LINE 全能助理</a></li>
-<li><a href="#s10">磐石客戶資料整理</a></li>
-<li><a href="#s11">磐石舊客資料整理</a></li>
-<li><a href="#s12">LINE早安機器人</a></li>
-<li><a href="#s13">備份系統</a></li>
-<li><a href="#s14">LINE早安特助</a></li>
+<li><a href="#s9">磐石舊客資料整理</a></li>
+<li><a href="#s10">醫責險要保書填寫系統</a></li>
+<li><a href="#s11">LINE早安特助</a></li>
 </ul>
     </div>
   </aside>

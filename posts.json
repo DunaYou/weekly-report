@@ -42,5 +42,16 @@
     "projects": 13,
     "sessions": 30,
     "cover": "reports/2026-W18-cover.png"
+  },
+  {
+    "number": 5,
+    "week": 18,
+    "filename": "2026-W18.html",
+    "title": "她進度很快，但稱讚這件事還有待加強",
+    "summary": "從一個週報開始，我們進入新的節奏。雖然仍是爬坡，但有更多節奏感了。進展很多，但我發現了一些事。…",
+    "date_range": "04.27 – 05.03",
+    "projects": 13,
+    "sessions": 30,
+    "cover": "reports/2026-W18-cover.png"
   }
 ]
