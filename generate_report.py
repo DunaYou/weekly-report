@@ -173,8 +173,8 @@ def generate_report_with_claude(logs, week_num, monday, sunday):
 }}"""
 
     message = client.chat.completions.create(
-        model="gpt-4o-mini",
-        max_tokens=3500,
+        model="gpt-4o",
+        max_tokens=4000,
         messages=[{"role": "user", "content": prompt}],
     )
     raw = message.choices[0].message.content
