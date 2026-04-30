@@ -347,7 +347,7 @@ body {{ width:1456px; height:816px; display:flex; font-family:'Noto Sans TC',san
     return cover_img_path
 
 
-def render_html(report, week_num, monday, sunday, post_number, stats, cover_img_filename=None):
+def render_html(report, week_num, monday, sunday, post_number, stats, cover_img_filename=None, posts=None):
     ai_ref = report.get("ai_reflection", "")
     ai_reflection_html = f'''<div class="ai-reflection">
   <div class="ai-reflection-label">🤖 助理本週觀察</div>
@@ -414,6 +414,14 @@ def render_html(report, week_num, monday, sunday, post_number, stats, cover_img_
     monday_str = monday.strftime("%m.%d")
     sunday_str = sunday.strftime("%m.%d")
     date_range = f"{monday.year}.{monday_str} – {sunday_str}"
+
+    # 前後篇導覽
+    posts_list = posts or []
+    post_map = {p["number"]: p["filename"] for p in posts_list}
+    prev_filename = post_map.get(post_number - 1)
+    next_filename = post_map.get(post_number + 1)
+    prev_nav = f'<a href="{prev_filename}">← 上一篇</a>' if prev_filename else '<span class="disabled">← 上一篇</span>'
+    next_nav = f'<a href="{next_filename}">下一篇 →</a>' if next_filename else '<span class="disabled">下一篇 →</span>'
 
     cover_html = ""
     if cover_img_filename:
@@ -502,9 +510,9 @@ def render_html(report, week_num, monday, sunday, post_number, stats, cover_img_
   {sidebar_html}
 </div>
 <div class="post-nav">
-  <span class="disabled">← 上一篇</span>
+  {prev_nav}
   <a href="../index.html">回首頁</a>
-  <span class="disabled">下一篇 →</span>
+  {next_nav}
 </div>
 <footer class="site-footer">
   由 游泰仁 撰寫 · 游淳惠 Duna You · {monday.year}-{monday.month:02d}-{sunday.day:02d}
@@ -729,6 +737,7 @@ def main():
     html = render_html(
         report, week_num, monday, sunday, post_number, stats,
         cover_img_filename=cover_filename if cover_path else None,
+        posts=posts,
     )
     html = html.replace("保全班表", "班表自動入曆").replace("保全", "")
     with open(f"reports/{filename}", "w", encoding="utf-8") as f:
