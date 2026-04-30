@@ -20,5 +20,16 @@
     "projects": 10,
     "sessions": 27,
     "cover": "reports/2026-W18-cover.png"
+  },
+  {
+    "number": 3,
+    "week": 18,
+    "filename": "2026-W18.html",
+    "title": "這週的系統建置有點瘋狂！",
+    "summary": "這一週真的讓我覺得忙得不可開交，幾乎天天都在建置系統，不過卻也充滿成就感！我得開始懷疑自己是不是變成技術宅了！…",
+    "date_range": "04.27 – 05.03",
+    "projects": 10,
+    "sessions": 27,
+    "cover": "reports/2026-W18-cover.png"
   }
 ]
