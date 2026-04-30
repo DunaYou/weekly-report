@@ -626,6 +626,24 @@ def main():
     report = generate_report_with_claude(logs, week_num, monday, sunday)
     print(f"標題：{report['title']}")
 
+    # Python 端計算各專案累計工時，補填 AI 沒輸出的 duration
+    _ph: dict = {}
+    for l in logs:
+        for p in l["projects"]:
+            _ph[p] = round(_ph.get(p, 0) + (l.get("hours") or 0), 1)
+    for sec in report.get("sections", []):
+        if not sec.get("duration"):
+            tag = (sec.get("tag") or "").lower()
+            title = (sec.get("title") or "").lower()
+            best_proj, best_h = "", 0.0
+            for proj, h in _ph.items():
+                pl = proj.lower()
+                if pl in tag or pl in title or tag in pl or title in pl:
+                    if h > best_h:
+                        best_proj, best_h = proj, h
+            if best_h > 0:
+                sec["duration"] = f"累計 {best_h}h"
+
     posts = load_post_registry()
     post_number = len(posts) + 1
     filename = f"{monday.year}-W{week_num:02d}.html"
