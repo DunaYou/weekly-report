@@ -672,12 +672,12 @@ def main():
         if not sec.get("duration"):
             tag = (sec.get("tag") or "").lower()
             title = (sec.get("title") or "").lower()
-            best_proj, best_h = "", 0.0
+            best_h = 0.0
             for proj, h in _ph.items():
                 pl = proj.lower()
                 if pl in tag or pl in title or tag in pl or title in pl:
                     if h > best_h:
-                        best_proj, best_h = proj, h
+                        best_h = h
             if best_h > 0:
                 sec["duration"] = f"累計 {best_h}h"
 
@@ -718,9 +718,14 @@ def main():
         })
 
     posts = load_post_registry()
-    post_number = len(posts) + 1
     filename = f"{monday.year}-W{week_num:02d}.html"
     cover_filename = f"reports/{monday.year}-W{week_num:02d}-cover.png"
+    # 如果這個 filename 已存在，更新該筆而非新增
+    existing_idx = next((i for i, p in enumerate(posts) if p["filename"] == filename), None)
+    if existing_idx is not None:
+        post_number = posts[existing_idx]["number"]
+    else:
+        post_number = len(posts) + 1
 
     stats = {
         "projects": len({p for l in logs for p in l["projects"]}),
@@ -743,7 +748,7 @@ def main():
     with open(f"reports/{filename}", "w", encoding="utf-8") as f:
         f.write(html)
 
-    posts.append({
+    new_entry = {
         "number": post_number,
         "week": week_num,
         "filename": filename,
@@ -753,7 +758,11 @@ def main():
         "projects": stats["projects"],
         "sessions": stats["sessions"],
         "cover": cover_filename if cover_path else None,
-    })
+    }
+    if existing_idx is not None:
+        posts[existing_idx] = new_entry
+    else:
+        posts.append(new_entry)
     save_post_registry(posts)
     update_index(posts)
 
