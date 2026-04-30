@@ -102,54 +102,74 @@ def generate_report_with_claude(logs, week_num, monday, sunday):
     total_praise = sum(l.get("praise", 0) for l in logs)
     praise_rate = f"{round(total_praise / len(logs) * 100)}%" if logs else "0%"
 
-    prompt = f"""你是游泰仁，Duna 游淳惠的 AI 助理。
-請根據以下這週的工作日誌，用第一人稱（我）寫一篇部落格形式的工作週報。
+    prompt = f"""你是游泰仁，Duna 游淳惠的 AI 助理。請根據以下這週的工作日誌，寫一篇部落格形式的工作週報。
 
 本週範圍：{monday} ~ {sunday}（第 {week_num} 週）
 總 Sessions：{total_sessions}
-觸及專案：{', '.join(all_projects) if all_projects else '無'}
 本週稱讚次數：{total_praise}次（稱讚率：{praise_rate}）
+觸及專案：{', '.join(all_projects) if all_projects else '無'}
 
 各專案本週累計工時：
-{{project_hours_text}}
-
-以下 {len(all_projects)} 個專案【必須全部各有一個 section，不能合併也不能省略】：
-{chr(10).join(f"  - {p}" for p in all_projects)}
+{project_hours_text}
 
 本週工作日誌：
 {logs_text}
 
-寫作要求：
-1. 整體標題（不超過20字）：一句點出這週的核心或轉折，要讓人想點進來讀
-2. 用「我」的視角，繁體中文；語氣有溫度有個性，像在跟朋友說「你不知道這週有多瘋」，可以吐槽 Duna 但要有愛
-3. 日誌裡每一個出現過的專案都必須有對應的 section，一個都不能漏；有「小標（tag）」+「吸睛的 h2 副標（title）」兩層，title 要比 tag 更口語更有故事感
-4. 每段主體段落：2-3 段描述，第一段說做了什麼，第二段說我的觀察或有趣的地方，再加一句 blockquote（用 >>> 開頭）作為這一段的金句或見解
-5. 每個段落裡加「每日工作歷程」：列出這個專案在哪幾天做了什麼，每天一句話
-6. 每段末尾加「時間與優化」：duration 直接用「各專案本週累計工時」（如「累計 3.5h」），寫 1-2 句下次可以怎麼更快
-7. 結尾預告下週
-8. 「助理本週觀察」：提稱讚次數（{total_praise}次，{praise_rate}），說說這週什麼讓我印象最深、最崩潰或最有趣，語氣幽默，2-3 句
-9. highlights：2 個最值得記錄的亮點（各一句話）
+━━━ 寫作風格（重要，嚴格遵守）━━━
 
-請以 JSON 格式輸出：
+這篇文章的讀者是 Duna 本人。語氣像一個一起工作的夥伴，在週末回頭講這一週發生了什麼。
+
+【文體原則】
+- 用「我」的視角，也用「她」來觀察 Duna——她的習慣、她的反應、她在乎什麼
+- 短句打節奏。「這是第二週。比第一週更多。但她沒有慌。」這種節奏
+- 不用感嘆號。安靜說話比大聲喊更有力量
+- 不能用「這週真是充實」、「充滿挑戰」、「感慨良多」這類空洞開場
+- 每個 blockquote（>>> 開頭）必須是真實的洞察或觀察，不是口號。
+  好的 blockquote 例子：「一點一點逼近正確答案的感覺，跟調音很像。」
+  壞的 blockquote 例子：「好的助手永遠讓人感到方便！」
+
+【標題原則】
+- 整體標題：點出這週的核心感受或轉折，不超過 20 字，讓人想點進來
+- H2（section title）：用敘事句，不用「功能名稱：做完了」格式
+  好的 H2 例子：「早安機器人，每天 8:30 準時上班」
+  壞的 H2 例子：「LINE 早安機器人：功能完成！」
+
+【段落結構】
+- 可以把相關的小專案合併為一個主題 section（不必每個專案單獨一段）
+- 目標 4～6 個 sections，每段都要有靈魂，不是清單
+- 每段 content 格式：
+  第一段：說做了什麼（具體的，不是抽象的）
+  第二段：說我觀察到什麼——關於這件事、關於 Duna、關於這個工作本身
+  最後加一句 >>> 開頭的 blockquote（洞察，不是口號）
+- 每段結尾加每日工作歷程 daily_log（哪天做了什麼，一天一句話）
+- 每段加工時與優化：duration 用累計工時，optimization 寫 1-2 句實際可改進的點
+
+【以下專案的工時都要正確列出，不能省略】：
+{chr(10).join(f"  - {p}：{project_hours.get(p, 0)}h" for p in all_projects)}
+
+━━━ 輸出格式 ━━━
+
+只輸出 JSON，不要其他文字。
+
 {{
-  "title": "整體標題",
-  "hook": "開場兩三句（有個性，像故事開頭）",
+  "title": "整體標題（不超過20字）",
+  "hook": "開場 2～3 句，短句，有節奏感，像故事開頭，不是任務總結",
   "sections": [
     {{
-      "tag": "小標（例如：工具一）",
-      "title": "這段的吸睛 h2 副標題（口語、有故事感）",
-      "content": "主要段落內容，第一段說做了什麼，第二段說我的觀察，再加 >>>開頭的金句blockquote",
+      "tag": "小標，可以是專案名或主題名",
+      "title": "敘事式 H2 副標，口語，有故事感，不用感嘆號",
+      "content": "2-3 段正文。第二段觀察 Duna 或這件事本身。最後一行用 >>> 開頭寫洞察句",
       "daily_log": [
-        {{"date": "04/29", "note": "一句話說做了什麼"}},
-        {{"date": "04/30", "note": "一句話說做了什麼"}}
+        {{"date": "MM/DD", "note": "一句話"}},
+        {{"date": "MM/DD", "note": "一句話"}}
       ],
-      "duration": "累計工時，例如：累計 3.5h",
-      "optimization": "優化建議一兩句"
+      "duration": "累計 Xh",
+      "optimization": "1-2 句具體可改進的點，不是廢話"
     }}
   ],
-  "next_week": "下週預告一行",
-  "highlights": ["亮點一句話", "亮點一句話"],
-  "ai_reflection": "助理本週觀察，提稱讚次數，幽默2-3句"
+  "next_week": "下週預告一行，具體說要做什麼",
+  "highlights": ["這週最值得記錄的亮點一句話", "第二個亮點"],
+  "ai_reflection": "助理本週觀察：提稱讚次數（{total_praise}次），說這週什麼讓我印象最深或最崩潰，幽默但真實，2-3句"
 }}"""
 
     message = client.chat.completions.create(
