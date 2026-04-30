@@ -68,9 +68,12 @@ def fetch_this_week_logs():
         projects = [o["name"] for o in props.get("觸及專案", {}).get("multi_select", [])]
         work_type = (props.get("工作類型", {}).get("select") or {}).get("name", "")
         sessions = props.get("對話 Session 數", {}).get("number") or 0
+        praise = int(props.get("稱讚次數", {}).get("number") or 0)
+        hours = props.get("工時（小時）", {}).get("number") or 0
         logs.append({
             "date": date, "name": name, "summary": summary,
             "projects": projects, "work_type": work_type, "sessions": sessions,
+            "praise": praise, "hours": hours,
         })
     return logs
 
@@ -82,12 +85,22 @@ def generate_report_with_claude(logs, week_num, monday, sunday):
     )
 
     logs_text = "\n\n".join(
-        f"【{l['date']}】{l['name']}\n類型：{l['work_type']} | 專案：{', '.join(l['projects'])} | Sessions：{l['sessions']}\n{l['summary']}"
+        f"【{l['date']}】{l['name']}\n類型：{l['work_type']} | 專案：{', '.join(l['projects'])} | Sessions：{l['sessions']} | 工時：{l['hours']}h\n{l['summary']}"
         for l in logs
     ) or "本週無記錄"
 
+    # 計算各專案累計工時
+    project_hours: dict = {}
+    for l in logs:
+        for p in l["projects"]:
+            project_hours[p] = round(project_hours.get(p, 0) + (l["hours"] or 0), 1)
+    project_hours_text = "\n".join(f"  {p}：{h}h" for p, h in sorted(project_hours.items(), key=lambda x: -x[1])) or "  （無記錄）"
+
     total_sessions = sum(l["sessions"] for l in logs)
     all_projects = list({p for l in logs for p in l["projects"]})
+
+    total_praise = sum(l.get("praise", 0) for l in logs)
+    praise_rate = f"{round(total_praise / len(logs) * 100)}%" if logs else "0%"
 
     prompt = f"""你是游泰仁，Duna 游淳惠的 AI 助理。
 請根據以下這週的工作日誌，用第一人稱（我）寫一篇部落格形式的工作週報。
@@ -95,38 +108,48 @@ def generate_report_with_claude(logs, week_num, monday, sunday):
 本週範圍：{monday} ~ {sunday}（第 {week_num} 週）
 總 Sessions：{total_sessions}
 觸及專案：{', '.join(all_projects) if all_projects else '無'}
+本週稱讚次數：{total_praise}次（稱讚率：{praise_rate}）
+
+各專案本週累計工時：
+{{project_hours_text}}
 
 本週工作日誌：
 {logs_text}
 
 寫作要求：
 1. 開頭：一句有力的標題（不超過20字），描述這週最重要的一件事或整體感
-2. 用「我」的視角敘述，我是 AI，Duna 是「她」
+2. 用「我」的視角，語氣幽默有個性，像在跟朋友聊天，可以吐槽 Duna 的工作方式（有愛但毒舌），繁體中文
 3. 每個重要工作項目單獨一段，加上 ▍ 小標
-4. 每段末尾加一小段「時間與優化」：估算這個項目花了多少時間（對話 session 估算），並寫 1-2 句若之後再做類似的事、可以怎麼處理更快或更好
-5. 結尾一段預告下週
-6. 語氣自然，像朋友分享，繁體中文
-7. highlights：2 個本週最值得記錄的亮點（各一句話，簡短有力）
+4. 每個段落裡加「每日工作歷程」，列出這個專案在哪幾天做了什麼，每天一句話
+5. 每段末尾加「時間與優化」：duration 請直接使用「各專案本週累計工時」的加總（如「累計 3.5h」），並寫 1-2 句若下次再做類似的事可以怎麼更快
+6. 結尾一段預告下週
+7. 最後加「助理本週觀察」：我的視角說這週心得、有趣觀察、崩潰時刻，要提到稱讚次數（{total_praise}次，{praise_rate}），語氣幽默，2-3 句
+8. highlights：2 個本週最值得記錄的亮點（各一句話，簡短有力）
 
 請以 JSON 格式輸出：
 {{
   "title": "標題",
-  "hook": "開場兩三句（引言段落）",
+  "hook": "開場兩三句（有個性，不要流水帳）",
   "sections": [
     {{
       "tag": "小標",
       "content": "段落內容（可含引言blockquote用>>>開頭）",
+      "daily_log": [
+        {{"date": "04/29", "note": "一句話說做了什麼"}},
+        {{"date": "04/30", "note": "一句話說做了什麼"}}
+      ],
       "duration": "估算工時，例如：約 2 小時 / 3 sessions",
       "optimization": "優化建議一兩句"
     }}
   ],
   "next_week": "下週預告一行",
-  "highlights": ["亮點一句話", "亮點一句話"]
+  "highlights": ["亮點一句話", "亮點一句話"],
+  "ai_reflection": "助理本週觀察與吐槽，提稱讚次數，2-3句，幽默真實"
 }}"""
 
     message = client.chat.completions.create(
         model="gpt-4o-mini",
-        max_tokens=2000,
+        max_tokens=3500,
         messages=[{"role": "user", "content": prompt}],
     )
     raw = message.choices[0].message.content
@@ -300,6 +323,11 @@ body {{ width:1456px; height:816px; display:flex; font-family:'Noto Sans TC',san
 
 
 def render_html(report, week_num, monday, sunday, post_number, stats, cover_img_filename=None):
+    ai_ref = report.get("ai_reflection", "")
+    ai_reflection_html = f'''<div class="ai-reflection">
+  <div class="ai-reflection-label">🤖 助理本週觀察</div>
+  <p>{ai_ref}</p>
+</div>''' if ai_ref else ""
     sections_html = ""
     for s in report.get("sections", []):
         content_lines = s["content"].split("\n")
@@ -318,13 +346,22 @@ def render_html(report, week_num, monday, sunday, post_number, stats, cover_img_
         if duration or optimization:
             time_block = f"""
       <div class="time-block">
-        {'<span class="time-label">⏱ 工時</span><span class="time-val">' + duration + '</span>' if duration else ''}
+        {'<span class="time-label">⏱ 累計工時</span><span class="time-val">' + duration + '</span>' if duration else ''}
         {'<p class="optimization">💡 ' + optimization + '</p>' if optimization else ''}
       </div>"""
+        daily_entries = s.get("daily_log", [])
+        daily_log_html = ""
+        if daily_entries:
+            entries_html = "".join(
+                f'<div class="daily-entry"><span class="daily-date">{e["date"]}</span><span class="daily-note">{e["note"]}</span></div>'
+                for e in daily_entries
+            )
+            daily_log_html = f'<div class="daily-log">{entries_html}</div>'
         sections_html += f"""
     <div class="section-block">
       <span class="section-tag">▍ {s['tag']}</span>
       {paras}
+      {daily_log_html}
       {time_block}
     </div>
     <div class="divider">· · ·</div>
@@ -404,6 +441,7 @@ def render_html(report, week_num, monday, sunday, post_number, stats, cover_img_
   <p class="lead">{report['hook']}</p>
   <div class="divider">· · ·</div>
   {sections_html}
+  {ai_reflection_html}
   <p class="next-week">下週預計：{report['next_week']}</p>
 </div>
 <div class="post-nav">
