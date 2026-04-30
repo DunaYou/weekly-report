@@ -119,7 +119,7 @@ def generate_report_with_claude(logs, week_num, monday, sunday):
 寫作要求：
 1. 整體標題（不超過20字）：一句點出這週的核心或轉折，要讓人想點進來讀
 2. 用「我」的視角，繁體中文；語氣有溫度有個性，像在跟朋友說「你不知道這週有多瘋」，可以吐槽 Duna 但要有愛
-3. 每個重要工作項目單獨一段：有「小標（tag）」+「吸睛的 h2 副標（title）」兩層，title 要比 tag 更口語更有故事感
+3. 日誌裡每一個出現過的專案都必須有對應的 section，一個都不能漏；有「小標（tag）」+「吸睛的 h2 副標（title）」兩層，title 要比 tag 更口語更有故事感
 4. 每段主體段落：2-3 段描述，第一段說做了什麼，第二段說我的觀察或有趣的地方，再加一句 blockquote（用 >>> 開頭）作為這一段的金句或見解
 5. 每個段落裡加「每日工作歷程」：列出這個專案在哪幾天做了什麼，每天一句話
 6. 每段末尾加「時間與優化」：duration 直接用「各專案本週累計工時」（如「累計 3.5h」），寫 1-2 句下次可以怎麼更快
@@ -358,7 +358,10 @@ def render_html(report, week_num, monday, sunday, post_number, stats, cover_img_
                 f'<div class="daily-entry"><span class="daily-date">{e["date"]}</span><span class="daily-note">{e["note"]}</span></div>'
                 for e in daily_entries
             )
-            daily_log_html = f'<div class="daily-log">{entries_html}</div>'
+            daily_log_html = f'''<div class="daily-log">
+              <div class="daily-log-title">📅 本週進度</div>
+              <div class="daily-entries">{entries_html}</div>
+            </div>'''
         section_id = f"s{len(sections_html.split('section-block')) }"
         h2_title = s.get("title", "")
         h2_html = f"<h2>{h2_title}</h2>" if h2_title else ""
@@ -439,7 +442,7 @@ def render_html(report, week_num, monday, sunday, post_number, stats, cover_img_
   .post-nav a:hover{{background:var(--tag-bg);}}
   .post-nav .disabled{{color:var(--muted);pointer-events:none;opacity:.4;}}
   .site-footer{{text-align:center;padding:24px;font-size:12px;color:var(--muted);letter-spacing:.05em;}}
-  .sidebar{{position:sticky;top:32px;}}
+  .sidebar{{position:sticky;top:32px;padding-top:48px;}}
   .sidebar-section{{margin-bottom:28px;}}
   .sidebar-title{{font-size:10px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border);}}
   .toc-links{{list-style:none;}}
