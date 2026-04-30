@@ -695,6 +695,7 @@ def main():
         report, week_num, monday, sunday, post_number, stats,
         cover_img_filename=cover_filename if cover_path else None,
     )
+    html = html.replace("保全班表", "班表自動入曆").replace("保全", "")
     with open(f"reports/{filename}", "w", encoding="utf-8") as f:
         f.write(html)
 
@@ -723,3 +724,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
