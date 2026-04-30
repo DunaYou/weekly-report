@@ -683,7 +683,9 @@ def main():
         searchable = f"{tag} {title} {content} {daily_notes}"
         for proj in list(_ph.keys()):
             pl = proj.lower()
-            if pl in searchable or any(word in searchable for word in pl.split() if len(word) > 2):
+            # 完整名稱命中，或任一 3+ 字元子串命中
+            chunks = [pl[i:i+3] for i in range(len(pl)-2)]
+            if pl in searchable or any(c in searchable for c in chunks):
                 covered.add(proj)
     for proj in _ph:
         if proj not in covered:
