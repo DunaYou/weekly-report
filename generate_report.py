@@ -10,11 +10,10 @@ import re
 import requests
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
-import anthropic
+from openai import OpenAI
 
 TAIPEI = ZoneInfo("Asia/Taipei")
 NOTION_API_KEY = os.environ["NOTION_API_KEY"]
-ANTHROPIC_API_KEY = os.environ["ANTHROPIC_API_KEY"]
 LINE_TOKEN = os.environ["LINE_CHANNEL_ACCESS_TOKEN"]
 LINE_USER_ID = os.environ["LINE_USER_ID"]
 AI_LOG_DB = "351d737a-fec4-8149-a72b-d702bdacb126"
@@ -77,7 +76,10 @@ def fetch_this_week_logs():
 
 
 def generate_report_with_claude(logs, week_num, monday, sunday):
-    client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+    client = OpenAI(
+        base_url="https://models.inference.ai.azure.com",
+        api_key=os.environ["GITHUB_TOKEN"],
+    )
 
     logs_text = "\n\n".join(
         f"【{l['date']}】{l['name']}\n類型：{l['work_type']} | 專案：{', '.join(l['projects'])} | Sessions：{l['sessions']}\n{l['summary']}"
@@ -122,12 +124,12 @@ def generate_report_with_claude(logs, week_num, monday, sunday):
   "highlights": ["亮點一句話", "亮點一句話"]
 }}"""
 
-    message = client.messages.create(
-        model="claude-haiku-4-5-20251001",
+    message = client.chat.completions.create(
+        model="gpt-4o-mini",
         max_tokens=2000,
         messages=[{"role": "user", "content": prompt}],
     )
-    raw = message.content[0].text
+    raw = message.choices[0].message.content
     match = re.search(r"\{.*\}", raw, re.DOTALL)
     if match:
         return json.loads(match.group())
