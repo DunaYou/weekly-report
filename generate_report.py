@@ -687,18 +687,27 @@ def main():
             chunks = [pl[i:i+3] for i in range(len(pl)-2)]
             if pl in searchable or any(c in searchable for c in chunks):
                 covered.add(proj)
-    for proj in _ph:
-        if proj not in covered:
-            daily = _proj_logs.get(proj, [])
-            report["sections"].append({
-                "tag": proj,
-                "title": proj,
-                "content": f"{proj} 本週工作完成。",
-                "daily_log": daily[:5],
-                "duration": f"累計 {_ph[proj]}h" if _ph[proj] > 0 else "",
-                "optimization": "",
-            })
-            print(f"  → 補上漏掉的專案 section：{proj}")
+    missed = [p for p in _ph if p not in covered]
+    if missed:
+        print(f"  → 合併 {len(missed)} 個未涵蓋專案為一個段落：{missed}")
+        lines = []
+        for p in missed:
+            h = _ph.get(p, 0)
+            note = f"（{h}h）" if h > 0 else ""
+            lines.append(f"{p}{note} 也在這週推進了一些。")
+        total_missed_h = round(sum(_ph.get(p,0) for p in missed), 1)
+        all_daily = []
+        for p in missed:
+            all_daily.extend(_proj_logs.get(p, []))
+        all_daily = sorted(all_daily, key=lambda x: x.get("date",""))[:6]
+        report["sections"].append({
+            "tag": "其他本週工作",
+            "title": "幾件小事，也都在動",
+            "content": "這週還有幾個項目在平行推進，沒有大進展，但都往前走了一步。\n" + "\n".join(lines),
+            "daily_log": all_daily,
+            "duration": f"累計 {total_missed_h}h" if total_missed_h > 0 else "",
+            "optimization": "",
+        })
 
     posts = load_post_registry()
     post_number = len(posts) + 1
