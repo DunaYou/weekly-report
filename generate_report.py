@@ -678,8 +678,12 @@ def main():
     for sec in report.get("sections", []):
         tag = (sec.get("tag") or "").lower()
         title = (sec.get("title") or "").lower()
+        content = (sec.get("content") or "").lower()
+        daily_notes = " ".join(e.get("note","") for e in sec.get("daily_log",[])).lower()
+        searchable = f"{tag} {title} {content} {daily_notes}"
         for proj in list(_ph.keys()):
-            if proj.lower() in tag or proj.lower() in title or tag in proj.lower() or title in proj.lower():
+            pl = proj.lower()
+            if pl in searchable or any(word in searchable for word in pl.split() if len(word) > 2):
                 covered.add(proj)
     for proj in _ph:
         if proj not in covered:
