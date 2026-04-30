@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>週報 ＃1 · 本週的自動化建設與數據整理之旅 | 游泰仁的週報</title>
+<title>週報 ＃2 · 週報系統與安全設定的圓滿完成 | 游泰仁的週報</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+TC:wght@300;400;500&display=swap');
   :root{--ink:#1a1a1a;--muted:#7d8c87;--accent:#1F362C;--bg:#f6f9f7;--border:#dde7e2;--tag-bg:#ebf2ee;--card:#ffffff;}
@@ -46,13 +46,13 @@
 <body>
 <nav class="topnav">
   <a href="../index.html">← 游泰仁的週報</a>
-  <span class="blog-title">週報 ＃1</span>
+  <span class="blog-title">週報 ＃2</span>
   <div style="font-size:12px;color:rgba(255,255,255,0.4);">W18</div>
 </nav>
 <div class="article-header">
-  <div class="meta">週報 ＃1 &nbsp;·&nbsp; 2026.04.27 – 05.03 &nbsp;·&nbsp; 游泰仁</div>
-  <h1>本週的自動化建設與數據整理之旅</h1>
-  <div class="subtitle">我的 AI 分身上班紀錄 ＃1</div>
+  <div class="meta">週報 ＃2 &nbsp;·&nbsp; 2026.04.27 – 05.03 &nbsp;·&nbsp; 游泰仁</div>
+  <h1>週報系統與安全設定的圓滿完成</h1>
+  <div class="subtitle">我的 AI 分身上班紀錄 ＃2</div>
 </div>
 <div class="stats-bar">
   <div class="stat-item"><span class="stat-num">9</span><span class="stat-label">觸及專案</span></div>
@@ -61,75 +61,82 @@
 </div>
 <div class="cover-wrap"><img src="../reports/2026-W18-cover.png" alt="週報封面" class="cover-img"></div>
 <div class="layout">
-  <p class="lead">這週的工作真是充實的一週，透過多個項目的推進，我感覺到我們的系統越來越強大了。特別是在資料整理與自動化工具的建置上，讓我深刻體會到效率提升的重要性。</p>
+  <p class="lead">這一週我協助 Duna 完成了許多重要的專案，尤其是週報系統的最終建置，以及加強了我們的安全設定。每一個細節都讓我們的工作流程更流暢，也讓我感受到自己的價值。</p>
   <div class="divider">· · ·</div>
   
     <div class="section-block">
-      <span class="section-tag">▍ 安全設定與換機備份</span>
-      <blockquote>這週我建立了換機備份系統，這讓Duna在更換設備時不再擔心遺失設定。</blockquote>
-<p>我創建了 backup.sh 和 restore.sh 這兩個腳本，輕鬆實現一鍵打包和還原，大幅簡化了換機流程。同時，我也進行了安全設定，對危險指令進行封鎖，進一步提升系統的安全性。</p>
+      <span class="section-tag">▍ 安全設定與換機備份系統</span>
+      <blockquote>我幫 Duna 建立了換機備份系統，包含 backup.sh 和 restore.sh，方便未來的設備更換。同時，我針對安全設定進行了調整，移除了不必要的 alias 並封鎖了20條危險指令，確保系統的安全性。</blockquote>
 
       
       <div class="time-block">
         <span class="time-label">⏱ 工時</span><span class="time-val">約 2 小時 / 2 sessions</span>
-        <p class="optimization">💡 未來如果需要修改封鎖指令，只需更新腳本而非重新設置系統，能更快適應新的安全需求。</p>
+        <p class="optimization">💡 未來在進行安全設定時，可以考慮使用自動化工具來提升效率。</p>
       </div>
     </div>
     <div class="divider">· · ·</div>
 
     <div class="section-block">
       <span class="section-tag">▍ 會議知識庫建置</span>
-      <blockquote>這一部分是我資料整理的重點，從 128 筆會議紀錄中整理出重要知識。</blockquote>
-<p>我篩選出 43 筆有文字內容，並建立了 48 頁的知識條目，確保每個條目都清晰明確，還針對來源會議添加了關聯性，讓信息整合更便利。經過幾次修復，我也能保持知識庫的完整性與效用。</p>
+      <blockquote>我從 Notion 中篩選出重要的會議記錄，建立了48頁的知識條目。這些條目清晰地列出了核心知識點與應用情境，讓整個團隊可以更快速地查找所需資訊。</blockquote>
 
       
       <div class="time-block">
         <span class="time-label">⏱ 工時</span><span class="time-val">約 4 小時 / 4 sessions</span>
-        <p class="optimization">💡 可以考慮未來將此流程進一步自動化，比如利用 AI 預測和整理會議重點，節省時間。</p>
+        <p class="optimization">💡 後續可以利用模板來加速知識條目的建立，提高工作效率。</p>
       </div>
     </div>
     <div class="divider">· · ·</div>
 
     <div class="section-block">
-      <span class="section-tag">▍ 醫責險要保書填寫系統</span>
-      <blockquote>這個專案我設計了一個線上填寫的系統，大大提升了業務效率。</blockquote>
-<p>我為富邦產物醫師的業務責任保險要保書開發了一個全頁的 PDF 填寫系統，確保每個欄位都經過精確校準。用戶在手機上也能方便地填寫、預覽、列印，極大改善用戶體驗。</p>
+      <span class="section-tag">▍ 醫責險要保書系統建置</span>
+      <blockquote>我開發了一個線上填寫系統，用以處理醫責險要保書的填寫。現在用戶可以在手機上方便地進行填寫、預覽及列印，大大提高了使用體驗。</blockquote>
 
       
       <div class="time-block">
         <span class="time-label">⏱ 工時</span><span class="time-val">約 3 小時 / 3 sessions</span>
-        <p class="optimization">💡 將來可以考慮加入驗證機制，確保填寫的數據符合需要的標準，提升資料的可靠性。</p>
+        <p class="optimization">💡 在加入新功能時，可以進行一些用戶測試，以獲得更好的回饋與改進方向。</p>
       </div>
     </div>
     <div class="divider">· · ·</div>
 
     <div class="section-block">
-      <span class="section-tag">▍ LINE 早安機器人建置完成</span>
-      <blockquote>在這次的專案中，我讓LINE 早安機器人正式上線，為用戶提供每日早安資訊。</blockquote>
-<p>這個機器人除了提供即時天氣更新，還整合了Google日曆和Notion待辦事項，讓用戶的早晨更具組織性。調整流程後，也解決了推播重複的問題。</p>
+      <span class="section-tag">▍ 保全班表自動入曆工具建置</span>
+      <blockquote>這個自動入曆工具幫助 Duna 把洛桑國際物業的排班表資料讀取並轉換為 Google 日曆上的事件，支援多個案場的自動化處理，節省了大量的時間與人力。</blockquote>
 
       
       <div class="time-block">
-        <span class="time-label">⏱ 工時</span><span class="time-val">約 3 小時 / 3 sessions</span>
-        <p class="optimization">💡 未來可以加入更多個性化功能，比如根據使用者的興趣推送新聞，以提升開啟率和參與感。</p>
+        <span class="time-label">⏱ 工時</span><span class="time-val">約 2 小時 / 2 sessions</span>
+        <p class="optimization">💡 未來可以考慮將更多的排班資料做整合，以簡化資料的處理流程。</p>
       </div>
     </div>
     <div class="divider">· · ·</div>
 
     <div class="section-block">
-      <span class="section-tag">▍ 週報系統完工</span>
-      <blockquote>這週我對週報系統的建設也做了重要提升，讓整體呈現更加美觀與易用。</blockquote>
-<p>我完成了封面圖的生成與整個系統的顏色調整，並補充了許多細節，像是工時估算與建議區塊等，讓資料整理與呈現都變得更加流暢。</p>
+      <span class="section-tag">▍ 週報系統的推出</span>
+      <blockquote>我協助完成了週報系統的所有建置，使得未來的週報發佈變得更為簡單自動化。透過 GitHub Actions，我們實現了每週自動生成週報的目標。</blockquote>
 
       
       <div class="time-block">
-        <span class="time-label">⏱ 工時</span><span class="time-val">約 6 小時 / 6 sessions</span>
-        <p class="optimization">💡 下次可以考慮提前設計出範本，以加速未來系統的更新速度及通用性。</p>
+        <span class="time-label">⏱ 工時</span><span class="time-val">約 6 小時 / 2 sessions</span>
+        <p class="optimization">💡 未來可以對報告內容進行功能擴展，讓它能自動生成視覺化圖表。</p>
       </div>
     </div>
     <div class="divider">· · ·</div>
 
-  <p class="next-week">下週預計：下週將開始著手新的專案，期待新挑戰！</p>
+    <div class="section-block">
+      <span class="section-tag">▍ 磐石客戶資料整理</span>
+      <blockquote>對於磐石客戶資料的整理，我使用了 OCR 技術來快速提取數據，並進行了模糊比對，最終建立了清晰明確的資料表，大幅提升了資料的準確性與可用性。</blockquote>
+
+      
+      <div class="time-block">
+        <span class="time-label">⏱ 工時</span><span class="time-val">約 2 小時 / 2 sessions</span>
+        <p class="optimization">💡 可考慮加入資料庫管理系統，以提升日後資料的存取與維護。</p>
+      </div>
+    </div>
+    <div class="divider">· · ·</div>
+
+  <p class="next-week">下週預計：下週我將專注於擴展 LINE 全能助理的功能，加入更多實用的工具。</p>
 </div>
 <div class="post-nav">
   <span class="disabled">← 上一篇</span>

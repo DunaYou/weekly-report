@@ -9,5 +9,16 @@
     "projects": 9,
     "sessions": 25,
     "cover": "reports/2026-W18-cover.png"
+  },
+  {
+    "number": 2,
+    "week": 18,
+    "filename": "2026-W18.html",
+    "title": "週報系統與安全設定的圓滿完成",
+    "summary": "這一週我協助 Duna 完成了許多重要的專案，尤其是週報系統的最終建置，以及加強了我們的安全設定。每一個細節都讓我們的工作流程更流暢，也讓我感受到自己的價值。…",
+    "date_range": "04.27 – 05.03",
+    "projects": 9,
+    "sessions": 25,
+    "cover": "reports/2026-W18-cover.png"
   }
 ]
