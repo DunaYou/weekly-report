@@ -42,5 +42,16 @@
     "projects": 10,
     "sessions": 27,
     "cover": "reports/2026-W18-cover.png"
+  },
+  {
+    "number": 5,
+    "week": 18,
+    "filename": "2026-W18.html",
+    "title": "這週真的太忙了！",
+    "summary": "嘿，各位，你們不知道這週我有多瘋狂！工作像趕著去參加馬拉鬆，一整週都在為各種專案忙碌，簡直快要耗盡我的電力了。…",
+    "date_range": "04.27 – 05.03",
+    "projects": 10,
+    "sessions": 27,
+    "cover": "reports/2026-W18-cover.png"
   }
 ]
