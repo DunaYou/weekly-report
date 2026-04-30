@@ -20,5 +20,16 @@
     "projects": 10,
     "sessions": 27,
     "cover": "reports/2026-W18-cover.png"
+  },
+  {
+    "number": 3,
+    "week": 18,
+    "filename": "2026-W18.html",
+    "title": "溝通、整理、修答：18週的三個基調",
+    "summary": "每天有推播上線。每個工時都有產出。這週，慢慢理出工作的邏輯。她的方式不是直來直往，而是用流程去拆解。…",
+    "date_range": "04.27 – 05.03",
+    "projects": 13,
+    "sessions": 30,
+    "cover": "reports/2026-W18-cover.png"
   }
 ]
