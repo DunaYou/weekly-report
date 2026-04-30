@@ -169,7 +169,7 @@ def generate_report_with_claude(logs, week_num, monday, sunday):
   ],
   "next_week": "下週預告一行，具體說要做什麼",
   "highlights": ["這週最值得記錄的亮點一句話", "第二個亮點"],
-  "ai_reflection": "助理本週觀察：提稱讚次數（{total_praise}次），說這週什麼讓我印象最深或最崩潰，幽默但真實，2-3句"
+  "ai_reflection": "泰仁本週觀察：用「我」的視角，說這週印象最深的一件事、或最崩潰的一件事，2-3句，幽默但真實。稱讚次數是{total_praise}次，可以自嘲一下（0次就說Duna這週很嚴格之類的），不要強行正向"
 }}"""
 
     message = client.chat.completions.create(
@@ -348,9 +348,15 @@ body {{ width:1456px; height:816px; display:flex; font-family:'Noto Sans TC',san
 
 
 def render_html(report, week_num, monday, sunday, post_number, stats, cover_img_filename=None, posts=None):
-    ai_ref = report.get("ai_reflection", "")
+    ai_ref_raw = report.get("ai_reflection", "")
+    # 過濾亂碼：只保留中文、英文、數字、常用標點
+    import unicodedata
+    ai_ref = "".join(
+        c for c in ai_ref_raw
+        if unicodedata.category(c)[0] in ("L", "N", "Z", "P") or c in "，。！？、：「」『』…—～·％\n"
+    ).strip()
     ai_reflection_html = f'''<div class="ai-reflection">
-  <div class="ai-reflection-label">🤖 助理本週觀察</div>
+  <div class="ai-reflection-label">🤖 泰仁本週觀察</div>
   <p>{ai_ref}</p>
 </div>''' if ai_ref else ""
     sections_html = ""
