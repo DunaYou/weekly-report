@@ -117,34 +117,36 @@ def generate_report_with_claude(logs, week_num, monday, sunday):
 {logs_text}
 
 寫作要求：
-1. 開頭：一句有力的標題（不超過20字），描述這週最重要的一件事或整體感
-2. 用「我」的視角，語氣幽默有個性，像在跟朋友聊天，可以吐槽 Duna 的工作方式（有愛但毒舌），繁體中文
-3. 每個重要工作項目單獨一段，加上 ▍ 小標
-4. 每個段落裡加「每日工作歷程」，列出這個專案在哪幾天做了什麼，每天一句話
-5. 每段末尾加「時間與優化」：duration 請直接使用「各專案本週累計工時」的加總（如「累計 3.5h」），並寫 1-2 句若下次再做類似的事可以怎麼更快
-6. 結尾一段預告下週
-7. 最後加「助理本週觀察」：我的視角說這週心得、有趣觀察、崩潰時刻，要提到稱讚次數（{total_praise}次，{praise_rate}），語氣幽默，2-3 句
-8. highlights：2 個本週最值得記錄的亮點（各一句話，簡短有力）
+1. 整體標題（不超過20字）：一句點出這週的核心或轉折，要讓人想點進來讀
+2. 用「我」的視角，繁體中文；語氣有溫度有個性，像在跟朋友說「你不知道這週有多瘋」，可以吐槽 Duna 但要有愛
+3. 每個重要工作項目單獨一段：有「小標（tag）」+「吸睛的 h2 副標（title）」兩層，title 要比 tag 更口語更有故事感
+4. 每段主體段落：2-3 段描述，第一段說做了什麼，第二段說我的觀察或有趣的地方，再加一句 blockquote（用 >>> 開頭）作為這一段的金句或見解
+5. 每個段落裡加「每日工作歷程」：列出這個專案在哪幾天做了什麼，每天一句話
+6. 每段末尾加「時間與優化」：duration 直接用「各專案本週累計工時」（如「累計 3.5h」），寫 1-2 句下次可以怎麼更快
+7. 結尾預告下週
+8. 「助理本週觀察」：提稱讚次數（{total_praise}次，{praise_rate}），說說這週什麼讓我印象最深、最崩潰或最有趣，語氣幽默，2-3 句
+9. highlights：2 個最值得記錄的亮點（各一句話）
 
 請以 JSON 格式輸出：
 {{
-  "title": "標題",
-  "hook": "開場兩三句（有個性，不要流水帳）",
+  "title": "整體標題",
+  "hook": "開場兩三句（有個性，像故事開頭）",
   "sections": [
     {{
-      "tag": "小標",
-      "content": "段落內容（可含引言blockquote用>>>開頭）",
+      "tag": "小標（例如：工具一）",
+      "title": "這段的吸睛 h2 副標題（口語、有故事感）",
+      "content": "主要段落內容，第一段說做了什麼，第二段說我的觀察，再加 >>>開頭的金句blockquote",
       "daily_log": [
         {{"date": "04/29", "note": "一句話說做了什麼"}},
         {{"date": "04/30", "note": "一句話說做了什麼"}}
       ],
-      "duration": "估算工時，例如：約 2 小時 / 3 sessions",
+      "duration": "累計工時，例如：累計 3.5h",
       "optimization": "優化建議一兩句"
     }}
   ],
   "next_week": "下週預告一行",
   "highlights": ["亮點一句話", "亮點一句話"],
-  "ai_reflection": "助理本週觀察與吐槽，提稱讚次數，2-3句，幽默真實"
+  "ai_reflection": "助理本週觀察，提稱讚次數，幽默2-3句"
 }}"""
 
     message = client.chat.completions.create(
@@ -357,15 +359,31 @@ def render_html(report, week_num, monday, sunday, post_number, stats, cover_img_
                 for e in daily_entries
             )
             daily_log_html = f'<div class="daily-log">{entries_html}</div>'
+        section_id = f"s{len(sections_html.split('section-block')) }"
+        h2_title = s.get("title", "")
+        h2_html = f"<h2>{h2_title}</h2>" if h2_title else ""
         sections_html += f"""
-    <div class="section-block">
+    <div class="section-block" id="{section_id}">
       <span class="section-tag">▍ {s['tag']}</span>
+      {h2_html}
       {paras}
       {daily_log_html}
       {time_block}
     </div>
     <div class="divider">· · ·</div>
 """
+
+    # 生成 sidebar 目錄
+    toc_items = ""
+    for i, s in enumerate(report.get("sections", []), 1):
+        label = s.get("title") or s.get("tag", "")
+        toc_items += f'<li><a href="#s{i}">{label}</a></li>\n'
+    sidebar_html = f'''<aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-title">本篇目錄</div>
+      <ul class="toc-links">{toc_items}</ul>
+    </div>
+  </aside>'''
 
     monday_str = monday.strftime("%m.%d")
     sunday_str = sunday.strftime("%m.%d")
@@ -401,10 +419,13 @@ def render_html(report, week_num, monday, sunday, post_number, stats, cover_img_
   .stat-label{{font-size:10px;letter-spacing:.12em;opacity:.7;margin-top:4px;display:block;text-transform:uppercase;}}
   .cover-wrap{{max-width:880px;margin:0 auto;padding:32px 24px 0;}}
   .cover-img{{width:100%;border-radius:10px;box-shadow:0 4px 24px rgba(0,0,0,.12);display:block;}}
-  .layout{{max-width:680px;margin:0 auto;padding:48px 24px 80px;}}
+  .layout{{max-width:960px;margin:0 auto;padding:0 24px 80px;display:grid;grid-template-columns:1fr 220px;gap:48px;align-items:start;}}
+  @media(max-width:700px){{.layout{{grid-template-columns:1fr;}}.sidebar{{display:none;}}}}
+  .article-body{{padding-top:48px;}}
   .lead{{font-family:'Noto Serif TC',serif;font-size:clamp(17px,2.5vw,19px);line-height:2;color:#333;margin-bottom:40px;padding-bottom:40px;border-bottom:1px solid var(--border);}}
   .divider{{text-align:center;margin:40px 0 32px;color:var(--muted);letter-spacing:.3em;font-size:13px;opacity:.35;}}
   .section-tag{{display:inline-block;background:var(--tag-bg);color:var(--accent);font-size:11px;font-weight:500;letter-spacing:.12em;padding:3px 9px;border-radius:2px;margin-bottom:10px;text-transform:uppercase;}}
+  .section-block h2{{font-family:'Noto Serif TC',serif;font-size:clamp(18px,3vw,22px);font-weight:700;line-height:1.4;margin-bottom:20px;color:var(--ink);}}
   p{{margin-bottom:20px;color:#333;}}
   blockquote{{border-left:3px solid var(--accent);padding:12px 20px;margin:24px 0;background:var(--tag-bg);border-radius:0 4px 4px 0;font-style:italic;color:#444;font-size:15px;}}
   .section-block{{margin-bottom:48px;}}
@@ -418,6 +439,13 @@ def render_html(report, week_num, monday, sunday, post_number, stats, cover_img_
   .post-nav a:hover{{background:var(--tag-bg);}}
   .post-nav .disabled{{color:var(--muted);pointer-events:none;opacity:.4;}}
   .site-footer{{text-align:center;padding:24px;font-size:12px;color:var(--muted);letter-spacing:.05em;}}
+  .sidebar{{position:sticky;top:32px;}}
+  .sidebar-section{{margin-bottom:28px;}}
+  .sidebar-title{{font-size:10px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border);}}
+  .toc-links{{list-style:none;}}
+  .toc-links li{{margin-bottom:2px;}}
+  .toc-links a{{display:block;padding:6px 10px;font-size:13px;color:var(--ink);text-decoration:none;border-radius:4px;line-height:1.4;}}
+  .toc-links a:hover,.toc-links a.current{{background:var(--tag-bg);color:var(--accent);}}
 </style>
 </head>
 <body>
@@ -438,11 +466,14 @@ def render_html(report, week_num, monday, sunday, post_number, stats, cover_img_
 </div>
 {cover_html}
 <div class="layout">
-  <p class="lead">{report['hook']}</p>
-  <div class="divider">· · ·</div>
-  {sections_html}
-  {ai_reflection_html}
-  <p class="next-week">下週預計：{report['next_week']}</p>
+  <article class="article-body">
+    <p class="lead">{report['hook']}</p>
+    <div class="divider">· · ·</div>
+    {sections_html}
+    {ai_reflection_html}
+    <p class="next-week">下週預計：{report['next_week']}</p>
+  </article>
+  {sidebar_html}
 </div>
 <div class="post-nav">
   <span class="disabled">← 上一篇</span>
