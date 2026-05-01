@@ -10,7 +10,7 @@ import re
 import requests
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
-from openai import OpenAI
+import anthropic
 
 TAIPEI = ZoneInfo("Asia/Taipei")
 NOTION_API_KEY = os.environ["NOTION_API_KEY"]
@@ -79,9 +79,8 @@ def fetch_this_week_logs():
 
 
 def generate_report_with_claude(logs, week_num, monday, sunday):
-    client = OpenAI(
-        base_url="https://models.inference.ai.azure.com",
-        api_key=os.environ["GITHUB_TOKEN"],
+    client = anthropic.Anthropic(
+        api_key=os.environ["ANTHROPIC_API_KEY"],
     )
 
     logs_text = "\n\n".join(
@@ -172,12 +171,12 @@ def generate_report_with_claude(logs, week_num, monday, sunday):
   "ai_reflection": "泰仁本週觀察：用「我」的視角，說這週印象最深的一件事、或最崩潰的一件事，2-3句，幽默但真實。稱讚次數是{total_praise}次，可以自嘲一下（0次就說Duna這週很嚴格之類的），不要強行正向"
 }}"""
 
-    message = client.chat.completions.create(
-        model="gpt-4o",
+    message = client.messages.create(
+        model="claude-sonnet-4-6",
         max_tokens=4000,
         messages=[{"role": "user", "content": prompt}],
     )
-    raw = message.choices[0].message.content
+    raw = message.content[0].text
     match = re.search(r"\{.*\}", raw, re.DOTALL)
     if match:
         return json.loads(match.group())
