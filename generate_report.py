@@ -173,14 +173,14 @@ def generate_report_with_claude(logs, week_num, monday, sunday):
 
     message = client.messages.create(
         model="claude-sonnet-4-6",
-        max_tokens=4000,
-        messages=[{"role": "user", "content": prompt}],
+        max_tokens=8000,
+        messages=[
+            {"role": "user", "content": prompt},
+            {"role": "assistant", "content": "{"},
+        ],
     )
-    raw = message.content[0].text
-    match = re.search(r"\{.*\}", raw, re.DOTALL)
-    if match:
-        return json.loads(match.group())
-    raise ValueError(f"Claude 沒有回傳有效 JSON：{raw[:200]}")
+    raw = "{" + message.content[0].text
+    return json.loads(raw)
 
 
 def split_title_for_display(title):
