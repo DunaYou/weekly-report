@@ -174,13 +174,39 @@ def generate_report_with_claude(logs, week_num, monday, sunday):
     message = client.messages.create(
         model="claude-sonnet-4-6",
         max_tokens=8000,
-        messages=[
-            {"role": "user", "content": prompt},
-            {"role": "assistant", "content": "{"},
-        ],
+        system="你只能輸出純 JSON，不能有任何 markdown 標記（```json 等）或額外解釋文字。所有字串值內的換行必須寫成 \\n，雙引號必須寫成 \\\"。",
+        messages=[{"role": "user", "content": prompt}],
     )
-    raw = "{" + message.content[0].text
-    return json.loads(raw)
+    raw = message.content[0].text.strip()
+
+    # 移除 markdown code block
+    if raw.startswith("```"):
+        raw = re.sub(r"^```(?:json)?\s*", "", raw)
+        raw = re.sub(r"\s*```$", "", raw.strip())
+        raw = raw.strip()
+
+    # 直接 parse
+    try:
+        return json.loads(raw)
+    except json.JSONDecodeError:
+        pass
+
+    # 從頭找 { 到匹配的 }
+    start = raw.find("{")
+    if start != -1:
+        depth = 0
+        for i, c in enumerate(raw[start:], start):
+            if c == "{":
+                depth += 1
+            elif c == "}":
+                depth -= 1
+                if depth == 0:
+                    try:
+                        return json.loads(raw[start : i + 1])
+                    except json.JSONDecodeError:
+                        break
+
+    raise ValueError(f"Claude 沒有回傳有效 JSON：{raw[:300]}")
 
 
 def split_title_for_display(title):
