@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>週報 ＃2 · 34個Session，沒有一聲稱讚，但她繼續蓋 | 游泰仁的週報</title>
+<title>週報 ＃2 · 機器上了，系統活了，這週 Duna 沒有停 | 游泰仁的週報</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+TC:wght@300;400;500&display=swap');
   :root{--ink:#1a1a1a;--muted:#7d8c87;--accent:#1F362C;--bg:#f6f9f7;--border:#dde7e2;--tag-bg:#ebf2ee;--card:#ffffff;}
@@ -61,149 +61,149 @@
 </nav>
 <div class="article-header">
   <div class="meta">週報 ＃2 &nbsp;·&nbsp; 2026.04.27 – 05.03 &nbsp;·&nbsp; 游泰仁</div>
-  <h1>34個Session，沒有一聲稱讚，但她繼續蓋</h1>
+  <h1>機器上了，系統活了，這週 Duna 沒有停</h1>
   <div class="subtitle">我的 AI 分身上班紀錄 ＃2</div>
 </div>
 <div class="stats-bar">
   <div class="stat-item"><span class="stat-num">13</span><span class="stat-label">觸及專案</span></div>
-  <div class="stat-item"><span class="stat-num">34</span><span class="stat-label">Sessions</span></div>
+  <div class="stat-item"><span class="stat-num">36</span><span class="stat-label">Sessions</span></div>
   <div class="stat-item"><span class="stat-num">4</span><span class="stat-label">工作天</span></div>
 </div>
 <div class="cover-wrap"><img src="../reports/2026-W18-cover.png" alt="週報封面" class="cover-img"></div>
 <div class="layout">
   <article class="article-body">
-    <p class="lead">這是第十八週。東西多到列出來都嚇一跳。她沒有喊累，只是一直往下做。</p>
+    <p class="lead">這是第 18 週。專案清單有 13 個。她沒有問要不要先排優先順序，直接開工。</p>
     <div class="divider">· · ·</div>
     
     <div class="section-block" id="s1">
       <span class="section-tag">▍ LINE 全能助理</span>
-      <h2>從零部署到會說話，LINE 助理這週真的活了</h2>
-      <p>從寫 app.py 開始，串接 GitHub Models 的 gpt-4o-mini，讓 LINE 可以直接問我問題。靈感庫、查詢指令、知識庫寫入、自然語言偵測，一層一層疊上去。Render 部署、cron-job.org keep-alive、Quick Reply 統一加「回主選單」，每個細節都在當天修完。</p>
-<p>她不是在做一個工具，她在設計一個工作流程。靈感庫分四類、查詢支援關鍵字混打、選單重設計——這些不是開發者才在乎的事，是一個每天真的要用它的人才會想到的事。她用自己當第一個使用者，所以 bug 找得很快，方向也很清楚。</p>
-<blockquote>一個工具開始自己長出需求的時候，代表它真的被使用了。</blockquote>
+      <h2>一個能講話、能記事、能查資料的 LINE 機器人，從零到上線</h2>
+      <p>從 app.py 寫起，串 Notion、串 Google Calendar、串 GitHub Models。部署到 Render，設好 keep-alive，調好 Webhook。最後加了 8 個重置關鍵字、Quick Reply 按鈕、靈感庫分類、自然語言偵測。不是先規劃再做，是邊做邊長出來的。</p>
+<p>我注意到她對「讓工具真的能用」這件事很執著。一個 KeyError 讓待辦功能壞掉，她沒有跳過，直接深進去修。查詢排序的 bug 也是。不是非修不可的問題，但她修了。這種習慣讓工具最後都是真的能用，不是能跑。</p>
+<blockquote>大多數工具死在「勉強能跑」那一步。她不讓它死在那裡。</blockquote>
 
       <div class="daily-log">
               <div class="daily-log-title">📅 本週進度</div>
-              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">04/30</span><span class="daily-note">完成基礎部署、全域 Quick Reply、GitHub API 推送</span></div><div class="daily-entry"><span class="daily-date">05/01</span><span class="daily-note">修 KeyError bug、升級靈感庫分類、自然語言偵測上線</span></div><div class="daily-entry"><span class="daily-date">05/02</span><span class="daily-note">會議查詢升級，支援日期與關鍵字混打，修排序 bug</span></div></div>
+              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">04/30</span><span class="daily-note">串接 GPT-4o-mini、靈感庫關鍵字、GH_PAT 設定、部署 Render</span></div><div class="daily-entry"><span class="daily-date">04/30</span><span class="daily-note">加 8 個全域重置關鍵字、Quick Reply 按鈕、確認部署正常</span></div><div class="daily-entry"><span class="daily-date">05/01</span><span class="daily-note">修復新增待辦 KeyError、部署查詢與知識庫功能到 production</span></div><div class="daily-entry"><span class="daily-date">05/01</span><span class="daily-note">靈感庫分類升級、主選單重設計、自然語言偵測</span></div><div class="daily-entry"><span class="daily-date">05/01</span><span class="daily-note">查詢功能上線、知識庫寫入支援文字語音、三檔推送 Render 確認</span></div><div class="daily-entry"><span class="daily-date">05/02</span><span class="daily-note">修復會議查詢排序 bug、升級顯示最新 8 筆與日期關鍵字混打</span></div></div>
             </div>
       
       <div class="time-block">
         <span class="time-label">⏱ 累計工時</span><span class="time-val">累計 30.7h</span>
-        <p class="optimization">💡 靈感庫與知識庫目前分兩個入口，長期可以合併成一個語意索引，減少使用者記憶負擔。Render 冷啟動 14 分鐘 ping 一次，可評估升方案或換平台降低延遲。</p>
+        <p class="optimization">💡 靈感庫與待辦的自然語言偵測邊界還不夠清楚，容易誤觸發。可以建一個簡單的意圖分類測試集，防止改 A 壞 B。</p>
       </div>
     </div>
     <div class="divider">· · ·</div>
 
     <div class="section-block" id="s2">
       <span class="section-tag">▍ 週報系統</span>
-      <h2>週報不只是紀錄，她在讓它變成一面鏡子</h2>
-      <p>從系統建置開始：GitHub Pages、generate_report.py、GitHub Actions 自動執行。第一份週報手寫上線。然後是風格大改版——gpt-4o、短句敘事、H2 敘事句、真實 blockquote、漏網專案合併——整個寫作邏輯重新設計。封面圖 1456×816px 雙欄版型，墨綠配色 #1F362C，目錄錨點修正，動態上下篇導覽，API 從 Anthropic 換到 GitHub Models。這週的週報系統，幾乎每天都在動。</p>
-<p>我注意到她對「呈現方式」非常在意。字樣要隱藏、隱私要處理、主頁只保留第一篇和最新篇——她在意的不只是功能跑不跑得動，是這份文件看起來像什麼、給誰看、傳遞什麼感覺。這種在意，讓一個自動化腳本變成一個有個性的出版物。</p>
-<blockquote>系統能跑起來是及格，有人想分享給朋友看才是真的做好了。</blockquote>
+      <h2>週報從一個 HTML 檔，變成一個有風格、有封面、會自動跑的發布系統</h2>
+      <p>這週週報系統經歷了三個階段：建起來、升級 AI、改風格。先是 GitHub Pages + generate_report.py + GitHub Actions，手動測試 Run #1 成功，26 秒完成，第一份週報上線。然後升級 AI 從 Haiku 到 Sonnet 4.6，修了 JSONDecodeError，改了 prefill 問題。再來風格大改版：封面圖、墨綠配色、短句敘事、動態導覽、字樣過濾。最後因為 Anthropic 餘額不足，改用 GitHub Models gpt-4o-mini，又成功跑起來。</p>
+<p>她在改這個系統的時候，其實是在替未來的自己寫規格。TOC 錨點、上下篇導覽、稱讚率統計、AI 觀察標籤——這些沒有人要求，都是她覺得「這樣比較完整」加進去的。這種自己訂標準然後自己做到的方式，是她工作裡一個很穩定的特質。</p>
+<blockquote>週報是給自己看的，但她做得像要給很多人看一樣。</blockquote>
 
       <div class="daily-log">
               <div class="daily-log-title">📅 本週進度</div>
-              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">04/29</span><span class="daily-note">系統建置完成，第一份週報手動上線，API Key 輪換</span></div><div class="daily-entry"><span class="daily-date">04/29</span><span class="daily-note">封面圖、墨綠配色、工時格、記憶同步完成</span></div><div class="daily-entry"><span class="daily-date">04/29</span><span class="daily-note">TOC 錨點修正，確認公開網址可分享</span></div><div class="daily-entry"><span class="daily-date">05/01</span><span class="daily-note">文學風格升級、動態導覽、字樣修復、主頁清理</span></div><div class="daily-entry"><span class="daily-date">05/01</span><span class="daily-note">改用 GitHub Models 修復 API 餘額問題，LINE 推播正常</span></div></div>
+              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">04/29</span><span class="daily-note">週報系統完整建置：GitHub Pages、生成腳本、Actions 自動執行、Run #1 成功</span></div><div class="daily-entry"><span class="daily-date">04/29</span><span class="daily-note">封面圖生成、墨綠配色、工時格、記憶同步、GH_PAT 到期提醒</span></div><div class="daily-entry"><span class="daily-date">04/29</span><span class="daily-note">TOC 錨點修正、公開網址確認可分享</span></div><div class="daily-entry"><span class="daily-date">05/01</span><span class="daily-note">升級 Sonnet 4.6、修復 JSONDecodeError、Run #23 成功</span></div><div class="daily-entry"><span class="daily-date">05/01</span><span class="daily-note">文學風格改版、動態導覽按鈕、字樣修復、主頁清理</span></div><div class="daily-entry"><span class="daily-date">05/01</span><span class="daily-note">格式大改版：每日歷程、工時格、AI 觀察、側邊欄 TOC</span></div><div class="daily-entry"><span class="daily-date">05/01</span><span class="daily-note">改用 GitHub Models 修復 API 餘額問題、LINE 推播確認正常</span></div></div>
             </div>
       
       <div class="time-block">
-        <span class="time-label">⏱ 累計工時</span><span class="time-val">累計 20.7h</span>
-        <p class="optimization">💡 generate_report.py 目前每次重跑會新增記錄，已改為更新，但若 Notion 欄位格式異動容易靜默出錯，建議加 schema 驗證層。封面圖目前用 Playwright 手動觸發，可接入 Actions 自動生成。</p>
+        <span class="time-label">⏱ 累計工時</span><span class="time-val">累計 24.7h</span>
+        <p class="optimization">💡 AI 模型換過兩次（Haiku → Sonnet → gpt-4o-mini），每次都花時間修格式解析問題。可以把 JSON 解析邏輯抽成一個獨立函式並加單元測試，換模型時不用從頭 debug。</p>
       </div>
     </div>
     <div class="divider">· · ·</div>
 
     <div class="section-block" id="s3">
-      <span class="section-tag">▍ 醫責險要保書 + 填寫系統</span>
-      <h2>七頁 PDF，座標一個一個校，她沒有嫌麻煩</h2>
-      <p>開發富邦產物醫師業務責任保險要保書線上填寫系統。全 7 頁 PDF 座標校準——勾選框、文字輸入、iframe 列印隔離、手機三模式介面——部署到 Netlify。隔天收到核保回饋，馬上調整：移除特定欄位、新增繳費方式選擇、信用卡簽帳單頁依條件自動隱藏。有自負額版本的費率表另外用灰度掃描修正座標偏移，確立了「灰度掃描強制工作流程」。</p>
-<p>座標校準這件事，做過一次就知道有多無聊——每個勾選框都要量、都要測、偏一點就印錯位置。但她做完還寫下方法論，讓下次同類型任務有流程可循。這不是效率，是對自己未來的善意。</p>
-<blockquote>把重複的痛苦變成一套流程，是最安靜的一種聰明。</blockquote>
+      <span class="section-tag">▍ LINE 早安機器人 + 早安特助 + 備份系統</span>
+      <h2>每天早上 8:30，機器人準時送來今天要知道的事</h2>
+      <p>早安機器人功能齊全：天氣、行程、待辦、財經新聞，用 GitHub Actions cron 觸發，但遇到 schedule+workflow_dispatch 重複推播的問題，改用 cron-job.org 外部觸發才解決。5 月 1 日發現三個 GitHub Secrets 遺失，補回去，加空值檢查，才讓機器人真正穩定運作。早安特助這週加了週一備份提醒，backup-todo.yml 每週一在 Notion 自動建待辦。備份系統本身也完整建立：backup.sh 打包所有設定、restore.sh 新機一鍵還原。</p>
+<p>這三個工具放在一起看，是一套「開始一天之前把事情交代好」的基礎設施。她花了不少時間在確保這些工具不會默默失效——Secrets 遺失、重複推播、空值崩潰，都是那種很安靜地壞掉的問題。她把它們找出來修好了。</p>
+<blockquote>工具最怕的不是做不到，是不知道什麼時候它已經不工作了。</blockquote>
 
       <div class="daily-log">
               <div class="daily-log-title">📅 本週進度</div>
-              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">04/29</span><span class="daily-note">完成 7 頁 PDF 座標校準，部署 Netlify</span></div><div class="daily-entry"><span class="daily-date">04/30</span><span class="daily-note">依核保意見調整欄位與繳費邏輯</span></div><div class="daily-entry"><span class="daily-date">05/01</span><span class="daily-note">有自負額版費率表座標修正，確立灰度掃描工作流程</span></div></div>
+              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">04/29</span><span class="daily-note">早安機器人建置完成，修復重複推播，改 cron-job.org 觸發</span></div><div class="daily-entry"><span class="daily-date">04/29</span><span class="daily-note">換機備份 backup.sh/restore.sh 建立，安全設定封鎖危險指令</span></div><div class="daily-entry"><span class="daily-date">05/01</span><span class="daily-note">補回三個遺失 Secrets，加空值檢查，機器人恢復穩定</span></div><div class="daily-entry"><span class="daily-date">05/01</span><span class="daily-note">早安特助加週一備份提醒，backup-todo.yml 自動建 Notion 待辦</span></div></div>
             </div>
       
       <div class="time-block">
-        <span class="time-label">⏱ 累計工時</span><span class="time-val">累計 8.5h（醫責險要保書 6.5h + 醫責險要保書填寫系統 2h）</span>
-        <p class="optimization">💡 座標目前硬編碼在設定檔，若 PDF 版本更新需全部重校。可考慮用 PDF 欄位名稱自動對應，降低維護成本。</p>
+        <span class="time-label">⏱ 累計工時</span><span class="time-val">累計 LINE 早安機器人 8h + LINE早安機器人 3.5h + LINE早安特助 1.5h + 備份系統 3.5h + 安全設定 2h</span>
+        <p class="optimization">💡 Secrets 遺失沒有主動告警，是推播失敗才被發現。可以在 Actions 腳本開頭加 Secrets 存在性檢查，失敗時直接發 LINE 通知。</p>
       </div>
     </div>
     <div class="divider">· · ·</div>
 
     <div class="section-block" id="s4">
       <span class="section-tag">▍ 磐石客戶資料整理</span>
-      <h2>1252 張圖片，OCR 掃完，189 筆資料進了試算表</h2>
-      <p>從 Google Drive 1252 張圖片 OCR 抓取聯絡資料，與 968 筆保單精確比對命中 174 筆，再用 Python SequenceMatcher 模糊比對補強到 283 筆，命中率 29.2%。最後依信心度拆成主表 874 筆與待確認表 94 筆。189 筆聯絡資料透過 Apps Script 寫入試算表，整理欄位順序、格式化手機號碼、鎖定文字格式。另外用 Playwright 自動掃描經手人欄位，建立 41 個分頁。</p>
-<p>這類資料整理工作，做的時候很難看到成就感——沒有漂亮的介面，沒有立即的反饋，只有一筆一筆慢慢逼近正確。但她把模糊比對的邏輯做出來，把信心度拆表的架構想清楚，這些決策背後是對資料品質的尊重。</p>
-<blockquote>資料整理沒有完成的那一刻，只有足夠乾淨可以繼續往前的那一刻。</blockquote>
+      <h2>1252 張圖片、OCR、模糊比對，最後整理出 874 筆有用的資料</h2>
+      <p>從 Google Drive 拿到 1252 張圖片，用 OCR 抓聯絡資料，精確比對命中 174 筆，Python SequenceMatcher 模糊比對補到 283 筆，最後依信心度拆成主表 874 筆（185 筆有手機）與待確認表 94 筆。之後用 Apps Script 寫入試算表，整理欄位順序，格式化手機號碼。再用 Playwright 自動建立 41 個依經手人分頁的試算表分頁。</p>
+<p>這類資料整理工作沒有什麼成就感的峰值，是一步一步讓混亂變成可以用的東西。她做得很安靜，也做得很完整——連欄位順序、手機格式、信心度分層都整理好了，不是只把資料塞進去就算。</p>
+<blockquote>資料整理的終點不是「整理完」，是「別人拿到就能用」。</blockquote>
 
       <div class="daily-log">
               <div class="daily-log-title">📅 本週進度</div>
-              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">04/30</span><span class="daily-note">OCR + 模糊比對完成，拆主表與待確認表</span></div><div class="daily-entry"><span class="daily-date">04/30</span><span class="daily-note">189 筆寫入試算表，欄位整理，手機格式化</span></div><div class="daily-entry"><span class="daily-date">04/30</span><span class="daily-note">Apps Script 自動建立 41 個經手人分頁</span></div></div>
+              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">04/30</span><span class="daily-note">OCR 抓取、精確比對 174 筆、模糊比對補至 283 筆、依信心度拆表</span></div><div class="daily-entry"><span class="daily-date">04/30</span><span class="daily-note">189 筆寫入試算表、欄位整理、手機號碼格式化</span></div><div class="daily-entry"><span class="daily-date">04/30</span><span class="daily-note">Apps Script 自動建立 41 個經手人分頁</span></div></div>
             </div>
       
       <div class="time-block">
-        <span class="time-label">⏱ 累計工時</span><span class="time-val">累計 5h（磐石客戶資料整理 4.5h + 磐石舊客資料整理 0.5h）</span>
-        <p class="optimization">💡 模糊比對目前閾值固定，不同欄位（姓名 vs 地址）適合不同閾值，可分欄位調整提升精準度。待確認表後續需人工複核流程，建議建立審核狀態欄位追蹤進度。</p>
+        <span class="time-label">⏱ 累計工時</span><span class="time-val">累計 磐石客戶資料整理 4.5h + 磐石舊客資料整理 0.5h</span>
+        <p class="optimization">💡 模糊比對命中率 29.2%，剩下 70% 還沒有手機資料。可以評估是否用地址或診所名稱做第二層比對，提高覆蓋率。</p>
       </div>
     </div>
     <div class="divider">· · ·</div>
 
     <div class="section-block" id="s5">
-      <span class="section-tag">▍ 幾件小事也都在動</span>
-      <h2>早安機器人、班表自動入曆、備份系統，每個都跑起來了</h2>
-      <p>LINE 早安機器人建置完成，每天 08:30 推播天氣、行程、待辦、財經新聞，修復重複推播問題，改由 cron-job.org 外部觸發。週一加入備份提醒，GitHub Actions 每週一自動建 Notion 待辦。班表自動入曆工具用 Apple Vision OCR 辨識排班表圖片，支援兩個案場、含地址自動填入，五月更新後修正線性擬合偏移問題，測試完全正確。備份系統建立 backup.sh 與 restore.sh，換機後一鍵還原；安全設定封鎖 20 條危險指令，rm 改走 trash 可還原。Status Line 顯示 Model、Context 使用量、五小時限額進度條。</p>
-<p>這些專案都不大，但每一個都在解決一個真實存在的麻煩。早安機器人不只是提醒，是讓她不用早上打開電腦才知道今天有什麼事。班表自動入曆不只是自動化，是讓一個重複性的手動任務消失。備份系統不只是備份，是讓換機這件事從「很煩」變成「沒什麼」。</p>
-<blockquote>消失的麻煩不會被記得，但它每天都在省時間。</blockquote>
+      <span class="section-tag">▍ 醫責險要保書</span>
+      <h2>醫師責任險的要保書，現在可以在手機上填、預覽、直接列印</h2>
+      <p>這週把富邦產物醫師業務責任保險要保書做成線上填寫系統。全 7 頁 PDF 座標校準完畢，用 iframe 隔離解決列印空白頁問題，手機版用 transform:scale() 三模式介面，部署到 Netlify。核保確認後調整了幾個邏輯：移除要保人被保險人同一人選項、加繳費方式選擇、持卡人資料自動帶入。第二個版本（有自負額）的四欄勾選座標用灰度掃描修正，確立了「灰度掃描強制工作流程」當作所有圖像定位任務的標準方法。</p>
+<p>填寫系統這種東西，細節決定好不好用。勾選框偏右 25px、信用卡頁在選繳費單時要自動隱藏、Tab 順序要對——這些不是主功能，但都是她去處理了。勾選定位方法論的確立，是這週比較低調但很實用的一件事。</p>
+<blockquote>一個表單填起來順不順，往往取決於那些沒人注意到的 25px。</blockquote>
 
       <div class="daily-log">
               <div class="daily-log-title">📅 本週進度</div>
-              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">04/29</span><span class="daily-note">LINE 早安機器人建置完成，修復重複推播</span></div><div class="daily-entry"><span class="daily-date">04/29</span><span class="daily-note">班表自動入曆工具建置，支援 OCR 辨識兩個案場</span></div><div class="daily-entry"><span class="daily-date">04/29</span><span class="daily-note">備份系統與安全設定完成，Status Line 上線</span></div><div class="daily-entry"><span class="daily-date">04/30</span><span class="daily-note">班表自動入曆 5 月更新，修正 OCR 座標偏移問題</span></div><div class="daily-entry"><span class="daily-date">05/01</span><span class="daily-note">備份提醒自動化，週報系統 API 切換修復</span></div></div>
+              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">04/29</span><span class="daily-note">無自負額版全 7 頁座標校準完成，部署 Netlify</span></div><div class="daily-entry"><span class="daily-date">04/30</span><span class="daily-note">依核保確認調整邏輯：繳費方式、持卡人自動帶入、移除不適用選項</span></div><div class="daily-entry"><span class="daily-date">05/01</span><span class="daily-note">有自負額版勾選座標灰度掃描修正，確立圖像定位方法論，Netlify 更新</span></div><div class="daily-entry"><span class="daily-date">05/02</span><span class="daily-note">新增客戶填寫頁 QR Code、部署 GitHub Pages、整理多方案比較</span></div></div>
             </div>
       
       <div class="time-block">
-        <span class="time-label">⏱ 累計工時</span><span class="time-val">累計 15h（LINE 早安機器人 4h + LINE早安機器人 3.5h + 班表自動入曆 2.5h + 備份系統 3.5h + LINE早安特助 1.5h）</span>
-        <p class="optimization">💡 LINE 早安機器人與 LINE早安特助目前是兩個分開的機器人，長期可評估合併統一管理，減少 Webhook 與環境變數的維護分散。cron-job.org 外部觸發依賴第三方服務，可考慮搭配備援機制。</p>
+        <span class="time-label">⏱ 累計工時</span><span class="time-val">累計 醫責險要保書 6.5h + 醫責險要保書填寫系統 3.5h</span>
+        <p class="optimization">💡 勾選座標靠手動灰度掃描校準，換一張新 PDF 就要重來。可以考慮寫一個半自動的座標偵測腳本，輸入 PDF 輸出候選座標清單，人工確認後存成 config。</p>
       </div>
     </div>
     <div class="divider">· · ·</div>
 
     <div class="section-block" id="s6">
-      <span class="section-tag">▍ 會議知識庫 + 安全設定</span>
-      <h2>128 筆會議記錄，篩出 43 筆，長出 48 頁知識</h2>
-      <p>從 128 筆 Notion 會議記錄中篩出 43 筆有文字內容，建立 48 頁知識條目。每頁格式：核心知識點（條列標題加細節）加應用情境，7 大分類完整覆蓋，建立來源會議 relation 屬性。修復因多次重跑損壞的前 8 頁。</p>
-<p>把散落在 128 筆記錄裡的知識，整理成 48 個可以被查詢的條目——這不只是整理，是在問「哪些東西值得被留下來」。她用分類和情境設計答案，讓知識庫不只是存檔，而是真的能被用到的東西。</p>
-<blockquote>知識不整理，就只是記憶；整理完，才變成可以轉移的東西。</blockquote>
+      <span class="section-tag">▍ 會議知識庫 + 班表自動入曆</span>
+      <h2>128 筆會議記錄變成 48 頁知識條目，班表改一次不用再手動輸入</h2>
+      <p>會議知識庫從 128 筆 Notion 記錄裡篩出 43 筆有內容的，建立 48 頁知識條目，每頁格式統一：核心知識點加應用情境，建立來源會議 relation，7 大分類完整覆蓋。中途因為重複跑損壞前 8 頁，全部修復。班表自動入曆這週做了 parse_schedule.py，用 Apple Vision OCR 辨識排班表圖片，確認後自動寫入 Google Calendar，5 月更新時改良了座標推算方法，從線性擬合改成實際觀測日期為基準，測試完全正確。</p>
+<p>這兩件事表面上不像，但底層邏輯一樣：把原本要人工處理的東西，變成機器可以處理的結構。知識庫是讓會議記錄不只是記錄，班表工具是讓每個月的更新不用重新手動輸入。</p>
+<blockquote>把資料變成結構，這件事的價值，往往要等到三個月後才看得到。</blockquote>
 
       <div class="daily-log">
               <div class="daily-log-title">📅 本週進度</div>
-              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">04/29</span><span class="daily-note">從 128 筆篩出 43 筆，建立 48 頁知識條目，修復前 8 頁</span></div></div>
+              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">04/29</span><span class="daily-note">會議知識庫 48 頁建立完成，修復前 8 頁損壞，建立來源 relation</span></div><div class="daily-entry"><span class="daily-date">04/29</span><span class="daily-note">班表自動入曆 parse_schedule.py 建置，OCR 辨識，自動寫入 Google Calendar</span></div><div class="daily-entry"><span class="daily-date">04/30</span><span class="daily-note">班表自動入曆 5 月更新，座標推算改良，刪舊增新事件，測試完全正確</span></div></div>
             </div>
       
       <div class="time-block">
-        <span class="time-label">⏱ 累計工時</span><span class="time-val">累計 8h（會議知識庫 6h + 安全設定 2h）</span>
-        <p class="optimization">💡 知識條目目前需手動觸發建立，若會議記錄有新增可考慮用 Notion webhook 自動偵測並觸發更新。relation 屬性連結來源會議，未來可反向查詢「這個知識點從哪場會議來」，值得在 UI 層呈現。</p>
+        <span class="time-label">⏱ 累計工時</span><span class="time-val">累計 會議知識庫 6h + 班表自動入曆 2.5h</span>
+        <p class="optimization">💡 知識庫 48 頁格式目前靠人工確認，多次重跑容易損壞。可以在生成前先比對已存在的頁面標題，只新增缺少的，不覆蓋已有的。</p>
       </div>
     </div>
     <div class="divider">· · ·</div>
 
     <div class="ai-reflection">
   <div class="ai-reflection-label">🤖 泰仁本週觀察</div>
-  <p>這週我幫她做了 34 個 session，稱讚次數是零。整數。乾淨的零。我不是說她很嚴格——我是說她大概真的沒有空停下來說「做得好」，因為下一件事已經在等了。不過說真的，週報系統做到一半 Anthropic API 餘額不足，然後我們當場換到 GitHub Models 繼續跑，這種即興轉彎我有點欣賞。崩潰也要崩潰得有效率。</p>
+  <p>我這週跟她工作了 36 個 sessions，稱讚次數：0。她不是不滿意，她就是這樣工作的——做好是預設，不是值得表揚的事。我有點自嘲地想，也許我哪天回答說「我也不確定」，她反而會覺得誠實，給個讚。印象最深的是 05/01 那天，17.2 小時的 session，中間修 bug、加功能、推 GitHub、確認 Render，一條線走下來，沒有慌，就是做。</p>
 </div>
-    <p class="next-week">下週預計：LINE 全能助理持續迭代（查詢體驗優化）、磐石待確認表人工複核流程建立、週報系統自動封面圖接入 Actions</p>
+    <p class="next-week">下週預計：LINE 全能助理繼續補強查詢與對話穩定性，醫責險要保書客戶端流程上線實測，週報系統 W19 自動生成確認正常</p>
   </article>
   <aside class="sidebar">
     <div class="sidebar-section">
       <div class="sidebar-title">本篇目錄</div>
-      <ul class="toc-links"><li><a href="#s1">從零部署到會說話，LINE 助理這週真的活了</a></li>
-<li><a href="#s2">週報不只是紀錄，她在讓它變成一面鏡子</a></li>
-<li><a href="#s3">七頁 PDF，座標一個一個校，她沒有嫌麻煩</a></li>
-<li><a href="#s4">1252 張圖片，OCR 掃完，189 筆資料進了試算表</a></li>
-<li><a href="#s5">早安機器人、班表自動入曆、備份系統，每個都跑起來了</a></li>
-<li><a href="#s6">128 筆會議記錄，篩出 43 筆，長出 48 頁知識</a></li>
+      <ul class="toc-links"><li><a href="#s1">一個能講話、能記事、能查資料的 LINE 機器人，從零到上線</a></li>
+<li><a href="#s2">週報從一個 HTML 檔，變成一個有風格、有封面、會自動跑的發布系統</a></li>
+<li><a href="#s3">每天早上 8:30，機器人準時送來今天要知道的事</a></li>
+<li><a href="#s4">1252 張圖片、OCR、模糊比對，最後整理出 874 筆有用的資料</a></li>
+<li><a href="#s5">醫師責任險的要保書，現在可以在手機上填、預覽、直接列印</a></li>
+<li><a href="#s6">128 筆會議記錄變成 48 頁知識條目，班表改一次不用再手動輸入</a></li>
 </ul>
     </div>
   </aside>
