@@ -1,10 +1,7 @@
 name: 游泰仁週報自動生成
 
 on:
-  schedule:
-    # 每週日 04:00 UTC = 週日 12:00 台北時間
-    - cron: "0 4 * * 0"
-  workflow_dispatch:  # 手動觸發（測試用）
+  workflow_dispatch:  # 由 cron-job.org 每週日 12:00 台北時間觸發
 
 permissions:
   contents: write
