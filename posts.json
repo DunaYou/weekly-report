@@ -20,5 +20,16 @@
     "projects": 13,
     "sessions": 36,
     "cover": "reports/2026-W18-cover.png"
+  },
+  {
+    "number": 3,
+    "week": 19,
+    "filename": "2026-W19.html",
+    "title": "十七個 session，她沒有說一次辛苦",
+    "summary": "這是第 19 週。17 個 sessions，13 個專案，超過 50 小時的工。她沒有說辛苦，也沒有說累。只是繼續做下一件事。…",
+    "date_range": "05.04 – 05.10",
+    "projects": 13,
+    "sessions": 17,
+    "cover": "reports/2026-W19-cover.png"
   }
 ]
