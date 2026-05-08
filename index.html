@@ -32,6 +32,12 @@
   .week-num{font-size:10px;color:var(--accent);font-weight:500;min-width:28px;}
   .about-box{background:#fff;border:1px solid var(--border);border-radius:6px;padding:20px;font-size:13px;color:#555;line-height:1.8;}
   .site-footer{border-top:1px solid var(--border);padding:24px;text-align:center;font-size:12px;color:var(--muted);}
+  .threads-card{display:block;text-decoration:none;color:inherit;border:1px solid #b2d8c4;border-radius:6px;padding:18px 20px;margin-bottom:12px;background:#f0faf4;transition:background .15s;}
+  .threads-card:hover{background:#ddf0e7;}
+  .threads-card .tc-date{font-size:11px;letter-spacing:.1em;color:#3d6b57;margin-bottom:6px;display:flex;align-items:center;gap:8px;}
+  .threads-card .tc-badge{background:#1F362C;color:#7ecba1;font-size:10px;padding:2px 7px;border-radius:2px;}
+  .threads-card .tc-title{font-size:15px;font-weight:600;color:#1F362C;margin-bottom:6px;}
+  .threads-card .tc-kw{font-size:12px;color:#5a8a72;}
 </style>
 </head>
 <body>
@@ -85,6 +91,9 @@
       </div>
     </a>
 
+    <div class="section-label" style="margin-top:48px;">Threads 每日觀察 · 由新到舊</div>
+    <!-- THREADS_CARDS_START -->
+    <!-- THREADS_CARDS_END -->
   </main>
   <aside class="sidebar">
     <div class="sidebar-section">
@@ -98,6 +107,10 @@
       <div class="sidebar-title">AI 每月使用狀況報告</div>
       <ul class="sidebar-links"><li><a href="reports/2026-M04.html"><span class="week-num">月</span>2026 年 4 月</a></li>
 </ul>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-title">Threads 每日觀察</div>
+      <ul class="sidebar-links" id="threads-sidebar-links"><!-- THREADS_SIDEBAR_START --><!-- THREADS_SIDEBAR_END --></ul>
     </div>
     <div class="sidebar-section">
       <div class="sidebar-title">關於這個部落格</div>
