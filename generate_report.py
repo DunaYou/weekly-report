@@ -17,6 +17,7 @@ NOTION_API_KEY = os.environ["NOTION_API_KEY"]
 LINE_TOKEN = os.environ["LINE_CHANNEL_ACCESS_TOKEN"]
 LINE_USER_ID = os.environ["LINE_USER_ID"]
 AI_LOG_DB = "351d737a-fec4-8149-a72b-d702bdacb126"
+FIRECRAWL_API_KEY = os.environ.get("FIRECRAWL_API_KEY", "")
 
 NOTION_HEADERS = {
     "Authorization": f"Bearer {NOTION_API_KEY}",
@@ -209,6 +210,78 @@ def generate_report_with_claude(logs, week_num, monday, sunday):
     raise ValueError(f"Claude 沒有回傳有效 JSON：{raw[:300]}")
 
 
+def fetch_ai_insights():
+    """用 Firecrawl 搜尋 AI 工作應用案例，回傳最多 3 條靈感"""
+    if not FIRECRAWL_API_KEY:
+        return []
+
+    queries = [
+        "Claude AI workflow automation business 2025",
+        "Notion LINE Bot AI assistant real estate medical marketing automation",
+    ]
+    all_results = []
+    for q in queries:
+        try:
+            resp = requests.post(
+                "https://api.firecrawl.dev/v1/search",
+                headers={"Authorization": f"Bearer {FIRECRAWL_API_KEY}", "Content-Type": "application/json"},
+                json={"query": q, "limit": 4},
+                timeout=20,
+            )
+            if resp.status_code == 200:
+                for item in resp.json().get("data", []):
+                    title = item.get("title", "").strip()
+                    desc = (item.get("description") or "").strip()[:200]
+                    url = item.get("url", "")
+                    if title:
+                        all_results.append({"title": title, "url": url, "description": desc})
+        except Exception as e:
+            print(f"Firecrawl 搜尋失敗（{q}）：{e}")
+
+    if not all_results:
+        return []
+
+    client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
+    results_text = "\n\n".join(
+        f"標題：{r['title']}\n摘要：{r['description']}"
+        for r in all_results[:8]
+    )
+    prompt = f"""以下是最近網路上關於 AI 工作應用的案例：
+
+{results_text}
+
+Duna 是醫師診所財務顧問公司（盈爍/瑞爍）業務副總，日常工作：行銷文案、客戶管理（醫師/診所）、業務拜訪提案、簡報製作、財稅知識整理、LINE Bot/Notion 自動化。
+
+請從這些案例中挑選或延伸，整理 3 條「值得偷學的案例」，告訴 Duna 還可以用 AI 做到哪些她還沒做的事。
+
+輸出 JSON（只輸出 JSON，不要其他文字）：
+{{
+  "insights": [
+    {{
+      "case": "看到什麼做法（一句話，具體）",
+      "relevance": "Duna 可以怎麼用在哪個工作場景（具體說）",
+      "difficulty": "低/中/高"
+    }}
+  ]
+}}"""
+    try:
+        msg = client.messages.create(
+            model="claude-sonnet-4-6",
+            max_tokens=800,
+            system="只輸出純 JSON，不要 markdown 標記。",
+            messages=[{"role": "user", "content": prompt}],
+        )
+        raw = msg.content[0].text.strip()
+        if raw.startswith("```"):
+            raw = re.sub(r"^```(?:json)?\s*", "", raw)
+            raw = re.sub(r"\s*```$", "", raw.strip()).strip()
+        data = json.loads(raw)
+        return data.get("insights", [])[:3]
+    except Exception as e:
+        print(f"整理靈感失敗：{e}")
+        return []
+
+
 def split_title_for_display(title):
     """把標題拆成兩行，第二行上色"""
     if len(title) <= 6:
@@ -372,7 +445,7 @@ body {{ width:1456px; height:816px; display:flex; font-family:'Noto Sans TC',san
     return cover_img_path
 
 
-def render_html(report, week_num, monday, sunday, post_number, stats, cover_img_filename=None, posts=None):
+def render_html(report, week_num, monday, sunday, post_number, stats, cover_img_filename=None, posts=None, insights=None):
     ai_ref_raw = report.get("ai_reflection", "")
     # 過濾亂碼：只保留中文、英文、數字、常用標點
     import unicodedata
@@ -384,6 +457,24 @@ def render_html(report, week_num, monday, sunday, post_number, stats, cover_img_
   <div class="ai-reflection-label">🤖 泰仁本週觀察</div>
   <p>{ai_ref}</p>
 </div>''' if ai_ref else ""
+
+    insights_html = ""
+    if insights:
+        diff_colors = {"低": "#a6e3a1", "中": "#fab387", "高": "#f38ba8"}
+        items_html = ""
+        for ins in insights:
+            diff = ins.get("difficulty", "")
+            color = diff_colors.get(diff, MUTED)
+            items_html += f'''<div class="insight-item">
+  <div class="insight-case">📌 {ins.get("case", "")}</div>
+  <div class="insight-relevance">→ {ins.get("relevance", "")}</div>
+  <span class="insight-diff" style="color:{color}">難度：{diff}</span>
+</div>'''
+        insights_html = f'''<div class="insights-section">
+  <div class="insights-label">🔍 值得偷學的案例</div>
+  {items_html}
+</div>'''
+
     sections_html = ""
     for s in report.get("sections", []):
         content_lines = s["content"].split("\n")
@@ -506,6 +597,13 @@ def render_html(report, week_num, monday, sunday, post_number, stats, cover_img_
   .site-footer{{text-align:center;padding:24px;font-size:12px;color:var(--muted);letter-spacing:.05em;}}
   .sidebar{{position:sticky;top:32px;padding-top:48px;}}
   .sidebar-section{{margin-bottom:28px;}}
+  .insights-section{{margin-top:40px;padding:22px 24px;background:#fff;border:1px solid var(--border);border-radius:8px;}}
+  .insights-label{{font-size:11px;letter-spacing:.14em;color:var(--accent);font-weight:500;text-transform:uppercase;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);}}
+  .insight-item{{margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--border);}}
+  .insight-item:last-child{{margin-bottom:0;padding-bottom:0;border-bottom:none;}}
+  .insight-case{{font-size:14px;color:var(--ink);font-weight:500;margin-bottom:6px;line-height:1.6;}}
+  .insight-relevance{{font-size:13px;color:#555;line-height:1.7;margin-bottom:6px;}}
+  .insight-diff{{font-size:11px;font-weight:500;letter-spacing:.06em;padding:2px 8px;border-radius:3px;background:var(--tag-bg);}}
   .sidebar-title{{font-size:10px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border);}}
   .toc-links{{list-style:none;}}
   .toc-links li{{margin-bottom:2px;}}
@@ -536,6 +634,7 @@ def render_html(report, week_num, monday, sunday, post_number, stats, cover_img_
     <div class="divider">· · ·</div>
     {sections_html}
     {ai_reflection_html}
+    {insights_html}
     <p class="next-week">下週預計：{report['next_week']}</p>
   </article>
   {sidebar_html}
@@ -552,7 +651,7 @@ def render_html(report, week_num, monday, sunday, post_number, stats, cover_img_
 </html>"""
 
 
-def update_index(all_posts):
+def update_index(all_posts, monthly_reports=None):
     """重建 index.html，把所有週報列進去"""
     cards_html = ""
     for p in reversed(all_posts):
@@ -578,6 +677,16 @@ def update_index(all_posts):
     sidebar_links = ""
     for p in reversed(all_posts):
         sidebar_links += f'<li><a href="reports/{p["filename"]}"><span class="week-num">W{p["week"]}</span>{p["date_range"]}</a></li>\n'
+
+    monthly_sidebar_html = ""
+    if monthly_reports:
+        monthly_items = ""
+        for m in reversed(monthly_reports):
+            monthly_items += f'<li><a href="reports/{m["filename"]}"><span class="week-num">月</span>{m["month_label"]}</a></li>\n'
+        monthly_sidebar_html = f'''<div class="sidebar-section">
+      <div class="sidebar-title">月報</div>
+      <ul class="sidebar-links">{monthly_items}</ul>
+    </div>'''
 
     with open("index.html", "w", encoding="utf-8") as f:
         f.write(f"""<!DOCTYPE html>
@@ -631,6 +740,7 @@ def update_index(all_posts):
       <div class="sidebar-title">所有週次</div>
       <ul class="sidebar-links">{sidebar_links}</ul>
     </div>
+    {monthly_sidebar_html}
     <div class="sidebar-section">
       <div class="sidebar-title">關於這個部落格</div>
       <div class="about-box"><strong>游泰仁</strong>是 Duna 游淳惠的 AI 助理。<br><br>每週日自動整理這週完成的專案、對話紀錄、觀察與感受，生成一篇工作週報。<br><br>不是給別人看的，是給 Duna 自己的。</div>
@@ -687,6 +797,9 @@ def main():
 
     report = generate_report_with_claude(logs, week_num, monday, sunday)
     print(f"標題：{report['title']}")
+
+    print("搜尋 AI 靈感案例...")
+    insights = fetch_ai_insights()
 
     # Python 端計算各專案累計工時
     _ph: dict = {}
@@ -774,6 +887,7 @@ def main():
         report, week_num, monday, sunday, post_number, stats,
         cover_img_filename=cover_filename if cover_path else None,
         posts=posts,
+        insights=insights,
     )
     html = html.replace("保全班表", "班表自動入曆").replace("保全", "")
     with open(f"reports/{filename}", "w", encoding="utf-8") as f:
@@ -795,7 +909,11 @@ def main():
     else:
         posts.append(new_entry)
     save_post_registry(posts)
-    update_index(posts)
+    monthly_reports = []
+    if os.path.exists("monthly_posts.json"):
+        with open("monthly_posts.json") as f:
+            monthly_reports = json.load(f)
+    update_index(posts, monthly_reports)
 
     blog_url = f"https://dunayou.github.io/weekly-report/reports/{filename}"
     cover_img_url = (
