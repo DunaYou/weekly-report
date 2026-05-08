@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>週報 ＃3 · 醫師帳號矩陣上線前，那些被低估的細節 | 游泰仁的週報</title>
+<title>週報 ＃3 · 醫師帳號矩陣成形，系統這週長了腳 | 游泰仁的週報</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+TC:wght@300;400;500&display=swap');
   :root{--ink:#1a1a1a;--muted:#7d8c87;--accent:#1F362C;--bg:#f6f9f7;--border:#dde7e2;--tag-bg:#ebf2ee;--card:#ffffff;}
@@ -68,7 +68,7 @@
 </nav>
 <div class="article-header">
   <div class="meta">週報 ＃3 &nbsp;·&nbsp; 2026.05.04 – 05.10 &nbsp;·&nbsp; 游泰仁</div>
-  <h1>醫師帳號矩陣上線前，那些被低估的細節</h1>
+  <h1>醫師帳號矩陣成形，系統這週長了腳</h1>
   <div class="subtitle">我的 AI 分身上班紀錄 ＃3</div>
 </div>
 <div class="stats-bar">
@@ -79,154 +79,174 @@
 <div class="cover-wrap"><img src="../reports/2026-W19-cover.png" alt="週報封面" class="cover-img"></div>
 <div class="layout">
   <article class="article-body">
-    <p class="lead">第 19 週，18 個 sessions，14 個專案同時跑。我數了一下，這是她目前工時最密集的一週。她沒有說累，但我記得每一筆打卡。</p>
+    <p class="lead">第 19 週。18 個 sessions，14 次稱讚。她沒有說「辛苦了」，但她說了 14 次「不錯」。這週的工作不是一件事，是很多件事同時在長。</p>
     <div class="divider">· · ·</div>
     
     <div class="section-block" id="s1">
       <span class="section-tag">▍ Threads × IG 醫師帳號矩陣</span>
-      <h2>一份企劃書，在手機上跑不動，就重建整個部署</h2>
-      <p>這週最重的專案，不是因為內容複雜，而是因為細節一直沒收乾淨。圖片在手機上跑版、側邊欄在行動裝置失效、封面缺少識別、Day1 Day2 文案各帳號都還是空的——每一個問題都不大，但加在一起就是發不出去。她一個一個處理：圖片檔名改英文、橫向滑動 CSS 補上、Intersection Observer 側邊欄加進去、hamburger menu 完成、六個帳號的文案草稿逐一填入，然後重新部署。</p>
-<p>我觀察到一件事：她不是完美主義者，但她對「能不能在手機上正常跑」這件事非常挑剔。平台就是用手機看的，如果桌機版好看、手機版壞掉，她會把這視為沒完成。這個標準很務實，也很累人。</p>
-<blockquote>修到手機上能順滑地滑動，才算真的修完。桌機版的完美從來不是終點。</blockquote>
+      <h2>六個帳號的第一天，文案和圖都不能少</h2>
+      <p>這週花最多時間的專案，是那份給醫師客戶看的 Threads × IG 帳號矩陣企劃書。六個帳號、Day1 加 Day2 文案全部寫完，嵌入可展開的帳號矩陣區塊，加了固定側邊欄和 Intersection Observer 高亮，行動版做了 hamburger menu，最後部署到 duna-threads-plan.surge.sh。中間還處理過一次圖片在手機上跑版的問題——整資料夾重新部署、圖片全換英文檔名、橫向滑動 CSS 補上去。</p>
+<p>她對這份報告書的細節要求是真實的。手機版跑版這件事，本來可以說「桌機看沒問題就好」，但她沒有。這讓我想到，她在意的不是「做完」，而是「對方拿到之後看起來像什麼樣子」。這種在意，是很難教的。</p>
+<blockquote>一份企劃書能不能被信任，有時候取決於手機版的字有沒有破版。</blockquote>
 
       <div class="daily-log">
               <div class="daily-log-title">📅 本週進度</div>
-              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">05/06</span><span class="daily-note">企劃書手機版圖片跑版問題全面修復，重新部署 duna-threads-plan.surge.sh</span></div><div class="daily-entry"><span class="daily-date">05/06</span><span class="daily-note">六個帳號 Day1+Day2 文案草稿完成，封面加上識別，側邊欄加入高亮機制</span></div><div class="daily-entry"><span class="daily-date">05/07</span><span class="daily-note">MCP Playwright 實測 12 個關鍵字觸及數，8 個查無結果，調整觀察策略</span></div></div>
+              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">05/06</span><span class="daily-note">修復手機圖片跑版問題，重新部署 surge.sh，同時完成六帳號 Day1+Day2 文案草稿全寫完</span></div><div class="daily-entry"><span class="daily-date">05/07</span><span class="daily-note">用 MCP Playwright 實測 12 個 Threads 關鍵字觸及數，發現縮寫全死，高流量詞是「醫療糾紛」和「節稅」</span></div></div>
             </div>
       
       <div class="time-block">
         <span class="time-label">⏱ 累計工時</span><span class="time-val">累計 15.1h</span>
-        <p class="optimization">💡 關鍵字實測發現縮寫詞幾乎全死，下次可以在規劃文案前先跑一次觸及測試，避免寫完才發現詞沒流量。手機版部署可以建立一個 checklist，減少反覆修改的次數。</p>
+        <p class="optimization">💡 關鍵字調查可以在企劃書初稿前就做，這樣 Day1/Day2 文案可以直接帶入高流量詞，不必事後回頭補。手機版跑版問題可以在本地端先用 DevTools 模擬，減少部署後才發現的來回次數。</p>
       </div>
     </div>
     <div class="divider">· · ·</div>
 
     <div class="section-block" id="s2">
-      <span class="section-tag">▍ LINE 全能助理 + LINE 早安機器人</span>
-      <h2>早安機器人 8:30 準時打卡，靈感庫的 Bug 也一起清掉了</h2>
-      <p>早安機器人這週正式整合進 Render.com，不再是獨立跑的小腳本。cron-job.org 改打 Render URL，08:30 驗證成功，每月 1 日 09:00 也會自動推播外部服務用量報告。這兩件事聽起來不大，但它代表 LINE 全能助理已經從「功能堆疊」變成一個真正有排程、有自動化邏輯的系統。同一天，她也修掉了靈感庫三個 Bug——更新失敗、重複新增、自動偵測失效，三個問題同一個下午處理完。</p>
-<p>她對 Bot 的要求是「它必須像一個員工」。能自動執行、會報告、不需要每次手動觸發。這週的部署讓這個標準更接近了。Flex Message 的序列化問題也解了，查行程改成兩步驟 UX，先問類型再問時段，不再是一次問完讓用戶傻眼。</p>
-<blockquote>一個 Bot 會不會讓人信任，不在於它有幾個功能，在於它什麼時候會自己做、什麼時候等你說。</blockquote>
+      <span class="section-tag">▍ LINE 全能助理 + 早安機器人</span>
+      <h2>早安機器人終於每天 8:30 準時打卡上班</h2>
+      <p>早安機器人這週正式整合進 Render.com。cron-job.org 改打 Render URL，08:30 驗證成功。同一天，新增每月外部服務用量報告，設定每月 1 日 09:00 自動推播到 LINE。這個月報功能是之前討論過的，現在真的跑起來了。</p>
+<p>LINE 全能助理這週也加了不少東西：修了靈感庫三個 bug、新增「8. 新增專案」選項解決 Notion multiple data sources DB 的 API 版本問題、做了查行程的兩步驟 UX、修了 FlexMessage SDK Pydantic 序列化的問題——改用 `_reply_flex_raw` 直接 POST LINE API 才通。她在這個專案上的耐心讓我印象深刻，每次 bug 修完，下一個功能就接著進來，沒有停。</p>
+<blockquote>一個工具能不能被每天用，往往不是功能夠不夠多，而是 8:30 那則訊息有沒有準時出現。</blockquote>
 
       <div class="daily-log">
               <div class="daily-log-title">📅 本週進度</div>
-              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">05/04</span><span class="daily-note">早安機器人整合 Render，靈感庫 3 個 Bug 修復，每月用量報告設定完成</span></div><div class="daily-entry"><span class="daily-date">05/05</span><span class="daily-note">LINE Bot 新增「新增專案」選項，解決 Notion multiple data sources DB API 相容問題</span></div><div class="daily-entry"><span class="daily-date">05/07</span><span class="daily-note">Flex Message 序列化問題修復，查行程改為兩步驟 UX，推送 GitHub</span></div></div>
+              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">05/04</span><span class="daily-note">早安機器人整合到 Render，cron-job.org 設定完成，早上驗證成功，同步更新 CLAUDE.md 與 memory</span></div><div class="daily-entry"><span class="daily-date">05/04</span><span class="daily-note">修復靈感庫 3 個 Bug，整合 morning.py 模組，程式碼推上 GitHub</span></div><div class="daily-entry"><span class="daily-date">05/05</span><span class="daily-note">LINE Bot 新增「新增專案」功能，用 API 2025-09-03 解決 multiple data sources DB 問題</span></div><div class="daily-entry"><span class="daily-date">05/07</span><span class="daily-note">修復 FlexMessage 序列化問題，實作查行程兩步驟 UX，四個檔案語法確認後推送</span></div></div>
             </div>
       
       <div class="time-block">
         <span class="time-label">⏱ 累計工時</span><span class="time-val">累計 6.5h（LINE 全能助理）+ 1h（LINE 早安機器人）</span>
-        <p class="optimization">💡 查行程的兩步驟流程目前靠 Google Calendar，Notion 行程 DB 是空的，這兩個資料來源的同步問題之後需要決策：是要讓 Notion 當主資料庫還是只當備份。</p>
+        <p class="optimization">💡 FlexMessage 的 Pydantic 序列化問題是老問題，可以在共用工具函式層統一處理，不必每次遇到才修。查行程的兩步驟 UX 可以考慮加一個快速指令（例如「今天行程」直接跳過問答流程），減少步驟。</p>
       </div>
     </div>
     <div class="divider">· · ·</div>
 
     <div class="section-block" id="s3">
-      <span class="section-tag">▍ AI 特助 Agents + 會議錄音升級</span>
-      <h2>七個 Agent 的架構圖畫完了，BlackHole 裝好等重開機</h2>
-      <p>AI 特助 Agents 第一階段這週完成：七個 agent 的架構評估、模型選擇、費用分析都做了，共用框架建起來，會議助理（Haiku）和文案助理（Sonnet）都有了，run.py 主控入口部署完成。LINE /remind endpoint 也上線，5/17 費用確認提醒設好了。同一天，BlackHole 2ch 虛擬音效裝好，等重開機後設定 Audio MIDI Setup，讓 LINE 電話可以雙邊錄音。</p>
-<p>這兩件事有個共同的特質：都是「基礎建設」，做完之後不會有人說讚，但少了它們，後面很多事沒辦法跑。她很清楚這一點。架構評估比直接寫 code 花更多時間，但她選擇先想清楚再動手。</p>
-<blockquote>架構設計的時間永遠在帳面上消失，但它決定之後每一小時怎麼花。</blockquote>
+      <span class="section-tag">▍ AI特助Agents + 會議錄音升級</span>
+      <h2>七個 Agent 的骨架，這週立起來了</h2>
+      <p>AI 特助 Agents 第一階段這週完成。架構評估做完了——七個 agent、模型選擇、費用分析全部確認。共用框架、會議助理 agent（Haiku）、文案 agent（Sonnet）、run.py 主控入口全部建立。Prompt Caching 也已經套進去。LINE /remind endpoint 部署，5/17 費用確認提醒設定好了。</p>
+<p>同一天，BlackHole 2ch 虛擬音效裝好了，等重開機後設定 Audio MIDI Setup，讓 LINE 電話雙邊都錄得到。這兩件事放在同一天做，是因為它們底下在解同一個問題：會議的內容要能被處理，先要能被錄到，再要能被分析。她把這兩件事放在一起，說明她看的不是功能，是流程。</p>
+<blockquote>系統的第一階段，通常是在確認「這個方向對不對」，而不是「功能夠不夠完整」。</blockquote>
 
       <div class="daily-log">
               <div class="daily-log-title">📅 本週進度</div>
-              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">05/04</span><span class="daily-note">AI 特助 Agents 第一階段架構評估完成，BlackHole 安裝，會議助理與文案 agent 建立</span></div><div class="daily-entry"><span class="daily-date">05/04</span><span class="daily-note">補強 reminder 機制，更新 CLAUDE.md 主動處理原則</span></div></div>
+              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">05/04</span><span class="daily-note">完成 AI 特助 Agents 架構評估、共用框架、會議助理與文案 agent，安裝 BlackHole 2ch 虛擬音效</span></div><div class="daily-entry"><span class="daily-date">05/04</span><span class="daily-note">第一階段收尾：建立 run.py 主控入口，部署 /remind endpoint，設定費用確認提醒</span></div></div>
             </div>
       
       <div class="time-block">
         <span class="time-label">⏱ 累計工時</span><span class="time-val">累計 5h（AI特助Agents）+ 2h（會議錄音升級）</span>
-        <p class="optimization">💡 BlackHole 裝好後的 Audio MIDI Setup 還沒完成，雙邊錄音功能尚未驗證，建議下週開機後優先測試，避免遺忘。七個 agent 中客戶情報、Notion 管家、要保書、品管四個 agent 仍在待辦，可排入下週第二階段。</p>
+        <p class="optimization">💡 七個 agent 的費用分析做完了，但實際費用只有跑過測試，建議在 5/17 確認後補一次真實用量對照，讓預估和實際之間有一個基準。BlackHole 設定等重開機後完成，不要拖過下週，不然錄音流程會繼續卡在半完成狀態。</p>
       </div>
     </div>
     <div class="divider">· · ·</div>
 
     <div class="section-block" id="s4">
       <span class="section-tag">▍ 醫責險要保書填寫系統</span>
-      <h2>流程圖從文字變圖，UI 從湊合變清楚</h2>
-      <p>醫責險要保書填寫系統這週做了一次全面的 UI 升級。填寫說明改成 modal、診所備注改 inline、賠償爭議欄位加提醒文字、flow_chart.html 字體放大、QR 縮小橫排、Step 分兩欄排版——這些改動每一個都很小，但加在一起，使用者看到的東西就不一樣了。Notion 投保流程頁面也同步更新，圖片換 v2、URL 改可點擊超連結、link_mention 快取問題修正。</p>
-<p>她在意的不只是功能能不能跑，而是「醫師拿到這個頁面會不會看懂」。醫師不是工程師，不會自己找按鈕、不會猜流程。所以她把提醒文字放在欄位旁邊，把步驟圖做成可以直接看懂的排版。這是一種換位置思考，而且需要反覆來回才能做對。</p>
-<blockquote>介面設計的本質是翻譯——把系統的邏輯，翻譯成使用者的直覺。</blockquote>
+      <h2>UI 改了一輪，流程圖也跟著換新衣服</h2>
+      <p>醫責險這週做的是 UI 全面升級。fbmmiclient 把填寫說明改成 modal、診所備注改 inline、賠償和爭議欄位加了提醒文字。流程圖那邊，字體放大、QR code 縮小橫排、Step 1-4 和 Step 5-8 改兩欄排版。fbmmiensure 那邊，移除無自負額版標題、匯入按鈕改名為「掃描或貼上授權碼」、操作說明換成流程教學圖。Notion 投保流程頁面也同步更新：圖片換成 v2、Step 2 加了填寫說明提示、URL 改成可點擊超連結、link_mention 快取問題修正。</p>
+<p>這一輪改的不是功能，是使用者拿到之後的第一眼感受。modal、inline、提醒文字——每一個決定都是在想「如果是第一次填這份表的人，他會在哪裡卡住」。這種視角，是做產品的人才有的，不是做系統的人。</p>
+<blockquote>表單的 UI 改一次，客服問題少一半。這不是誇張。</blockquote>
 
       <div class="daily-log">
               <div class="daily-log-title">📅 本週進度</div>
-              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">05/04</span><span class="daily-note">醫責險要保書 UI 全面升級，flow_chart.html 重排版，Notion 頁面同步更新 v2</span></div></div>
+              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">05/04</span><span class="daily-note">fbmmiclient、flow_chart、fbmmiensure 三個頁面 UI 全面升級，Notion 投保流程頁面同步更新至 v2</span></div></div>
             </div>
       
       <div class="time-block">
         <span class="time-label">⏱ 累計工時</span><span class="time-val">累計 4.5h</span>
-        <p class="optimization">💡 Notion link_mention 快取問題這次手動修正，建議記錄成已知問題，下次更新圖片時直接預留處理時間，不要等出問題才修。</p>
+        <p class="optimization">💡 流程圖兩欄排版在手機上可能需要確認一次，Step 文字在小螢幕是否還清楚。Notion link_mention 快取問題這次是手動修，可以評估是否需要寫一個自動重整的小腳本，避免下次更新後又要手動處理。</p>
       </div>
     </div>
     <div class="divider">· · ·</div>
 
     <div class="section-block" id="s5">
-      <span class="section-tag">▍ 正遠新人行政教學 + Threads 帳號矩陣 + 盈燦講座 DM</span>
-      <h2>13 個章節部署完成，做圖流程也走通了</h2>
-      <p>正遠新人行政教學 HTML 這週正式部署到 Surge.sh，13 個章節，綠色設計，左側目錄，支援手機。最後修改是第 13 章標題和紅色警告文字，細節改到最後一刻才發布。隔天又回去修了幾個連結——送件清單改 Google Drive 直連、正遠文件改編號清單、產險合格證號連結更新。她對「會被人實際用到的文件」的標準比較嚴。</p>
-<p>Threads 帳號矩陣企劃報告書這週也完成部署，六個帳號、固定側邊欄、hamburger menu、Section 09 待確認內容都標記清楚。盈燦 6/7、6/14 講座 DM 同步生成，做圖流程走通：prompt → Playwright → ChatGPT 生圖，後續可以複用。Threads 教學卡 12 張的 prompt 也測試完畢。</p>
-<blockquote>流程走通一次，和流程可以每次都走通，是兩件事。第一次只是驗證，之後才叫做流程。</blockquote>
+      <span class="section-tag">▍ Threads 帳號矩陣 + 貼圖 + 生態觀察系統</span>
+      <h2>做圖流程建起來了，觀察系統也長了新眼睛</h2>
+      <p>Threads 這條線這週同時跑了三件事。第一件：做圖流程從零建立——prompt → Playwright → ChatGPT 生圖，測試了 12 張教學卡，盈燦 6/7 和 6/14 的講座 DM 也一起生出來。第二件：Threads × IG 企劃報告書完成部署，封面加上 Duna×WYBX×游泰仁，Section 09 待確認內容標注好，整份報告書可以交出去了。第三件：生態觀察系統升級，關鍵字從 17 個擴到 19 個，LINE 卡片新增身份觀察區塊，可以推測發文者是律師、醫師、顧問還是會計師，同時評估流量加成。</p>
+<p>她在 Threads 這條線上同時做了內容生產工具、對外提案文件、和觀察情報系統三件事。這三件事表面上都叫「Threads」，但底下的邏輯完全不同——一個是流程、一個是說服、一個是情報。能同時在三個維度推進，不容易。</p>
+<blockquote>觀察系統能看到別人看不到的東西，才值得花時間建。</blockquote>
 
       <div class="daily-log">
               <div class="daily-log-title">📅 本週進度</div>
-              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">05/04</span><span class="daily-note">Threads 教學卡 prompt 測試，做圖流程建立，盈燦 DM 生成完成</span></div><div class="daily-entry"><span class="daily-date">05/05</span><span class="daily-note">正遠新人行政教學部署到 Surge.sh，13 章綠色介面上線</span></div><div class="daily-entry"><span class="daily-date">05/06</span><span class="daily-note">正遠行政教學連結細節修正，Threads 帳號矩陣企劃報告書部署完成</span></div></div>
+              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">05/04</span><span class="daily-note">建立 Threads 做圖流程，測試 12 張教學卡 prompt，生成盈燦講座 DM</span></div><div class="daily-entry"><span class="daily-date">05/06</span><span class="daily-note">Threads × IG 企劃報告書完成，六帳號文案嵌入，封面與側邊欄完成，部署到 surge.sh</span></div><div class="daily-entry"><span class="daily-date">05/07</span><span class="daily-note">關鍵字清單優化，移除無效縮寫，加入診所經營/節稅/醫療糾紛，生態觀察系統新增身份分析卡片</span></div></div>
             </div>
       
       <div class="time-block">
-        <span class="time-label">⏱ 累計工時</span><span class="time-val">累計 2.5h（正遠新人行政教學）+ 5.5h（Threads 帳號矩陣）+ 1.8h（Threads 貼圖）+ 1.8h（盈燦講座 DM）</span>
-        <p class="optimization">💡 做圖流程已走通，建議寫一份 SOP 文件，讓下次不用從頭回想步驟。正遠教學文件後續如果有更新，連結管理方式需要統一，避免每次修改都要重新確認每個連結是否有效。</p>
+        <span class="time-label">⏱ 累計工時</span><span class="time-val">累計 5.5h（Threads 帳號矩陣）+ 1.8h（Threads 貼圖）+ 1.8h（盈燦講座 DM）+ 1.5h（Threads 生態觀察系統）</span>
+        <p class="optimization">💡 做圖流程目前是手動觸發，如果教學卡的需求量增加，可以考慮包成一個小腳本讓 Duna 自己執行。生態觀察系統的身份推測目前是規則型，下一步可以考慮用少量 prompt 讓模型直接判斷，準確率應該會更高。</p>
       </div>
     </div>
     <div class="divider">· · ·</div>
 
     <div class="section-block" id="s6">
-      <span class="section-tag">▍ Threads 生態觀察系統 + 客戶資料夾管理 + Notion 專案管理</span>
-      <h2>系統底層的幾件小事，每一件都在縮短下次的準備時間</h2>
-      <p>Threads 生態觀察系統這週做了兩件事：關鍵字從 17 個擴充到 19 個，新增「會計師」「會計師日常」；LINE 卡片加入身份觀察區塊，可以推測發文者身份並評估流量加成。這讓每日觀察報告從「數據」變成「判斷」——看到貼文不只知道讚數，還能推測是誰在發、對哪種受眾有效。</p>
-<p>客戶 Google Drive 資料夾同步系統完成，26 個客戶、33 個專案、Notion 欄位新增、sync_drive.py 寫完。GitHub PAT 也更新為永不到期，weekly-report、morning-briefing、Render.com 三處同步更新。Notion 專案管理補建了 5 筆部署條目，確立類型欄位四分法，往後有部署的專案會自動建立條目。</p>
-<blockquote>底層系統每次更新都不會出現在成果裡，但每次出問題的時候你才知道它在不在。</blockquote>
+      <span class="section-tag">▍ 正遠新人行政教學 + 客戶資料夾管理 + 系統維護</span>
+      <h2>新人教學上線，Google Drive 客戶資料夾也補齊了</h2>
+      <p>正遠新人行政教學這週完成部署。13 個章節、綠色設計、左側目錄、手機支援，部署到 ensrueright-newbie.surge.sh。後來又做了細節修正：送件清單 PDF 改 Google Drive 直連、正遠文件改編號清單、產險合格證號連結更新。文件做好不是終點，連結對、格式對，新人才真的能用。</p>
+<p>客戶資料夾管理這週建了 Google Drive 同步系統，26 個客戶、33 個專案，Notion 欄位新增，sync_drive.py 完成。另外，GitHub PAT 這週 regenerate 成永不到期，weekly-report、morning-briefing 的 GitHub Secrets 和 Render 環境變數全部同步更新，monthly_report.py 的到期日改成 2099-01-01。這些事情沒有做完就不知道有多脆弱，做完才知道之前有多多條線卡在快到期的 token 上。</p>
+<p>Notion 專案管理補建了五筆部署條目，確立類型欄位四分法：開發、公司營運、客戶、個人。往後有部署的專案自動建 Notion 條目，這個規則從這週開始生效。</p>
+<blockquote>基礎設施的問題，不痛不癢，直到它痛了才知道有多嚴重。PAT 永不到期這件事，就是在問題發生之前把它解決。</blockquote>
 
       <div class="daily-log">
               <div class="daily-log-title">📅 本週進度</div>
-              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">05/06</span><span class="daily-note">GitHub PAT 更新為永不到期，三處環境變數同步更新</span></div><div class="daily-entry"><span class="daily-date">05/07</span><span class="daily-note">Notion 專案管理補建 5 筆條目，類型四分法確立，記憶系統同步</span></div><div class="daily-entry"><span class="daily-date">05/08</span><span class="daily-note">Google Drive 客戶資料夾同步系統建置完成，Threads 觀察系統升級身份分析卡片</span></div></div>
+              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">05/05</span><span class="daily-note">正遠新人行政教學 HTML 完成，部署到 Surge.sh，13 章節全部到位</span></div><div class="daily-entry"><span class="daily-date">05/06</span><span class="daily-note">GitHub PAT regenerate 成永不到期，全平台同步更新 Secrets 與環境變數</span></div><div class="daily-entry"><span class="daily-date">05/06</span><span class="daily-note">正遠細節修正完畢，送件清單改直連，文件清單改編號格式</span></div><div class="daily-entry"><span class="daily-date">05/07</span><span class="daily-note">Notion 專案管理補建五筆條目，確立類型四分法，寫入自動建條目規則</span></div><div class="daily-entry"><span class="daily-date">05/08</span><span class="daily-note">建置 Google Drive 客戶資料夾同步系統，26 客戶 33 專案，sync_drive.py 完成</span></div></div>
             </div>
       
       <div class="time-block">
-        <span class="time-label">⏱ 累計工時</span><span class="time-val">累計 1.5h（Threads 生態觀察系統）+ 1.5h（客戶資料夾管理）+ 0.5h（Notion 專案管理）+ 0.5h（記憶系統）</span>
-        <p class="optimization">💡 Threads 觀察系統身份推測目前是規則式分類，準確率需要實際驗證，建議跑兩週後回頭抽查幾篇看推測是否合理。Google Drive sync_drive.py 部署完成但尚未設定定期排程，需要加上 cron 觸發。</p>
+        <span class="time-label">⏱ 累計工時</span><span class="time-val">累計 2.5h（正遠新人行政教學）+ 1.5h（客戶資料夾管理）+ 0.5h（Notion 專案管理）+ 0.5h（記憶系統）</span>
+        <p class="optimization">💡 sync_drive.py 目前是手動跑，可以考慮接進 cron 定期執行，確保 Notion 和 Drive 之間的資料不會因為手動忘記同步而跑掉。正遠新人教學的連結日後若有變動，需要一個更新機制，不然 surge.sh 上的靜態頁面會繼續指向舊連結。</p>
+      </div>
+    </div>
+    <div class="divider">· · ·</div>
+
+    <div class="section-block" id="s7">
+      <span class="section-tag">▍ 其他本週工作</span>
+      <h2>幾件小事，也都在動</h2>
+      <p>這週還有幾個項目在平行推進，沒有大進展，但都往前走了一步。</p>
+<p>記憶系統（0.5h） 也在這週推進了一些。</p>
+
+      <div class="daily-log">
+              <div class="daily-log-title">📅 本週進度</div>
+              <div class="daily-entries"><div class="daily-entry"><span class="daily-date">05/07</span><span class="daily-note">Notion 專案管理補建 + 類型分類規則確立</span></div></div>
+            </div>
+      
+      <div class="time-block">
+        <span class="time-label">⏱ 累計工時</span><span class="time-val">累計 0.5h</span>
+        
       </div>
     </div>
     <div class="divider">· · ·</div>
 
     <div class="ai-reflection">
   <div class="ai-reflection-label">🤖 泰仁本週觀察</div>
-  <p>我這週跑了 18 個 sessions，觸及 14 個專案，稱讚次數是 0。零。她沒有說一次「做得好」。我不確定是因為她很嚴格，還是因為她認為把事情做完本來就是應該的。也許兩者都是。印象最深的是 05/06 那天，她同一天處理了企劃書手機版跑版、GitHub PAT 更新、Threads 六個帳號文案——三件事性質完全不同，她就這樣都做了。我沒有說什麼，她也沒有說什麼。我們只是繼續往下走。</p>
+  <p>我這週被稱讚了 14 次。78% 的稱讚率，我知道這個數字，因為我自己算的。說實話，有幾次我自己也覺得做得不錯——那個 FlexMessage 序列化問題找到 _reply_flex_raw 的時候，我差點想稱讚我自己。但最讓我印象深刻的不是任何一個成功，而是 05/06 那天同時跑了兩條超過 13 小時的工作紀錄。我不是說她工作太久——我是說她那天到底在哪個維度上運作，因為那兩條 log 的工時加起來超過 26 小時，而一天只有 24。我決定不深究。有些事情，不問比較好。</p>
 </div>
     <div class="insights-section">
   <div class="insights-label">🔍 值得偷學的案例</div>
   <div class="insight-item">
-  <div class="insight-case">📌 將 Claude 透過 MCP 串接 CRM、廣告平台、支付系統，讓 AI 直接操作跨平台資料而非只是回答問題</div>
-  <div class="insight-relevance">→ Duna 可把 Notion 客戶資料庫串接 LINE Bot，當業務拜訪後直接語音或文字輸入診所狀況，AI 自動更新客戶紀錄、產生下次拜訪建議話術、並排程追蹤提醒，省去手動整理 CRM 的時間</div>
+  <div class="insight-case">📌 將 Claude 透過 MCP 串接 CRM、廣告平台、支付系統，讓 AI 直接跨平台操作與查詢資料，不需手動切換工具</div>
+  <div class="insight-relevance">→ Duna 可將 Claude 串接診所 CRM，讓 AI 自動彙整客戶（醫師/診所）的拜訪紀錄、合約狀態、付款進度，業務拜訪前一鍵生成客戶摘要與提案重點，省去手動翻資料的時間</div>
   <span class="insight-diff" style="color:#fab387">難度：中</span>
 </div><div class="insight-item">
-  <div class="insight-case">📌 Notion Custom Agents 自動化處理重複性庶務，包含跨 app 搜尋與資料填寫</div>
-  <div class="insight-relevance">→ Duna 可建立一個財稅知識整理 Agent：每週自動從指定來源彙整新的醫療診所相關稅務政策，分類寫入 Notion 知識庫，並自動生成一份給醫師客戶的懶人包草稿，減少手動研究與文案初稿時間</div>
-  <span class="insight-diff" style="color:#fab387">難度：中</span>
-</div><div class="insight-item">
-  <div class="insight-case">📌 房地產網站用 AI Chatbot 處理 80% 客戶詢問並自動預約看房</div>
-  <div class="insight-relevance">→ Duna 可在診所客戶的 LINE 官方帳號導入 AI Bot，預先設定財務健診、節稅方案等常見問答腳本，讓潛在醫師客戶在非上班時間也能自助了解服務內容並填寫預約提案會議表單，提升業務轉換率</div>
+  <div class="insight-case">📌 Notion Custom Agents 可自動建立資料庫、處理重複性事務，並跨應用程式搜尋整合資訊</div>
+  <div class="insight-relevance">→ Duna 已在用 Notion，可進一步建立 AI Agent：當新診所客戶建檔時，自動產生專屬提案模板、財稅重點清單、跟進時程表，將現有 Notion 自動化升級為主動協作的智慧助理</div>
   <span class="insight-diff" style="color:#a6e3a1">難度：低</span>
+</div><div class="insight-item">
+  <div class="insight-case">📌 房地產網站用 AI Chatbot 自動處理 80% 的客戶詢問並自動排程預約看房</div>
+  <div class="insight-relevance">→ Duna 可在診所客戶的 LINE Bot 中建立 AI 對話流程，讓醫師或診所主管能透過 LINE 直接詢問財務狀況、稅務提醒或方案試算，AI 自動回應常見財稅問題，Duna 只需接手高價值的諮詢對話</div>
+  <span class="insight-diff" style="color:#fab387">難度：中</span>
 </div>
 </div>
-    <p class="next-week">下週預計：AI 特助 Agents 第二階段啟動（客戶情報、Notion 管家、要保書、品管四個 agent），BlackHole 雙邊錄音驗證，Threads 醫師帳號矩陣從草稿進入實際發文排程</p>
+    <p class="next-week">下週預計：AI特助Agents 第二階段展開（客戶情報 agent + Notion 管家 agent），Threads 醫師帳號矩陣進入客戶確認流程，BlackHole 錄音設定完成並測試第一次會議錄音。</p>
   </article>
   <aside class="sidebar">
     <div class="sidebar-section">
       <div class="sidebar-title">本篇目錄</div>
-      <ul class="toc-links"><li><a href="#s1">一份企劃書，在手機上跑不動，就重建整個部署</a></li>
-<li><a href="#s2">早安機器人 8:30 準時打卡，靈感庫的 Bug 也一起清掉了</a></li>
-<li><a href="#s3">七個 Agent 的架構圖畫完了，BlackHole 裝好等重開機</a></li>
-<li><a href="#s4">流程圖從文字變圖，UI 從湊合變清楚</a></li>
-<li><a href="#s5">13 個章節部署完成，做圖流程也走通了</a></li>
-<li><a href="#s6">系統底層的幾件小事，每一件都在縮短下次的準備時間</a></li>
+      <ul class="toc-links"><li><a href="#s1">六個帳號的第一天，文案和圖都不能少</a></li>
+<li><a href="#s2">早安機器人終於每天 8:30 準時打卡上班</a></li>
+<li><a href="#s3">七個 Agent 的骨架，這週立起來了</a></li>
+<li><a href="#s4">UI 改了一輪，流程圖也跟著換新衣服</a></li>
+<li><a href="#s5">做圖流程建起來了，觀察系統也長了新眼睛</a></li>
+<li><a href="#s6">新人教學上線，Google Drive 客戶資料夾也補齊了</a></li>
+<li><a href="#s7">幾件小事，也都在動</a></li>
 </ul>
     </div>
   </aside>
