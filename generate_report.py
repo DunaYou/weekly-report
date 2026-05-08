@@ -733,7 +733,7 @@ def update_index(all_posts, monthly_reports=None):
   .site-header .blog-name{{font-family:'Noto Serif TC',serif;font-size:clamp(22px,4vw,32px);font-weight:700;margin-bottom:8px;}}
   .site-header .blog-desc{{font-size:13px;opacity:.45;letter-spacing:.08em;}}
   .layout{{max-width:960px;margin:0 auto;padding:48px 24px 80px;display:grid;grid-template-columns:1fr 260px;gap:48px;align-items:start;}}
-  @media(max-width:700px){{.layout{{grid-template-columns:1fr;}}.sidebar{{order:-1;}}}}
+  @media(max-width:700px){{.layout{{grid-template-columns:1fr;}}.sidebar{{order:-1;position:static;}}}}
   .section-label{{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:24px;padding-bottom:12px;border-bottom:1px solid var(--border);}}
   .post-card{{display:block;text-decoration:none;color:inherit;border:1px solid var(--border);border-radius:6px;padding:24px;margin-bottom:16px;background:#fff;transition:background .15s;overflow:hidden;}}
   .post-card:hover{{background:{ACCENT_LIGHT};}}
