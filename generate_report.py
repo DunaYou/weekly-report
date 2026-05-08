@@ -19,6 +19,33 @@ LINE_USER_ID = os.environ["LINE_USER_ID"]
 AI_LOG_DB = "351d737a-fec4-8149-a72b-d702bdacb126"
 FIRECRAWL_API_KEY = os.environ.get("FIRECRAWL_API_KEY", "")
 
+API_USAGE_LOG = "reports/api_usage_log.json"
+
+def log_api_usage(call_name: str, response):
+    """每次 Anthropic API call 完，把 token 用量記到 log 檔。"""
+    os.makedirs("reports", exist_ok=True)
+    log = []
+    if os.path.exists(API_USAGE_LOG):
+        with open(API_USAGE_LOG, encoding="utf-8") as f:
+            try:
+                log = json.load(f)
+            except Exception:
+                log = []
+    now = datetime.now(TAIPEI)
+    log.append({
+        "timestamp": now.isoformat(),
+        "date": str(now.date()),
+        "year": now.year,
+        "month": now.month,
+        "script": "generate_report",
+        "call": call_name,
+        "model": response.model,
+        "input_tokens": response.usage.input_tokens,
+        "output_tokens": response.usage.output_tokens,
+    })
+    with open(API_USAGE_LOG, "w", encoding="utf-8") as f:
+        json.dump(log, f, ensure_ascii=False, indent=2)
+
 NOTION_HEADERS = {
     "Authorization": f"Bearer {NOTION_API_KEY}",
     "Notion-Version": "2022-06-28",
@@ -178,6 +205,7 @@ def generate_report_with_claude(logs, week_num, monday, sunday):
         system="你只能輸出純 JSON，不能有任何 markdown 標記（```json 等）或額外解釋文字。所有字串值內的換行必須寫成 \\n，雙引號必須寫成 \\\"。",
         messages=[{"role": "user", "content": prompt}],
     )
+    log_api_usage("weekly_report", message)
     raw = message.content[0].text.strip()
 
     # 移除 markdown code block
@@ -271,6 +299,7 @@ Duna 是醫師診所財務顧問公司（盈爍/瑞爍）業務副總，日常�
             system="只輸出純 JSON，不要 markdown 標記。",
             messages=[{"role": "user", "content": prompt}],
         )
+        log_api_usage("ai_insights", msg)
         raw = msg.content[0].text.strip()
         if raw.startswith("```"):
             raw = re.sub(r"^```(?:json)?\s*", "", raw)

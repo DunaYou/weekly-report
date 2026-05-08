@@ -24,6 +24,53 @@ GH_PAT_EXPIRY = date(2099, 1, 1)        # 永不到期，更新 PAT 時記得改
 ANTHROPIC_FREE_CREDIT = 5.00            # 初始免費額度 USD（手動更新）
 ANTHROPIC_CREDIT_START = date(2026, 5, 1)  # 免費 Credit 發放日
 
+API_USAGE_LOG = "reports/api_usage_log.json"
+# Sonnet 4.6 定價（USD / 1M tokens）
+PRICE_INPUT_PER_MTOK = 3.0
+PRICE_OUTPUT_PER_MTOK = 15.0
+
+def log_api_usage(call_name: str, response):
+    os.makedirs("reports", exist_ok=True)
+    log = []
+    if os.path.exists(API_USAGE_LOG):
+        with open(API_USAGE_LOG, encoding="utf-8") as f:
+            try:
+                log = json.load(f)
+            except Exception:
+                log = []
+    now = datetime.now(TAIPEI)
+    log.append({
+        "timestamp": now.isoformat(),
+        "date": str(now.date()),
+        "year": now.year,
+        "month": now.month,
+        "script": "generate_monthly",
+        "call": call_name,
+        "model": response.model,
+        "input_tokens": response.usage.input_tokens,
+        "output_tokens": response.usage.output_tokens,
+    })
+    with open(API_USAGE_LOG, "w", encoding="utf-8") as f:
+        json.dump(log, f, ensure_ascii=False, indent=2)
+
+def load_monthly_api_usage(year: int, month: int) -> dict:
+    """讀取指定年月的 API 用量，回傳 input_tokens, output_tokens, cost_usd。"""
+    if not os.path.exists(API_USAGE_LOG):
+        return {"input_tokens": None, "output_tokens": None, "cost_usd": None}
+    with open(API_USAGE_LOG, encoding="utf-8") as f:
+        try:
+            log = json.load(f)
+        except Exception:
+            return {"input_tokens": None, "output_tokens": None, "cost_usd": None}
+    entries = [e for e in log if e.get("year") == year and e.get("month") == month]
+    if not entries:
+        return {"input_tokens": None, "output_tokens": None, "cost_usd": None}
+    total_in = sum(e["input_tokens"] for e in entries)
+    total_out = sum(e["output_tokens"] for e in entries)
+    cost = (total_in / 1_000_000 * PRICE_INPUT_PER_MTOK +
+            total_out / 1_000_000 * PRICE_OUTPUT_PER_MTOK)
+    return {"input_tokens": total_in, "output_tokens": total_out, "cost_usd": round(cost, 4)}
+
 
 def get_last_month_range():
     now = datetime.now(TAIPEI)
@@ -93,6 +140,7 @@ def generate_monthly_reflection(logs, month_label, stats):
         max_tokens=300,
         messages=[{"role": "user", "content": prompt}],
     )
+    log_api_usage("monthly_reflection", msg)
     return msg.content[0].text.strip()
 
 
@@ -101,6 +149,19 @@ def render_monthly_html(month_label, first_day, last_day, logs, stats,
     now = datetime.now(TAIPEI)
     report_date = f"{now.year} 年 {now.month} 月 {now.day} 日"
     period = f"{first_day.year} / {first_day.month:02d} / {first_day.day:02d} ～ {last_day.year} / {last_day.month:02d} / {last_day.day:02d}"
+
+    # 讀取上月 API 用量 log
+    api_usage = load_monthly_api_usage(first_day.year, first_day.month)
+    if api_usage["input_tokens"] is not None:
+        api_in_str = f"{api_usage['input_tokens']:,}"
+        api_out_str = f"{api_usage['output_tokens']:,}"
+        api_cost_str = f"US${api_usage['cost_usd']:.4f}"
+        api_source_note = "（自動記錄，來源：API response）"
+    else:
+        api_in_str = "—"
+        api_out_str = "—"
+        api_cost_str = "—"
+        api_source_note = "（尚無記錄，下次執行後會自動累積）"
 
     # LINE 用量計算
     line_used_str = str(line_used) if line_used is not None else "—"
@@ -371,9 +432,11 @@ def render_monthly_html(month_label, first_day, last_day, logs, stats,
     <tr><td>剩餘額度（估）</td><td><span class="val-green">US${credit_remaining_est:.2f}</span>　<span class="val-muted">（請至 console.anthropic.com 確認實際數字）</span></td></tr>
     <tr><td>免費額度用完後月費</td><td><span class="val-orange">約 US$2 / 月</span>，依實際呼叫次數計費</td></tr>
     <tr><td>費用</td><td><span class="val-green">$0</span>（免費額度期間）</td></tr>
-    <tr><td>Token 用量</td><td><span class="val-muted">請至 console.anthropic.com → Usage 查看實際數字</span></td></tr>
+    <tr><td>本月 Input Tokens</td><td><span class="val-highlight">{api_in_str}</span>　<span class="val-muted">{api_source_note}</span></td></tr>
+    <tr><td>本月 Output Tokens</td><td><span class="val-highlight">{api_out_str}</span></td></tr>
+    <tr><td>本月 API 實際費用</td><td><span class="val-highlight">{api_cost_str}</span>　<span class="val-muted">（Sonnet 4.6：Input $3/MTok、Output $15/MTok）</span></td></tr>
   </table>
-  <div class="note-box">📌 此處剩餘額度為估算值（按每月 $2 計）。實際數字請至 console.anthropic.com → Usage 確認。</div>
+  <div class="note-box">📌 Token 用量為自動記錄的精確數字（來源：每次 API call response）。Anthropic 免費額度剩餘為估算值，實際請至 console.anthropic.com → Usage 確認。</div>
 </div>
 
 <!-- GitHub -->
