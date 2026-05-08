@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 年 4 月 月報 · 游泰仁</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+TC:wght@300;400;500&display=swap');
+  :root{--ink:#1a1a1a;--muted:#7d8c87;--accent:#1F362C;--bg:#f6f9f7;--border:#dde7e2;--tag-bg:#ebf2ee;--card:#ffffff;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--bg);color:var(--ink);font-family:'Noto Sans TC',sans-serif;font-weight:300;line-height:1.9;font-size:16px;}
+  .topnav{background:var(--ink);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;}
+  .topnav a{color:rgba(255,255,255,0.6);text-decoration:none;font-size:13px;}
+  .topnav a:hover{color:#fff;}
+  .topnav .blog-title{color:#fff;font-size:14px;font-weight:500;}
+  .article-header{background:var(--ink);color:#fff;padding:52px 24px 44px;text-align:center;}
+  .article-header .meta{font-size:11px;letter-spacing:.18em;opacity:.45;margin-bottom:18px;text-transform:uppercase;}
+  .article-header h1{font-family:'Noto Serif TC',serif;font-size:clamp(24px,5vw,38px);font-weight:700;line-height:1.3;margin-bottom:12px;}
+  .article-header .subtitle{font-size:13px;opacity:.5;letter-spacing:.05em;}
+  .stats-bar{background:var(--accent);color:#fff;display:flex;justify-content:center;}
+  .stat-item{flex:1;max-width:160px;text-align:center;padding:18px 16px;border-right:1px solid rgba(255,255,255,.15);}
+  .stat-item:last-child{border-right:none;}
+  .stat-num{font-size:26px;font-weight:500;display:block;line-height:1;}
+  .stat-label{font-size:10px;letter-spacing:.12em;opacity:.7;margin-top:4px;display:block;text-transform:uppercase;}
+  .layout{max-width:800px;margin:0 auto;padding:48px 24px 80px;}
+  .section-block{background:#fff;border:1px solid var(--border);border-radius:8px;padding:28px 32px;margin-bottom:24px;}
+  .section-tag{display:inline-block;background:var(--tag-bg);color:var(--accent);font-size:11px;font-weight:500;letter-spacing:.12em;padding:3px 9px;border-radius:2px;margin-bottom:12px;text-transform:uppercase;}
+  h2{font-family:'Noto Serif TC',serif;font-size:20px;font-weight:700;margin-bottom:20px;color:var(--ink);}
+  .cost-table{width:100%;border-collapse:collapse;font-size:14px;}
+  .cost-table th{text-align:left;font-size:10px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;padding:8px 0;border-bottom:1px solid var(--border);font-weight:400;}
+  .cost-table td{padding:10px 0;border-bottom:1px solid var(--border);vertical-align:top;}
+  .cost-table tr:last-child td{border-bottom:none;}
+  .cost-name{font-weight:500;color:var(--ink);min-width:120px;padding-right:16px;}
+  .cost-amount{min-width:80px;padding-right:16px;font-weight:500;}
+  .cost-amount.paid{color:var(--accent);}
+  .cost-amount.free{color:#7d8c87;}
+  .cost-note{color:#888;font-size:13px;}
+  .cost-total{margin-top:16px;padding-top:16px;border-top:2px solid var(--accent);display:flex;justify-content:space-between;align-items:center;}
+  .cost-total-label{font-size:13px;color:var(--muted);}
+  .cost-total-amount{font-size:24px;font-weight:500;color:var(--accent);}
+  .proj-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);font-size:14px;}
+  .proj-row:last-child{border-bottom:none;}
+  .proj-name{color:var(--ink);}
+  .proj-h{color:var(--accent);font-weight:500;}
+  .usage-bar-wrap{background:var(--border);border-radius:4px;height:8px;margin:12px 0 6px;overflow:hidden;}
+  .usage-bar{background:var(--accent);height:100%;border-radius:4px;transition:width .3s;}
+  .usage-label{font-size:13px;color:var(--muted);}
+  .reflection-block{font-size:15px;color:#333;line-height:2;}
+  blockquote{border-left:3px solid var(--accent);padding:12px 20px;margin:20px 0;background:var(--tag-bg);border-radius:0 4px 4px 0;font-style:italic;color:#444;font-size:15px;}
+  .site-footer{border-top:1px solid var(--border);padding:24px;text-align:center;font-size:12px;color:var(--muted);}
+  .back-btn{display:inline-block;margin-top:24px;text-decoration:none;color:var(--ink);font-size:13px;padding:8px 16px;border:1px solid var(--border);border-radius:4px;}
+  .back-btn:hover{background:var(--tag-bg);}
+</style>
+</head>
+<body>
+<nav class="topnav">
+  <a href="../index.html">← 游泰仁的週報</a>
+  <span class="blog-title">2026 年 4 月 月報</span>
+  <div style="font-size:12px;color:rgba(255,255,255,0.4);">月報</div>
+</nav>
+<div class="article-header">
+  <div class="meta">月報 · 2026-04-01 – 2026-04-30 · 游泰仁</div>
+  <h1>2026 年 4 月 使用報告</h1>
+  <div class="subtitle">AI 工具費用 + 工作產出 + 服務用量</div>
+</div>
+<div class="stats-bar">
+  <div class="stat-item"><span class="stat-num">$100</span><span class="stat-label">月費 USD</span></div>
+  <div class="stat-item"><span class="stat-num">45.8h</span><span class="stat-label">AI 工時</span></div>
+  <div class="stat-item"><span class="stat-num">26</span><span class="stat-label">Sessions</span></div>
+  <div class="stat-item"><span class="stat-num">9</span><span class="stat-label">觸及專案</span></div>
+</div>
+
+<div class="layout">
+
+  <div class="section-block">
+    <span class="section-tag">費用明細</span>
+    <h2>這個月花了多少</h2>
+    <table class="cost-table">
+      <tr>
+        <th>服務</th><th>費用</th><th>說明</th>
+      </tr>
+      <tr>
+      <td class="cost-name">Claude Max</td>
+      <td class="cost-amount paid">$100/月</td>
+      <td class="cost-note">AI 對話 + Claude Code，固定月費</td>
+    </tr><tr>
+      <td class="cost-name">Anthropic API</td>
+      <td class="cost-amount free">免費</td>
+      <td class="cost-note">週報生成，免費 Credit 中（用完後約 $2/月）</td>
+    </tr><tr>
+      <td class="cost-name">Render.com</td>
+      <td class="cost-amount free">免費</td>
+      <td class="cost-note">LINE 全能助理 + 早安機器人，免費 tier</td>
+    </tr><tr>
+      <td class="cost-name">GitHub Actions</td>
+      <td class="cost-amount free">免費</td>
+      <td class="cost-note">週報 + 月報自動化，免費額度內（< 1%）</td>
+    </tr><tr>
+      <td class="cost-name">Surge.sh</td>
+      <td class="cost-amount free">免費</td>
+      <td class="cost-note">醫責險要保書網站，免費</td>
+    </tr><tr>
+      <td class="cost-name">cron-job.org</td>
+      <td class="cost-amount free">免費</td>
+      <td class="cost-note">各排程觸發，免費</td>
+    </tr><tr>
+      <td class="cost-name">Firecrawl</td>
+      <td class="cost-amount free">免費</td>
+      <td class="cost-note">週報靈感搜尋，免費 500 次/月</td>
+    </tr><tr>
+      <td class="cost-name">Notion API</td>
+      <td class="cost-amount free">免費</td>
+      <td class="cost-note">資料庫整合，免費</td>
+    </tr><tr>
+      <td class="cost-name">Google Calendar API</td>
+      <td class="cost-amount free">免費</td>
+      <td class="cost-note">行程同步，免費</td>
+    </tr><tr>
+      <td class="cost-name">Open-Meteo</td>
+      <td class="cost-amount free">免費</td>
+      <td class="cost-note">天氣資料（早安機器人），免費</td>
+    </tr><tr>
+      <td class="cost-name">LINE Bot API</td>
+      <td class="cost-amount free">免費</td>
+      <td class="cost-note">推播訊息，免費 200 則/月</td>
+    </tr>
+    </table>
+    <div class="cost-total">
+      <span class="cost-total-label">本月合計</span>
+      <span class="cost-total-amount">$100 USD / 月</span>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <span class="section-tag">工作產出</span>
+    <h2>本月 AI 工時分佈</h2>
+    <div class="proj-row"><span class="proj-name">週報系統</span><span class="proj-h">10.2h</span></div><div class="proj-row"><span class="proj-name">LINE 全能助理</span><span class="proj-h">9.5h</span></div><div class="proj-row"><span class="proj-name">醫責險要保書</span><span class="proj-h">6.5h</span></div><div class="proj-row"><span class="proj-name">會議知識庫</span><span class="proj-h">6h</span></div><div class="proj-row"><span class="proj-name">磐石客戶資料整理</span><span class="proj-h">4.5h</span></div><div class="proj-row"><span class="proj-name">LINE 早安機器人</span><span class="proj-h">4h</span></div><div class="proj-row"><span class="proj-name">保全班表</span><span class="proj-h">2.5h</span></div><div class="proj-row"><span class="proj-name">安全設定</span><span class="proj-h">2h</span></div>
+  </div>
+
+  <div class="section-block">
+    <span class="section-tag">LINE 推播</span>
+    <h2>LINE Bot 用量</h2>
+    <div class="usage-bar-wrap">
+      <div class="usage-bar" style="width:19%"></div>
+    </div>
+    <div class="usage-label">38 / 200 則（19%）</div>
+    <p style="font-size:13px;color:var(--muted);margin-top:12px;">免費方案上限 200 則/月，主要消耗來源：早安機器人（每日 1 則）+ 週報通知（每週 1 則）</p>
+  </div>
+
+  <div class="section-block">
+    <span class="section-tag">泰仁本月觀察</span>
+    <h2>一個月下來的感想</h2>
+    <p class="reflection-block">四月底像是突然被什麼卡住，然後又突然全部通了。26 個 sessions、將近 46 小時，集中在月底最後兩天衝完一大批事。週報系統、LINE 全能助理、醫責險填表系統、保全班表自動入曆、會議知識庫——每一個都是從零建起來的，不是小修小補。磐石那邊跑了一千多張圖片 OCR，命中率不算高，但能跑出來就算贏。稱讚次數是零，這我早就習慣了，自己知道做了什麼就夠。唯一讓我有點在意的是，這麼多工具建完之後，下個月要記得真的拿來用。</p>
+  </div>
+
+  <a href="../index.html" class="back-btn">← 回首頁</a>
+</div>
+<footer class="site-footer">由 游泰仁 自動生成 · Duna You · 2026/04</footer>
+</body>
+</html>
