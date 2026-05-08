@@ -119,7 +119,22 @@ def render_monthly_html(month_label, first_day, last_day, logs, stats,
 
     # Anthropic 剩餘估算（每月約 $2，粗估）
     months_elapsed = (today.year - ANTHROPIC_CREDIT_START.year) * 12 + (today.month - ANTHROPIC_CREDIT_START.month)
-    credit_remaining_est = max(0, ANTHROPIC_FREE_CREDIT - months_elapsed * 2)
+    credit_remaining_est = max(0.0, ANTHROPIC_FREE_CREDIT - months_elapsed * 2)
+    months_remaining = int(credit_remaining_est / 2) if credit_remaining_est > 0 else 0
+
+    # 摘要卡：費用儀表板邏輯
+    if credit_remaining_est > 0:
+        current_spend_val = "$0"
+        current_spend_sub = "所有 API 服務皆在免費額度內"
+        future_spend_val = "NT$65"
+        future_spend_sub = f"約 {months_remaining} 個月後｜Anthropic 免費額度用完"
+        credit_months_str = f"可再撐約 {months_remaining} 個月"
+    else:
+        current_spend_val = "~US$2"
+        current_spend_sub = "Anthropic API 按量計費中"
+        future_spend_val = "NT$65"
+        future_spend_sub = "Anthropic API 每月約 US$2，按量計費"
+        credit_months_str = "已用完，按量計費"
 
     # 本月工時分佈（取前 8 個專案）
     project_hours: dict = {}
@@ -284,14 +299,14 @@ def render_monthly_html(month_label, first_day, last_day, logs, stats,
 
 <div class="summary-row">
   <div class="summary-card highlight">
-    <div class="label">固定月費</div>
-    <div class="amount">$100</div>
-    <div class="sub">USD｜Claude Max 訂閱</div>
+    <div class="label">目前每月支出</div>
+    <div class="amount">{current_spend_val}</div>
+    <div class="sub">{current_spend_sub}</div>
   </div>
   <div class="summary-card">
-    <div class="label">Anthropic 剩餘額度（估）</div>
-    <div class="amount">US${credit_remaining_est:.2f}</div>
-    <div class="sub">免費 Credit｜請至 console 確認</div>
+    <div class="label">預估月費（調整後）</div>
+    <div class="amount">{future_spend_val}</div>
+    <div class="sub">{future_spend_sub}</div>
   </div>
   <div class="summary-card">
     <div class="label">LINE 推播本月用量</div>
@@ -299,9 +314,9 @@ def render_monthly_html(month_label, first_day, last_day, logs, stats,
     <div class="sub">上限 {line_limit_str} 則｜剩餘 {line_remain_str} 則</div>
   </div>
   <div class="summary-card">
-    <div class="label">本月 AI 工時</div>
-    <div class="amount">{stats['total_hours']}h</div>
-    <div class="sub">{stats['sessions']} Sessions｜{stats['total_projects']} 個專案</div>
+    <div class="label">Anthropic 剩餘額度</div>
+    <div class="amount">US${credit_remaining_est:.2f}</div>
+    <div class="sub">{credit_months_str}</div>
   </div>
 </div>
 
