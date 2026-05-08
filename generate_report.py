@@ -684,7 +684,7 @@ def update_index(all_posts, monthly_reports=None):
         for m in reversed(monthly_reports):
             monthly_items += f'<li><a href="reports/{m["filename"]}"><span class="week-num">月</span>{m["month_label"]}</a></li>\n'
         monthly_sidebar_html = f'''<div class="sidebar-section">
-      <div class="sidebar-title">月報</div>
+      <div class="sidebar-title">AI 每月使用狀況報告</div>
       <ul class="sidebar-links">{monthly_items}</ul>
     </div>'''
 
