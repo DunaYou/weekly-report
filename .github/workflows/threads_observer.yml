@@ -1,0 +1,44 @@
+name: Threads 每日觀察
+
+on:
+  workflow_dispatch:  # 由 cron-job.org 每天 09:30 台北時間觸發
+
+permissions:
+  contents: write
+
+jobs:
+  observe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install anthropic playwright requests
+
+      - name: Install Playwright browsers
+        run: playwright install chromium --with-deps
+
+      - name: Run Threads observer
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          LINE_CHANNEL_ACCESS_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
+          LINE_USER_ID: ${{ secrets.LINE_USER_ID }}
+          GH_PAT: ${{ secrets.GH_PAT }}
+          THREADS_COOKIES: ${{ secrets.THREADS_COOKIES }}
+        run: python threads_observer.py
+
+      - name: Commit and push
+        run: |
+          git config user.name "游泰仁"
+          git config user.email "dunayou.ef@gmail.com"
+          git add -A
+          git diff --cached --quiet || git commit -m "threads: $(date +%Y-%m-%d) daily report"
+          git push https://DunaYou:${{ secrets.GH_PAT }}@github.com/DunaYou/weekly-report.git main
