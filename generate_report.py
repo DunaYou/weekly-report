@@ -238,22 +238,19 @@ def generate_report_with_claude(logs, week_num, monday, sunday):
     raise ValueError(f"Claude 沒有回傳有效 JSON：{raw[:300]}")
 
 
-def fetch_ai_insights():
-    """用 Firecrawl 搜尋 AI 工作應用案例，回傳最多 3 條靈感"""
-    if not FIRECRAWL_API_KEY:
-        return []
-
+def _fetch_web_results(firecrawl_key):
+    """Firecrawl 搜尋一般網路上的 AI 商業應用案例"""
     queries = [
-        "Claude AI workflow automation business 2025",
-        "Notion LINE Bot AI assistant real estate medical marketing automation",
+        "Claude AI workflow automation SaaS business tool 2025",
+        "LINE Bot AI assistant medical clinic automation subscription sell",
     ]
-    all_results = []
+    results = []
     for q in queries:
         try:
             resp = requests.post(
                 "https://api.firecrawl.dev/v1/search",
-                headers={"Authorization": f"Bearer {FIRECRAWL_API_KEY}", "Content-Type": "application/json"},
-                json={"query": q, "limit": 4},
+                headers={"Authorization": f"Bearer {firecrawl_key}", "Content-Type": "application/json"},
+                json={"query": q, "limit": 3},
                 timeout=20,
             )
             if resp.status_code == 200:
@@ -262,40 +259,124 @@ def fetch_ai_insights():
                     desc = (item.get("description") or "").strip()[:200]
                     url = item.get("url", "")
                     if title:
-                        all_results.append({"title": title, "url": url, "description": desc})
+                        results.append({"source": "Web", "title": title, "url": url, "description": desc})
         except Exception as e:
-            print(f"Firecrawl 搜尋失敗（{q}）：{e}")
+            print(f"  Web 搜尋失敗（{q}）：{e}")
+    return results
 
+
+def _fetch_github_results():
+    """GitHub API 搜尋熱門 AI 自動化 repo，找有商業化潛力的創意"""
+    gh_token = os.environ.get("GH_PAT", "")
+    headers = {"Accept": "application/vnd.github+json"}
+    if gh_token:
+        headers["Authorization"] = f"Bearer {gh_token}"
+
+    queries = [
+        "AI automation workflow LINE bot business",
+        "claude anthropic api assistant webhook automation",
+        "notion AI integration workflow medical",
+    ]
+    results = []
+    for q in queries:
+        try:
+            resp = requests.get(
+                "https://api.github.com/search/repositories",
+                headers=headers,
+                params={"q": q, "sort": "stars", "order": "desc", "per_page": 3},
+                timeout=15,
+            )
+            if resp.status_code == 200:
+                for repo in resp.json().get("items", []):
+                    name = repo.get("full_name", "")
+                    desc = (repo.get("description") or "").strip()[:200]
+                    stars = repo.get("stargazers_count", 0)
+                    url = repo.get("html_url", "")
+                    if desc:
+                        results.append({
+                            "source": "GitHub",
+                            "title": f"[⭐{stars}] {name}",
+                            "url": url,
+                            "description": desc,
+                        })
+        except Exception as e:
+            print(f"  GitHub 搜尋失敗（{q}）：{e}")
+    return results
+
+
+def _fetch_threads_results(firecrawl_key):
+    """Firecrawl 搜尋 Threads 上的 AI 工作應用貼文"""
+    queries = [
+        "site:threads.net AI 工作流程 自動化 效率",
+        "site:threads.net Claude ChatGPT 業務 行銷 工具",
+    ]
+    results = []
+    for q in queries:
+        try:
+            resp = requests.post(
+                "https://api.firecrawl.dev/v1/search",
+                headers={"Authorization": f"Bearer {firecrawl_key}", "Content-Type": "application/json"},
+                json={"query": q, "limit": 3},
+                timeout=20,
+            )
+            if resp.status_code == 200:
+                for item in resp.json().get("data", []):
+                    title = item.get("title", "").strip()
+                    desc = (item.get("description") or "").strip()[:200]
+                    url = item.get("url", "")
+                    if title and "threads" in url.lower():
+                        results.append({"source": "Threads", "title": title, "url": url, "description": desc})
+        except Exception as e:
+            print(f"  Threads 搜尋失敗（{q}）：{e}")
+    return results
+
+
+def fetch_ai_insights():
+    """從 Web / GitHub / Threads 三來源搜尋 AI 工作應用案例，回傳最多 3 條靈感"""
+    if not FIRECRAWL_API_KEY:
+        return []
+
+    print("  → 搜尋 Web 案例...")
+    web_results = _fetch_web_results(FIRECRAWL_API_KEY)
+    print("  → 搜尋 GitHub 案例...")
+    gh_results = _fetch_github_results()
+    print("  → 搜尋 Threads 案例...")
+    threads_results = _fetch_threads_results(FIRECRAWL_API_KEY)
+
+    all_results = web_results + gh_results + threads_results
+    print(f"  共找到 {len(all_results)} 筆原始資料（Web:{len(web_results)} / GitHub:{len(gh_results)} / Threads:{len(threads_results)}）")
     if not all_results:
         return []
 
     client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
     results_text = "\n\n".join(
-        f"標題：{r['title']}\n摘要：{r['description']}"
-        for r in all_results[:8]
+        f"來源：{r['source']}\n標題：{r['title']}\n摘要：{r['description']}"
+        for r in all_results[:12]
     )
-    prompt = f"""以下是最近網路上關於 AI 工作應用的案例：
+    prompt = f"""以下是最近網路上（Web / GitHub / Threads）關於 AI 工作應用的案例：
 
 {results_text}
 
 Duna 是醫師診所財務顧問公司（盈爍/瑞爍）業務副總，日常工作：行銷文案、客戶管理（醫師/診所）、業務拜訪提案、簡報製作、財稅知識整理、LINE Bot/Notion 自動化。
+長期目標：把她自己打造的 AI 工具（LINE Bot 助理、輿情監控系統等）發展成可以賣給同行業務員或診所的 SaaS 訂閱產品。
 
-請從這些案例中挑選或延伸，整理 3 條「值得偷學的案例」，告訴 Duna 還可以用 AI 做到哪些她還沒做的事。
+請從這些案例中挑選或延伸，整理 3 條「值得偷學的案例」，告訴 Duna 還可以用 AI 做到哪些她還沒做的事，並特別標注哪些做法有商業化潛力（可以做成工具賣給別人）。
 
 輸出 JSON（只輸出 JSON，不要其他文字）：
 {{
   "insights": [
     {{
-      "case": "看到什麼做法（一句話，具體）",
+      "case": "看到什麼做法（一句話，具體，說明是從哪個來源看到的）",
       "relevance": "Duna 可以怎麼用在哪個工作場景（具體說）",
-      "difficulty": "低/中/高"
+      "difficulty": "低/中/高",
+      "commercial_potential": "有/無/待評估"
     }}
   ]
 }}"""
     try:
         msg = client.messages.create(
             model="claude-sonnet-4-6",
-            max_tokens=800,
+            max_tokens=900,
             system="只輸出純 JSON，不要 markdown 標記。",
             messages=[{"role": "user", "content": prompt}],
         )
@@ -318,7 +399,8 @@ def save_insights_to_notion(insights, week_num, monday):
     for i, ins in enumerate(insights):
         content = f"【W{week_num} 偷學】{ins.get('case', '')} → {ins.get('relevance', '')}"
         difficulty = ins.get("difficulty", "")
-        note = f"難度：{difficulty} | 週次：W{week_num}（{monday}）"
+        commercial = ins.get("commercial_potential", "")
+        note = f"難度：{difficulty} | 商業化潛力：{commercial} | 週次：W{week_num}（{monday}）"
         try:
             requests.post(
                 "https://api.notion.com/v1/pages",
@@ -522,13 +604,17 @@ def render_html(report, week_num, monday, sunday, post_number, stats, cover_img_
     if insights:
         diff_colors = {"低": "#a6e3a1", "中": "#fab387", "高": "#f38ba8"}
         items_html = ""
+        comm_colors = {"有": "#a6e3a1", "無": MUTED, "待評估": "#fab387"}
         for ins in insights:
             diff = ins.get("difficulty", "")
+            comm = ins.get("commercial_potential", "")
             color = diff_colors.get(diff, MUTED)
+            comm_color = comm_colors.get(comm, MUTED)
+            comm_badge = f'<span class="insight-diff" style="color:{comm_color}">💰 商業化：{comm}</span>' if comm else ""
             items_html += f'''<div class="insight-item">
   <div class="insight-case">📌 {ins.get("case", "")}</div>
   <div class="insight-relevance">→ {ins.get("relevance", "")}</div>
-  <span class="insight-diff" style="color:{color}">難度：{diff}</span>
+  <span class="insight-diff" style="color:{color}">難度：{diff}</span>{comm_badge}
 </div>'''
         insights_html = f'''<div class="insights-section">
   <div class="insights-label">🔍 值得偷學的案例</div>
