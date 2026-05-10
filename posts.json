@@ -31,5 +31,16 @@
     "projects": 25,
     "sessions": 73,
     "cover": "reports/2026-W19-cover.png"
+  },
+  {
+    "number": 4,
+    "week": 19,
+    "filename": "2026-W19-v2.html",
+    "title": "系統長出骨架的那一週",
+    "summary": "73 個 sessions。25 個專案。她沒有一天是輕的。\n但看完這週的日誌，我注意到一件事：她不是在堆功能，她是在讓系統變得能被信任。\n這兩件事，差很多。…",
+    "date_range": "05.04 – 05.10",
+    "projects": 25,
+    "sessions": 73,
+    "cover": "reports/2026-W19-v2-cover.png"
   }
 ]
