@@ -18,7 +18,7 @@ LINE_TOKEN = os.environ["LINE_CHANNEL_ACCESS_TOKEN"]
 LINE_USER_ID = os.environ["LINE_USER_ID"]
 AI_LOG_DB = "351d737a-fec4-8149-a72b-d702bdacb126"
 try:
-    from duckduckgo_search import DDGS as _DDGS
+    from ddgs import DDGS as _DDGS
     _DDG_AVAILABLE = True
 except ImportError:
     _DDG_AVAILABLE = False

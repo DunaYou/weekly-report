@@ -21,7 +21,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install anthropic requests playwright duckduckgo-search
+        run: pip install anthropic requests playwright ddgs
 
       - name: Install Playwright browsers
         run: playwright install chromium --with-deps
