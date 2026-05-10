@@ -1011,14 +1011,16 @@ def main():
         })
 
     posts = load_post_registry()
-    filename = f"{monday.year}-W{week_num:02d}.html"
-    cover_filename = f"reports/{monday.year}-W{week_num:02d}-cover.png"
-    # 如果這個 filename 已存在，更新該筆而非新增
-    existing_idx = next((i for i, p in enumerate(posts) if p["filename"] == filename), None)
-    if existing_idx is not None:
-        post_number = posts[existing_idx]["number"]
-    else:
-        post_number = len(posts) + 1
+    # 永遠建新檔，不覆蓋——同週多次執行用 -v2, -v3 遞增
+    base_filename = f"{monday.year}-W{week_num:02d}"
+    filename = f"{base_filename}.html"
+    version = 2
+    while os.path.exists(f"reports/{filename}") or any(p["filename"] == filename for p in posts):
+        filename = f"{base_filename}-v{version}.html"
+        version += 1
+    cover_base = filename.replace(".html", "")
+    cover_filename = f"reports/{cover_base}-cover.png"
+    post_number = len(posts) + 1
 
     stats = {
         "projects": len({p for l in logs for p in l["projects"]}),
@@ -1053,10 +1055,7 @@ def main():
         "sessions": stats["sessions"],
         "cover": cover_filename if cover_path else None,
     }
-    if existing_idx is not None:
-        posts[existing_idx] = new_entry
-    else:
-        posts.append(new_entry)
+    posts.append(new_entry)
     save_post_registry(posts)
     monthly_reports = []
     if os.path.exists("monthly_posts.json"):
