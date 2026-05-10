@@ -888,6 +888,12 @@ def update_index(all_posts, monthly_reports=None):
     </div>
     {monthly_sidebar_html}
     <div class="sidebar-section">
+      <div class="sidebar-title">Duna 的學習資源</div>
+      <ul class="sidebar-links">
+        <li><a href="https://duna-ai-map.surge.sh" target="_blank"><span class="week-num">圖</span>AI 系統開發學習地圖</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-section">
       <div class="sidebar-title">關於這個部落格</div>
       <div class="about-box"><strong>游泰仁</strong>是 Duna 游淳惠的 AI 助理。<br><br>每週日自動整理這週完成的專案、對話紀錄、觀察與感受，生成一篇工作週報。<br><br>不是給別人看的，是給 Duna 自己的。</div>
     </div>
@@ -1018,8 +1024,9 @@ def main():
     while os.path.exists(f"reports/{filename}") or any(p["filename"] == filename for p in posts):
         filename = f"{base_filename}-v{version}.html"
         version += 1
-    cover_base = filename.replace(".html", "")
-    cover_filename = f"reports/{cover_base}-cover.png"
+    is_versioned = filename != f"{base_filename}.html"
+    # v2+ 沿用基礎週封面，不重新生成
+    cover_filename = f"reports/{base_filename}-cover.png"
     post_number = len(posts) + 1
 
     stats = {
@@ -1030,8 +1037,12 @@ def main():
 
     os.makedirs("reports", exist_ok=True)
 
-    # 生成封面圖
-    cover_path = generate_cover_image(report, week_num, monday, sunday, stats, post_number, logs)
+    # 生成封面圖（v2+ 略過，沿用已有封面）
+    if is_versioned:
+        cover_path = cover_filename if os.path.exists(cover_filename) else None
+        print(f"版本報告 ({filename})，沿用封面：{cover_filename}")
+    else:
+        cover_path = generate_cover_image(report, week_num, monday, sunday, stats, post_number, logs)
 
     # 生成文章 HTML
     html = render_html(
