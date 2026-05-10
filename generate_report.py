@@ -17,7 +17,11 @@ NOTION_API_KEY = os.environ["NOTION_API_KEY"]
 LINE_TOKEN = os.environ["LINE_CHANNEL_ACCESS_TOKEN"]
 LINE_USER_ID = os.environ["LINE_USER_ID"]
 AI_LOG_DB = "351d737a-fec4-8149-a72b-d702bdacb126"
-FIRECRAWL_API_KEY = os.environ.get("FIRECRAWL_API_KEY", "")
+try:
+    from duckduckgo_search import DDGS as _DDGS
+    _DDG_AVAILABLE = True
+except ImportError:
+    _DDG_AVAILABLE = False
 
 API_USAGE_LOG = "reports/api_usage_log.json"
 
@@ -238,8 +242,10 @@ def generate_report_with_claude(logs, week_num, monday, sunday):
     raise ValueError(f"Claude 沒有回傳有效 JSON：{raw[:300]}")
 
 
-def _fetch_web_results(firecrawl_key):
-    """Firecrawl 搜尋一般網路上的 AI 商業應用案例"""
+def _fetch_web_results():
+    """DuckDuckGo 搜尋一般網路上的 AI 商業應用案例"""
+    if not _DDG_AVAILABLE:
+        return []
     queries = [
         "Claude AI workflow automation SaaS business tool 2025",
         "LINE Bot AI assistant medical clinic automation subscription sell",
@@ -247,17 +253,11 @@ def _fetch_web_results(firecrawl_key):
     results = []
     for q in queries:
         try:
-            resp = requests.post(
-                "https://api.firecrawl.dev/v1/search",
-                headers={"Authorization": f"Bearer {firecrawl_key}", "Content-Type": "application/json"},
-                json={"query": q, "limit": 3},
-                timeout=20,
-            )
-            if resp.status_code == 200:
-                for item in resp.json().get("data", []):
+            with _DDGS() as ddgs:
+                for item in ddgs.text(q, max_results=3):
                     title = item.get("title", "").strip()
-                    desc = (item.get("description") or "").strip()[:200]
-                    url = item.get("url", "")
+                    desc = item.get("body", "")[:200]
+                    url = item.get("href", "")
                     if title:
                         results.append({"source": "Web", "title": title, "url": url, "description": desc})
         except Exception as e:
@@ -304,8 +304,10 @@ def _fetch_github_results():
     return results
 
 
-def _fetch_threads_results(firecrawl_key):
-    """Firecrawl 搜尋 Threads 上的 AI 工作應用貼文"""
+def _fetch_threads_results():
+    """DuckDuckGo 搜尋 Threads 上的 AI 工作應用貼文"""
+    if not _DDG_AVAILABLE:
+        return []
     queries = [
         "site:threads.net AI 工作流程 自動化 效率",
         "site:threads.net Claude ChatGPT 業務 行銷 工具",
@@ -313,17 +315,11 @@ def _fetch_threads_results(firecrawl_key):
     results = []
     for q in queries:
         try:
-            resp = requests.post(
-                "https://api.firecrawl.dev/v1/search",
-                headers={"Authorization": f"Bearer {firecrawl_key}", "Content-Type": "application/json"},
-                json={"query": q, "limit": 3},
-                timeout=20,
-            )
-            if resp.status_code == 200:
-                for item in resp.json().get("data", []):
+            with _DDGS() as ddgs:
+                for item in ddgs.text(q, max_results=3):
                     title = item.get("title", "").strip()
-                    desc = (item.get("description") or "").strip()[:200]
-                    url = item.get("url", "")
+                    desc = item.get("body", "")[:200]
+                    url = item.get("href", "")
                     if title and "threads" in url.lower():
                         results.append({"source": "Threads", "title": title, "url": url, "description": desc})
         except Exception as e:
@@ -333,15 +329,12 @@ def _fetch_threads_results(firecrawl_key):
 
 def fetch_ai_insights():
     """從 Web / GitHub / Threads 三來源搜尋 AI 工作應用案例，回傳最多 3 條靈感"""
-    if not FIRECRAWL_API_KEY:
-        return []
-
     print("  → 搜尋 Web 案例...")
-    web_results = _fetch_web_results(FIRECRAWL_API_KEY)
+    web_results = _fetch_web_results()
     print("  → 搜尋 GitHub 案例...")
     gh_results = _fetch_github_results()
     print("  → 搜尋 Threads 案例...")
-    threads_results = _fetch_threads_results(FIRECRAWL_API_KEY)
+    threads_results = _fetch_threads_results()
 
     all_results = web_results + gh_results + threads_results
     print(f"  共找到 {len(all_results)} 筆原始資料（Web:{len(web_results)} / GitHub:{len(gh_results)} / Threads:{len(threads_results)}）")
