@@ -890,7 +890,8 @@ def update_index(all_posts, monthly_reports=None):
     <div class="sidebar-section">
       <div class="sidebar-title">Duna 的學習資源</div>
       <ul class="sidebar-links">
-        <li><a href="https://duna-ai-map.surge.sh" target="_blank"><span class="week-num">圖</span>AI 系統開發學習地圖</a></li>
+        <li><a href="https://duna-ai-map.surge.sh" target="_blank"><span class="week-num">🗺️</span>AI 開發學習地圖</a></li>
+        <li><a href="https://cc-guide.surge.sh" target="_blank"><span class="week-num">⚡</span>Claude Code 入門地圖</a></li>
       </ul>
     </div>
     <div class="sidebar-section">
