@@ -34,13 +34,15 @@
   },
   "dr.tsen_vision": {
     "dates": [
-      "2026-05-09"
+      "2026-05-09",
+      "2026-05-11"
     ],
     "identities": [
       "醫師"
     ],
     "keywords": [
-      "醫師"
+      "醫師",
+      "診所"
     ]
   },
   "bluepigeon0810": {
@@ -212,7 +214,8 @@
   "lawkibuffalo": {
     "dates": [
       "2026-05-09",
-      "2026-05-10"
+      "2026-05-10",
+      "2026-05-11"
     ],
     "identities": [
       "律師"
@@ -256,13 +259,15 @@
   },
   "dr.kylederma": {
     "dates": [
-      "2026-05-09"
+      "2026-05-09",
+      "2026-05-11"
     ],
     "identities": [
       "醫師"
     ],
     "keywords": [
-      "診所行銷"
+      "診所行銷",
+      "診所經營"
     ]
   },
   "claire__liu": {
@@ -304,7 +309,8 @@
   "aiajeremy": {
     "dates": [
       "2026-05-09",
-      "2026-05-10"
+      "2026-05-10",
+      "2026-05-11"
     ],
     "identities": [
       "診所顧問"
@@ -450,14 +456,16 @@
   },
   "kuoandlaworder": {
     "dates": [
-      "2026-05-10"
+      "2026-05-10",
+      "2026-05-11"
     ],
     "identities": [
       "律師"
     ],
     "keywords": [
       "醫療行銷",
-      "律師"
+      "律師",
+      "節稅"
     ]
   },
   "taxplotcpa": {
@@ -506,13 +514,15 @@
   },
   "skin.dr.wu": {
     "dates": [
-      "2026-05-10"
+      "2026-05-10",
+      "2026-05-11"
     ],
     "identities": [
       "醫師"
     ],
     "keywords": [
-      "醫療糾紛"
+      "醫療糾紛",
+      "診所開業"
     ]
   },
   "p.house0806": {
@@ -524,6 +534,83 @@
     ],
     "keywords": [
       "節稅"
+    ]
+  },
+  "pandaliu1217": {
+    "dates": [
+      "2026-05-11"
+    ],
+    "identities": [
+      "醫師"
+    ],
+    "keywords": [
+      "報稅"
+    ]
+  },
+  "figure8bee": {
+    "dates": [
+      "2026-05-11"
+    ],
+    "identities": [
+      "會計師"
+    ],
+    "keywords": [
+      "報稅"
+    ]
+  },
+  "ogc365day": {
+    "dates": [
+      "2026-05-11"
+    ],
+    "identities": [
+      "一般人"
+    ],
+    "keywords": [
+      "勞基法"
+    ]
+  },
+  "markleecanhelp": {
+    "dates": [
+      "2026-05-11"
+    ],
+    "identities": [
+      "律師"
+    ],
+    "keywords": [
+      "律師"
+    ]
+  },
+  "legacy.architect.tw": {
+    "dates": [
+      "2026-05-11"
+    ],
+    "identities": [
+      "會計師"
+    ],
+    "keywords": [
+      "稅務規劃"
+    ]
+  },
+  "lawyerphysician": {
+    "dates": [
+      "2026-05-11"
+    ],
+    "identities": [
+      "律師"
+    ],
+    "keywords": [
+      "律師日常"
+    ]
+  },
+  "della521521": {
+    "dates": [
+      "2026-05-11"
+    ],
+    "identities": [
+      "一般人"
+    ],
+    "keywords": [
+      "會計師日常"
     ]
   }
 }
