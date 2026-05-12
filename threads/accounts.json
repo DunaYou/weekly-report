@@ -44,7 +44,8 @@
     "keywords": [
       "醫師",
       "診所",
-      "醫療行銷"
+      "醫療行銷",
+      "診所開業"
     ]
   },
   "bluepigeon0810": {
@@ -182,13 +183,15 @@
   },
   "dr.fmyang": {
     "dates": [
-      "2026-05-09"
+      "2026-05-09",
+      "2026-05-12"
     ],
     "identities": [
       "醫師"
     ],
     "keywords": [
-      "醫師"
+      "醫師",
+      "診所日常"
     ]
   },
   "pb_consultant_eliza": {
@@ -305,7 +308,8 @@
       "2026-05-12"
     ],
     "identities": [
-      "診所顧問"
+      "診所顧問",
+      "一般人"
     ],
     "keywords": [
       "診所經營",
@@ -690,6 +694,116 @@
     ],
     "keywords": [
       "律師"
+    ]
+  },
+  "deng_tist": {
+    "dates": [
+      "2026-05-12"
+    ],
+    "identities": [
+      "醫師"
+    ],
+    "keywords": [
+      "節稅"
+    ]
+  },
+  "everpro.mita": {
+    "dates": [
+      "2026-05-12"
+    ],
+    "identities": [
+      "律師"
+    ],
+    "keywords": [
+      "勞資糾紛"
+    ]
+  },
+  "lawyer_rocco": {
+    "dates": [
+      "2026-05-12"
+    ],
+    "identities": [
+      "律師"
+    ],
+    "keywords": [
+      "律師"
+    ]
+  },
+  "shengxinfang225": {
+    "dates": [
+      "2026-05-12"
+    ],
+    "identities": [
+      "律師"
+    ],
+    "keywords": [
+      "醫療糾紛"
+    ]
+  },
+  "chuang_cpa": {
+    "dates": [
+      "2026-05-12"
+    ],
+    "identities": [
+      "會計師"
+    ],
+    "keywords": [
+      "稅務規劃"
+    ]
+  },
+  "chiaotax_pro": {
+    "dates": [
+      "2026-05-12"
+    ],
+    "identities": [
+      "會計師"
+    ],
+    "keywords": [
+      "會計師"
+    ]
+  },
+  "vvn0601": {
+    "dates": [
+      "2026-05-12"
+    ],
+    "identities": [
+      "一般人"
+    ],
+    "keywords": [
+      "報稅"
+    ]
+  },
+  "tsenghsinwei": {
+    "dates": [
+      "2026-05-12"
+    ],
+    "identities": [
+      "一般人"
+    ],
+    "keywords": [
+      "診所行銷"
+    ]
+  },
+  "dr.christinewang": {
+    "dates": [
+      "2026-05-12"
+    ],
+    "identities": [
+      "醫師"
+    ],
+    "keywords": [
+      "診所經營"
+    ]
+  },
+  "huangrh1980": {
+    "dates": [
+      "2026-05-12"
+    ],
+    "identities": [
+      "醫師"
+    ],
+    "keywords": [
+      "診所開業"
     ]
   }
 }
