@@ -350,14 +350,16 @@
   "kao_minheng": {
     "dates": [
       "2026-05-09",
-      "2026-05-10"
+      "2026-05-10",
+      "2026-05-15"
     ],
     "identities": [
       "醫師"
     ],
     "keywords": [
       "診所",
-      "診所開業"
+      "診所開業",
+      "診所經營"
     ]
   },
   "genej_consulting": {
@@ -689,13 +691,15 @@
   },
   "chuangstella": {
     "dates": [
-      "2026-05-12"
+      "2026-05-12",
+      "2026-05-15"
     ],
     "identities": [
       "一般人"
     ],
     "keywords": [
-      "診所日常"
+      "診所日常",
+      "診所經營"
     ]
   },
   "atty.horace_pt": {
@@ -911,7 +915,8 @@
   },
   "docchen3": {
     "dates": [
-      "2026-05-14"
+      "2026-05-14",
+      "2026-05-15"
     ],
     "identities": [
       "醫師"
@@ -955,7 +960,8 @@
   },
   "make_money_knowledge": {
     "dates": [
-      "2026-05-14"
+      "2026-05-14",
+      "2026-05-15"
     ],
     "identities": [
       "一般人"
@@ -995,6 +1001,127 @@
     ],
     "keywords": [
       "勞基法"
+    ]
+  },
+  "hahaha_uccu_": {
+    "dates": [
+      "2026-05-15"
+    ],
+    "identities": [
+      "一般人"
+    ],
+    "keywords": [
+      "診所"
+    ]
+  },
+  "law_soc_easytalk": {
+    "dates": [
+      "2026-05-15"
+    ],
+    "identities": [
+      "律師"
+    ],
+    "keywords": [
+      "律師日常"
+    ]
+  },
+  "attorneylakulaku": {
+    "dates": [
+      "2026-05-15"
+    ],
+    "identities": [
+      "律師"
+    ],
+    "keywords": [
+      "律師"
+    ]
+  },
+  "phoebe9wen": {
+    "dates": [
+      "2026-05-15"
+    ],
+    "identities": [
+      "一般人"
+    ],
+    "keywords": [
+      "勞基法"
+    ]
+  },
+  "andrew_56701": {
+    "dates": [
+      "2026-05-15"
+    ],
+    "identities": [
+      "一般人"
+    ],
+    "keywords": [
+      "律師日常"
+    ]
+  },
+  "fmphysician2": {
+    "dates": [
+      "2026-05-15"
+    ],
+    "identities": [
+      "醫師"
+    ],
+    "keywords": [
+      "診所開業"
+    ]
+  },
+  "aidea.med": {
+    "dates": [
+      "2026-05-15"
+    ],
+    "identities": [
+      "診所顧問"
+    ],
+    "keywords": [
+      "診所開業"
+    ]
+  },
+  "bboo_qqion": {
+    "dates": [
+      "2026-05-15"
+    ],
+    "identities": [
+      "一般人"
+    ],
+    "keywords": [
+      "診所日常"
+    ]
+  },
+  "drgu.clinic": {
+    "dates": [
+      "2026-05-15"
+    ],
+    "identities": [
+      "醫師"
+    ],
+    "keywords": [
+      "醫療糾紛"
+    ]
+  },
+  "dr.hsu_huiteng": {
+    "dates": [
+      "2026-05-15"
+    ],
+    "identities": [
+      "醫師"
+    ],
+    "keywords": [
+      "診所開業"
+    ]
+  },
+  "pumashen": {
+    "dates": [
+      "2026-05-15"
+    ],
+    "identities": [
+      "律師"
+    ],
+    "keywords": [
+      "律師日常"
     ]
   }
 }
