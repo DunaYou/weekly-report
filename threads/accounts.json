@@ -1080,7 +1080,8 @@
   "aidea.med": {
     "dates": [
       "2026-05-15",
-      "2026-05-17"
+      "2026-05-17",
+      "2026-05-18"
     ],
     "identities": [
       "診所顧問"
@@ -1196,14 +1197,16 @@
   "lifedr.188": {
     "dates": [
       "2026-05-16",
-      "2026-05-17"
+      "2026-05-17",
+      "2026-05-18"
     ],
     "identities": [
       "醫師"
     ],
     "keywords": [
       "診所開業",
-      "診所經營"
+      "診所經營",
+      "診所"
     ]
   },
   "telling3000": {
@@ -1241,7 +1244,8 @@
   },
   "can_hsiang": {
     "dates": [
-      "2026-05-17"
+      "2026-05-17",
+      "2026-05-18"
     ],
     "identities": [
       "一般人"
@@ -1325,6 +1329,138 @@
     ],
     "keywords": [
       "會計師日常"
+    ]
+  },
+  "vian_taiwan": {
+    "dates": [
+      "2026-05-18"
+    ],
+    "identities": [
+      "一般人"
+    ],
+    "keywords": [
+      "勞資糾紛"
+    ]
+  },
+  "whichwdoc": {
+    "dates": [
+      "2026-05-18"
+    ],
+    "identities": [
+      "醫師"
+    ],
+    "keywords": [
+      "診所開業"
+    ]
+  },
+  "0606linda": {
+    "dates": [
+      "2026-05-18"
+    ],
+    "identities": [
+      "一般人"
+    ],
+    "keywords": [
+      "診所經營"
+    ]
+  },
+  "kip75319518214": {
+    "dates": [
+      "2026-05-18"
+    ],
+    "identities": [
+      "一般人"
+    ],
+    "keywords": [
+      "報稅"
+    ]
+  },
+  "drtotalcare": {
+    "dates": [
+      "2026-05-18"
+    ],
+    "identities": [
+      "醫師"
+    ],
+    "keywords": [
+      "診所經營"
+    ]
+  },
+  "lawyermolly": {
+    "dates": [
+      "2026-05-18"
+    ],
+    "identities": [
+      "律師"
+    ],
+    "keywords": [
+      "律師日常"
+    ]
+  },
+  "kershyaaaa": {
+    "dates": [
+      "2026-05-18"
+    ],
+    "identities": [
+      "一般人"
+    ],
+    "keywords": [
+      "勞基法"
+    ]
+  },
+  "arden_lee": {
+    "dates": [
+      "2026-05-18"
+    ],
+    "identities": [
+      "律師"
+    ],
+    "keywords": [
+      "律師日常"
+    ]
+  },
+  "caden_0718": {
+    "dates": [
+      "2026-05-18"
+    ],
+    "identities": [
+      "一般人"
+    ],
+    "keywords": [
+      "節稅"
+    ]
+  },
+  "decodehealth__": {
+    "dates": [
+      "2026-05-18"
+    ],
+    "identities": [
+      "診所顧問"
+    ],
+    "keywords": [
+      "診所開業"
+    ]
+  },
+  "odd732013": {
+    "dates": [
+      "2026-05-18"
+    ],
+    "identities": [
+      "一般人"
+    ],
+    "keywords": [
+      "勞資糾紛"
+    ]
+  },
+  "justin0830": {
+    "dates": [
+      "2026-05-18"
+    ],
+    "identities": [
+      "一般人"
+    ],
+    "keywords": [
+      "報稅"
     ]
   }
 }
