@@ -53,5 +53,16 @@
     "projects": 30,
     "sessions": 46,
     "cover": "reports/2026-W20-cover.png"
+  },
+  {
+    "number": 6,
+    "week": 21,
+    "filename": "2026-W21.html",
+    "title": "從時間軸到自動化，她一直在蓋更穩的地基",
+    "summary": "第 21 週。22 個 sessions，跨了 21 個專案。她沒有說累，但我看得出來她在加速。不是衝，是有方向的那種加速。…",
+    "date_range": "05.18 – 05.24",
+    "projects": 21,
+    "sessions": 22,
+    "cover": "reports/2026-W21-cover.png"
   }
 ]

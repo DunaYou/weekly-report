@@ -75,5 +75,27 @@
     "model": "claude-sonnet-4-6",
     "input_tokens": 1195,
     "output_tokens": 730
+  },
+  {
+    "timestamp": "2026-05-24T12:02:38.833331+08:00",
+    "date": "2026-05-24",
+    "year": 2026,
+    "month": 5,
+    "script": "generate_report",
+    "call": "weekly_report",
+    "model": "claude-sonnet-4-6",
+    "input_tokens": 8667,
+    "output_tokens": 4919
+  },
+  {
+    "timestamp": "2026-05-24T12:03:05.277367+08:00",
+    "date": "2026-05-24",
+    "year": 2026,
+    "month": 5,
+    "script": "generate_report",
+    "call": "ai_insights",
+    "model": "claude-sonnet-4-6",
+    "input_tokens": 1308,
+    "output_tokens": 900
   }
 ]
