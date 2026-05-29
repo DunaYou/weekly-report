@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Threads 觀察 2026-05-29 · 游泰仁</title>
+<style>
+
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+TC:wght@300;400;500&display=swap');
+  :root{--ink:#1a1a1a;--accent:#1F362C;--bg:#f6f9f7;--border:#dde7e2;--card:#ffffff;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--bg);color:var(--ink);font-family:'Noto Sans TC',sans-serif;font-weight:300;min-height:100vh;}
+  .site-header{background:var(--ink);color:#fff;padding:36px 24px 32px;text-align:center;}
+  .site-header .blog-name{font-family:'Noto Serif TC',serif;font-size:clamp(20px,4vw,28px);font-weight:700;margin-bottom:8px;}
+  .site-header .blog-desc{font-size:13px;opacity:.45;letter-spacing:.08em;}
+  .top-nav{background:#1a2a23;padding:10px 24px;display:flex;align-items:center;gap:12px;}
+  .top-nav a{color:#7ecba1;font-size:13px;text-decoration:none;}
+  .top-nav .sep{color:#3d5248;font-size:12px;}
+  .layout{max-width:980px;margin:0 auto;padding:40px 24px 80px;display:grid;grid-template-columns:1fr 240px;gap:40px;align-items:start;}
+  @media(max-width:720px){.layout{grid-template-columns:1fr;}.sidebar{order:-1;}}
+  .section-label{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#7d8c87;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border);}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:24px;}
+  .post-card{margin-bottom:16px;}
+  .sidebar{position:sticky;top:24px;}
+  .sidebar-section{margin-bottom:28px;}
+  .sidebar-title{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#7d8c87;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+  .sidebar-links{list-style:none;}
+  .sidebar-links li{margin-bottom:2px;}
+  .sidebar-links a{display:flex;align-items:center;gap:8px;text-decoration:none;color:#444;font-size:13px;padding:5px 8px;border-radius:4px;transition:background .12s;}
+  .sidebar-links a:hover{background:#ebf2ee;}
+  .day-badge{font-size:10px;color:var(--accent);font-weight:500;min-width:40px;}
+  .archive-card{display:block;text-decoration:none;color:inherit;border:1px solid var(--border);border-radius:6px;padding:16px 18px;margin-bottom:10px;background:#fff;transition:background .15s;}
+  .archive-card:hover{background:#ebf2ee;}
+  .archive-card .ac-date{font-size:11px;color:#7d8c87;margin-bottom:4px;}
+  .archive-card .ac-title{font-size:14px;font-weight:500;color:#1F362C;}
+  .site-footer{border-top:1px solid var(--border);padding:20px;text-align:center;font-size:12px;color:#7d8c87;}
+
+  .main{max-width:760px;margin:0 auto;padding:40px 24px 80px;}
+  .page-title{font-family:'Noto Serif TC',serif;font-size:24px;font-weight:700;margin-bottom:6px;}
+  .page-sub{font-size:13px;color:#7d8c87;margin-bottom:28px;}
+</style>
+</head>
+<body>
+<div class="top-nav">
+  <a href="../">← 泰仁週報首頁</a>
+  <span class="sep">›</span>
+  <a href="./">Threads 每日觀察</a>
+</div>
+<div class="main">
+  <div class="page-title">Threads 觀察 · 05/29</div>
+  <div class="page-sub">從 19 個關鍵字精選 15 篇</div>
+  <div class="section-label">統整分析</div>
+  
+<div class="card" style="margin-bottom:20px;">
+  <div class="section-label">今日統計</div>
+  <div style="display:flex;gap:28px;margin-bottom:16px;flex-wrap:wrap;">
+    <div><div style="font-size:32px;font-weight:700;color:#1F362C;">15</div><div style="font-size:11px;color:#7d8c87;">精選篇數</div></div>
+    <div><div style="font-size:32px;font-weight:700;color:#1F362C;">97</div><div style="font-size:11px;color:#7d8c87;">原始抓取</div></div>
+    <div><div style="font-size:32px;font-weight:700;color:#1F362C;">10</div><div style="font-size:11px;color:#7d8c87;">關鍵字覆蓋</div></div>
+  </div>
+  <div style="margin-bottom:8px;font-size:11px;font-weight:600;color:#7d8c87;text-transform:uppercase;letter-spacing:.1em;">身份分佈</div>
+  <div style="margin-bottom:10px;"><span style="display:inline-block;background:#e8f5ee;border:1px solid #b2d8c4;border-radius:20px;padding:3px 10px;font-size:12px;color:#1F362C;margin:2px;">醫師 <strong>8</strong></span> <span style="display:inline-block;background:#e8f5ee;border:1px solid #b2d8c4;border-radius:20px;padding:3px 10px;font-size:12px;color:#1F362C;margin:2px;">一般人 <strong>4</strong></span> <span style="display:inline-block;background:#e8f5ee;border:1px solid #b2d8c4;border-radius:20px;padding:3px 10px;font-size:12px;color:#1F362C;margin:2px;">律師 <strong>3</strong></span></div>
+  <div style="font-size:11px;color:#7d8c87;">熱門關鍵字：診所經營（4） · 醫療糾紛（2） · 律師日常（2） · 節稅（1） · 律師（1） · 診所開業（1） · 勞基法（1） · 勞資糾紛（1）</div>
+</div>
+<div class="card" style="margin-bottom:20px;"><div style="margin-bottom:10px;"><div style="font-size:11px;font-weight:600;color:#1F362C;margin-bottom:4px;">🔥 今日熱門主題</div><div style="font-size:13px;color:#333;">診所開業現金流恐懼、醫療糾紛與醫師權益焦慮、勞資法律灰色地帶（含診所員工關係）</div></div><div style="margin-bottom:10px;"><div style="font-size:11px;font-weight:600;color:#1F362C;margin-bottom:4px;">🕐 最佳發文時段</div><div style="font-size:13px;color:#333;">高讚帖子集中在17:00-20:00（帖子50、51、52、60讚數皆高），建議每日主力貼文排在下午5點到7點之間發出。</div></div><div style="margin-bottom:10px;"><div style="font-size:11px;font-weight:600;color:#1F362C;margin-bottom:4px;">🎯 帳號發文建議</div><div style="font-size:13px;color:#333;">律師帳號本週優先發「醫療糾紛被告前你需要做的三件事」，用懸念故事格式開頭；財務顧問帳號發「診所開業第一年現金流怎麼規劃」，用具體數字拆解；診所顧問帳號發「我問過100位院長，他們最怕的不是競爭是這個」，建立懂醫師的人設。</div></div><div><div style="font-size:11px;font-weight:600;color:#1F362C;margin-bottom:4px;">⚡ 明天就能複製</div><div style="font-size:13px;color:#333;">明天複製@alanwulaw格式：用「有一個字讓我整個人僵在那裡」當開頭，換成診所場景（例如：「有一份合約讓我整個人冷掉」），結尾用道德抉擇收尾。</div></div></div>
+
+<div class="card" style="margin-bottom:20px;padding:0;overflow:hidden;">
+  <div style="padding:14px 20px;border-bottom:1px solid #dde7e2;">
+    <span style="font-size:11px;font-weight:600;letter-spacing:.1em;color:#7d8c87;text-transform:uppercase;">發文時段 × 平均讚數</span>
+  </div>
+  <table style="width:100%;border-collapse:collapse;">
+    <thead><tr style="background:#f6f9f7;">
+      <th style="padding:8px 12px;text-align:left;font-size:10px;color:#7d8c87;font-weight:500;">時段</th>
+      <th style="padding:8px 12px;text-align:left;font-size:10px;color:#7d8c87;font-weight:500;">帖數</th>
+      <th style="padding:8px 12px;text-align:left;font-size:10px;color:#7d8c87;font-weight:500;">平均讚數</th>
+      <th style="padding:8px 12px;text-align:left;font-size:10px;color:#7d8c87;font-weight:500;"></th>
+    </tr></thead>
+    <tbody><tr><td style="padding:7px 12px;white-space:nowrap;"><span style="font-size:12px;color:#333;">早晨</span><span style="font-size:10px;color:#bbb;margin-left:5px;">06–09</span></td><td style="padding:7px 12px;font-size:12px;color:#7d8c87;">1 篇</td><td style="padding:7px 12px;"><div style="background:#1F362C;height:10px;border-radius:3px;width:34%;min-width:4px;"></div></td><td style="padding:7px 12px;font-size:12px;color:#1F362C;font-weight:600;">1204.0</td></tr><tr><td style="padding:7px 12px;white-space:nowrap;"><span style="font-size:12px;color:#333;">上午</span><span style="font-size:10px;color:#bbb;margin-left:5px;">09–12</span></td><td style="padding:7px 12px;font-size:12px;color:#7d8c87;">3 篇</td><td style="padding:7px 12px;"><div style="background:#1F362C;height:10px;border-radius:3px;width:80%;min-width:4px;"></div></td><td style="padding:7px 12px;font-size:12px;color:#1F362C;font-weight:600;">2824.0</td></tr><tr><td style="padding:7px 12px;white-space:nowrap;"><span style="font-size:12px;color:#333;">午後</span><span style="font-size:10px;color:#bbb;margin-left:5px;">12–15</span></td><td style="padding:7px 12px;font-size:12px;color:#7d8c87;">5 篇</td><td style="padding:7px 12px;"><div style="background:#1F362C;height:10px;border-radius:3px;width:19%;min-width:4px;"></div></td><td style="padding:7px 12px;font-size:12px;color:#1F362C;font-weight:600;">683.4</td></tr><tr><td style="padding:7px 12px;white-space:nowrap;"><span style="font-size:12px;color:#333;">下午</span><span style="font-size:10px;color:#bbb;margin-left:5px;">15–18</span></td><td style="padding:7px 12px;font-size:12px;color:#7d8c87;">3 篇</td><td style="padding:7px 12px;"><div style="background:#1F362C;height:10px;border-radius:3px;width:8%;min-width:4px;"></div></td><td style="padding:7px 12px;font-size:12px;color:#1F362C;font-weight:600;">286.0</td></tr><tr><td style="padding:7px 12px;white-space:nowrap;"><span style="font-size:12px;color:#333;">晚間</span><span style="font-size:10px;color:#bbb;margin-left:5px;">18–22</span></td><td style="padding:7px 12px;font-size:12px;color:#7d8c87;">2 篇</td><td style="padding:7px 12px;"><div style="background:#1F362C;height:10px;border-radius:3px;width:9%;min-width:4px;"></div></td><td style="padding:7px 12px;font-size:12px;color:#1F362C;font-weight:600;">333.0</td></tr><tr><td style="padding:7px 12px;white-space:nowrap;"><span style="font-size:12px;color:#333;">深夜</span><span style="font-size:10px;color:#bbb;margin-left:5px;">22–06</span></td><td style="padding:7px 12px;font-size:12px;color:#7d8c87;">1 篇</td><td style="padding:7px 12px;"><div style="background:#1F362C;height:10px;border-radius:3px;width:4%;min-width:4px;"></div></td><td style="padding:7px 12px;font-size:12px;color:#1F362C;font-weight:600;">35.0</td></tr></tbody>
+  </table>
+</div>
+<div class="card" style="margin-bottom:32px;padding:0;overflow:hidden;">
+  <div style="padding:14px 20px;border-bottom:1px solid #dde7e2;">
+    <span style="font-size:11px;font-weight:600;letter-spacing:.1em;color:#7d8c87;text-transform:uppercase;">快速總覽</span>
+  </div>
+  <div style="overflow-x:auto;">
+  <table style="width:100%;border-collapse:collapse;font-family:inherit;">
+    <thead><tr style="background:#f6f9f7;">
+      <th style="padding:10px 12px;text-align:left;font-size:11px;color:#7d8c87;font-weight:500;">#</th>
+      <th style="padding:10px 12px;text-align:left;font-size:11px;color:#7d8c87;font-weight:500;">關鍵字</th>
+      <th style="padding:10px 12px;text-align:left;font-size:11px;color:#7d8c87;font-weight:500;">身份</th>
+      <th style="padding:10px 12px;text-align:left;font-size:11px;color:#7d8c87;font-weight:500;">標題</th>
+      <th style="padding:10px 12px;text-align:left;font-size:11px;color:#7d8c87;font-weight:500;">策略學習點</th>
+    </tr></thead>
+    <tbody><tr style="border-bottom:1px solid #f0f4f2;"><td style="padding:9px 12px;text-align:center;color:#1F362C;font-weight:600;white-space:nowrap;">#1</td><td style="padding:9px 12px;"><span style="background:#f0faf4;border-radius:3px;padding:2px 6px;font-size:11px;">#醫療糾紛</span></td><td style="padding:9px 12px;font-size:12px;color:#555;white-space:nowrap;">醫師</td><td style="padding:9px 12px;font-size:12px;color:#333;">醫療糾紛告的是活著的家屬</td><td style="padding:9px 12px;font-size:12px;color:#3d6b57;">用一句令人僵住的話當開頭，引發醫師恐懼共鳴，律師帳號直接引用此句延伸「你有沒有準備好被告」</td></tr><tr style="background:#fafcfb;border-bottom:1px solid #f0f4f2;"><td style="padding:9px 12px;text-align:center;color:#1F362C;font-weight:600;white-space:nowrap;">#2</td><td style="padding:9px 12px;"><span style="background:#f0faf4;border-radius:3px;padding:2px 6px;font-size:11px;">#節稅</span></td><td style="padding:9px 12px;font-size:12px;color:#555;white-space:nowrap;">醫師</td><td style="padding:9px 12px;font-size:12px;color:#333;">牙醫聽完財務講座只想做醫美</td><td style="padding:9px 12px;font-size:12px;color:#3d6b57;">用醫師親口說「我賺太少不值得被煩惱」來踩痛點，財務顧問帳號可以反轉這句話做開頭引流</td></tr><tr style="border-bottom:1px solid #f0f4f2;"><td style="padding:9px 12px;text-align:center;color:#1F362C;font-weight:600;white-space:nowrap;">#3</td><td style="padding:9px 12px;"><span style="background:#f0faf4;border-radius:3px;padding:2px 6px;font-size:11px;">#診所經營</span></td><td style="padding:9px 12px;font-size:12px;color:#555;white-space:nowrap;">醫師</td><td style="padding:9px 12px;font-size:12px;color:#333;">診所醫師想開業被老婆打槍</td><td style="padding:9px 12px;font-size:12px;color:#3d6b57;">用「老婆說你不適合當老闆」這種家庭對話場景做情緒切入，財務顧問帳號可複製此格式談開業成本現實</td></tr><tr style="background:#fafcfb;border-bottom:1px solid #f0f4f2;"><td style="padding:9px 12px;text-align:center;color:#1F362C;font-weight:600;white-space:nowrap;">#4</td><td style="padding:9px 12px;"><span style="background:#f0faf4;border-radius:3px;padding:2px 6px;font-size:11px;">#診所經營</span></td><td style="padding:9px 12px;font-size:12px;color:#555;white-space:nowrap;">醫師</td><td style="padding:9px 12px;font-size:12px;color:#333;">醫美診所200萬才損益兩平</td><td style="padding:9px 12px;font-size:12px;color:#3d6b57;">用具體數字拆解成本結構（耗材30%+技術費25%+業務10%），會計師帳號可複製此格式做診所財務健檢科普</td></tr><tr style="border-bottom:1px solid #f0f4f2;"><td style="padding:9px 12px;text-align:center;color:#1F362C;font-weight:600;white-space:nowrap;">#5</td><td style="padding:9px 12px;"><span style="background:#f0faf4;border-radius:3px;padding:2px 6px;font-size:11px;">#診所經營</span></td><td style="padding:9px 12px;font-size:12px;color:#555;white-space:nowrap;">醫師</td><td style="padding:9px 12px;font-size:12px;color:#333;">中醫開業咖啡小聚揪人交流</td><td style="padding:9px 12px;font-size:12px;color:#3d6b57;">用「健保申報、勞資、稅務、業績，沒人能問」踩出開業醫師孤立無援的痛點，可直接用此描述做我們帳號的定位宣言</td></tr><tr style="background:#fafcfb;border-bottom:1px solid #f0f4f2;"><td style="padding:9px 12px;text-align:center;color:#1F362C;font-weight:600;white-space:nowrap;">#6</td><td style="padding:9px 12px;"><span style="background:#f0faf4;border-radius:3px;padding:2px 6px;font-size:11px;">#診所經營</span></td><td style="padding:9px 12px;font-size:12px;color:#555;white-space:nowrap;">醫師</td><td style="padding:9px 12px;font-size:12px;color:#333;">新診所沒生意燒的都是錢</td><td style="padding:9px 12px;font-size:12px;color:#3d6b57;">「沒生意時燒的都是錢」這句話直接點出草創期現金流焦慮，財務顧問帳號用此做標題發開業前現金流規劃貼文</td></tr><tr style="border-bottom:1px solid #f0f4f2;"><td style="padding:9px 12px;text-align:center;color:#1F362C;font-weight:600;white-space:nowrap;">#7</td><td style="padding:9px 12px;"><span style="background:#f0faf4;border-radius:3px;padding:2px 6px;font-size:11px;">#律師</span></td><td style="padding:9px 12px;font-size:12px;color:#555;white-space:nowrap;">律師</td><td style="padding:9px 12px;font-size:12px;color:#333;">律師拒絕器官販賣主謀辯護</td><td style="padding:9px 12px;font-size:12px;color:#3d6b57;">用「有一個字讓我整個人僵在那裡」製造懸念開頭，律師帳號可複製此格式談「接過最讓我不安的醫糾案」</td></tr><tr style="background:#fafcfb;border-bottom:1px solid #f0f4f2;"><td style="padding:9px 12px;text-align:center;color:#1F362C;font-weight:600;white-space:nowrap;">#8</td><td style="padding:9px 12px;"><span style="background:#f0faf4;border-radius:3px;padding:2px 6px;font-size:11px;">#律師日常</span></td><td style="padding:9px 12px;font-size:12px;color:#555;white-space:nowrap;">律師</td><td style="padding:9px 12px;font-size:12px;color:#333;">律師忘帶法袍開庭對手也沒帶</td><td style="padding:9px 12px;font-size:12px;color:#3d6b57;">用對話劇本格式（emoji分角色）寫職場小故事，讓讀者有追劇感，律師帳號可複製此格式寫診所勞資調解現場</td></tr><tr style="border-bottom:1px solid #f0f4f2;"><td style="padding:9px 12px;text-align:center;color:#1F362C;font-weight:600;white-space:nowrap;">#9</td><td style="padding:9px 12px;"><span style="background:#f0faf4;border-radius:3px;padding:2px 6px;font-size:11px;">#律師日常</span></td><td style="padding:9px 12px;font-size:12px;color:#555;white-space:nowrap;">律師</td><td style="padding:9px 12px;font-size:12px;color:#333;">法扶備註親和律師讓人暖心</td><td style="padding:9px 12px;font-size:12px;color:#3d6b57;">用溫度感的小細節（備註欄寫「親和的律師」）結尾，讓帳號形象從「專業」升級為「懂人心」，適合律師帳號建立信任感</td></tr><tr style="background:#fafcfb;border-bottom:1px solid #f0f4f2;"><td style="padding:9px 12px;text-align:center;color:#1F362C;font-weight:600;white-space:nowrap;">#10</td><td style="padding:9px 12px;"><span style="background:#f0faf4;border-radius:3px;padding:2px 6px;font-size:11px;">#診所開業</span></td><td style="padding:9px 12px;font-size:12px;color:#555;white-space:nowrap;">醫師</td><td style="padding:9px 12px;font-size:12px;color:#333;">基層診所開業生存率有研究數據</td><td style="padding:9px 12px;font-size:12px;color:#3d6b57;">用「明明有研究數據還被說唬爛」製造憤慨感，診所顧問帳號可直接發「診所開業3年存活率是多少」數據貼文引爭議</td></tr><tr style="border-bottom:1px solid #f0f4f2;"><td style="padding:9px 12px;text-align:center;color:#1F362C;font-weight:600;white-space:nowrap;">#11</td><td style="padding:9px 12px;"><span style="background:#f0faf4;border-radius:3px;padding:2px 6px;font-size:11px;">#醫療糾紛</span></td><td style="padding:9px 12px;font-size:12px;color:#555;white-space:nowrap;">醫師</td><td style="padding:9px 12px;font-size:12px;color:#333;">醫師的權利誰來保障</td><td style="padding:9px 12px;font-size:12px;color:#3d6b57;">用反問句「醫師的權利誰來保障」引發醫師群體共鳴，律師帳號接這個問句做「三種醫師最常被忽視的法律權利」</td></tr><tr style="background:#fafcfb;border-bottom:1px solid #f0f4f2;"><td style="padding:9px 12px;text-align:center;color:#1F362C;font-weight:600;white-space:nowrap;">#12</td><td style="padding:9px 12px;"><span style="background:#f0faf4;border-radius:3px;padding:2px 6px;font-size:11px;">#勞基法</span></td><td style="padding:9px 12px;font-size:12px;color:#555;white-space:nowrap;">一般人</td><td style="padding:9px 12px;font-size:12px;color:#333;">檢舉公司違法會被查出是誰嗎</td><td style="padding:9px 12px;font-size:12px;color:#3d6b57;">用員工視角的法律恐懼問題（檢舉人身份會曝光嗎）來帶流量，律師帳號可翻面做「院長角度：員工檢舉你會怎樣」</td></tr><tr style="border-bottom:1px solid #f0f4f2;"><td style="padding:9px 12px;text-align:center;color:#1F362C;font-weight:600;white-space:nowrap;">#13</td><td style="padding:9px 12px;"><span style="background:#f0faf4;border-radius:3px;padding:2px 6px;font-size:11px;">#勞資糾紛</span></td><td style="padding:9px 12px;font-size:12px;color:#555;white-space:nowrap;">一般人</td><td style="padding:9px 12px;font-size:12px;color:#333;">申請加班費被拒隔天就被資遣</td><td style="padding:9px 12px;font-size:12px;color:#3d6b57;">用「老闆說他有律師所以不會出庭」這個具體細節，律師帳號可發「對方說有律師就能嚇倒你？先看這個」反直覺貼文</td></tr><tr style="background:#fafcfb;border-bottom:1px solid #f0f4f2;"><td style="padding:9px 12px;text-align:center;color:#1F362C;font-weight:600;white-space:nowrap;">#14</td><td style="padding:9px 12px;"><span style="background:#f0faf4;border-radius:3px;padding:2px 6px;font-size:11px;">#診所日常</span></td><td style="padding:9px 12px;font-size:12px;color:#555;white-space:nowrap;">一般人</td><td style="padding:9px 12px;font-size:12px;color:#333;">媽媽叫孩子不用撿診所會掃</td><td style="padding:9px 12px;font-size:12px;color:#3d6b57;">用具體場景＋情緒壓抑的結尾（只撿了腳邊兩顆）做共鳴，診所顧問帳號可借此格式談「診所員工離職最常見的真實原因」</td></tr><tr style="border-bottom:1px solid #f0f4f2;"><td style="padding:9px 12px;text-align:center;color:#1F362C;font-weight:600;white-space:nowrap;">#15</td><td style="padding:9px 12px;"><span style="background:#f0faf4;border-radius:3px;padding:2px 6px;font-size:11px;">#診所行銷</span></td><td style="padding:9px 12px;font-size:12px;color:#555;white-space:nowrap;">一般人</td><td style="padding:9px 12px;font-size:12px;color:#333;">行銷公司開口先問預算讓人不信任</td><td style="padding:9px 12px;font-size:12px;color:#3d6b57;">用「第一句話先問預算讓我覺得你只想賺我錢」做反面教材，診所顧問帳號可發「我們第一次見院長從不問預算」建立信任差異化</td></tr></tbody>
+  </table>
+  </div>
+</div>
+  
+<div class="card" style="margin-bottom:20px;padding:0;overflow:hidden;">
+  <div style="padding:14px 20px;border-bottom:1px solid #dde7e2;display:flex;align-items:center;gap:10px;">
+    <span style="font-size:11px;font-weight:600;letter-spacing:.1em;color:#7d8c87;text-transform:uppercase;">🔁 重複出現帳號 · 重點研究對象</span>
+    <span style="background:#1F362C;color:#fff;font-size:10px;padding:2px 7px;border-radius:2px;">67 個帳號</span>
+  </div>
+  <div style="overflow-x:auto;">
+  <table style="width:100%;border-collapse:collapse;font-family:inherit;">
+    <thead><tr style="background:#f6f9f7;">
+      <th style="padding:8px 12px;text-align:left;font-size:10px;color:#7d8c87;font-weight:500;">帳號</th>
+      <th style="padding:8px 12px;text-align:left;font-size:10px;color:#7d8c87;font-weight:500;">身份</th>
+      <th style="padding:8px 12px;text-align:left;font-size:10px;color:#7d8c87;font-weight:500;">相關關鍵字</th>
+      <th style="padding:8px 12px;text-align:left;font-size:10px;color:#7d8c87;font-weight:500;">最近出現</th>
+    </tr></thead>
+    <tbody><tr style="border-bottom:1px solid #f0f4f2;"><td style="padding:9px 12px;">  <a href="https://www.threads.com/@huangrh1980" target="_blank" style="color:#1F362C;font-weight:600;text-decoration:none;">@huangrh1980</a> <span style="background:#c8e6c9;color:#1F362C;font-size:10px;padding:1px 6px;border-radius:10px;font-weight:600;">9 次</span></td><td style="padding:9px 12px;font-size:12px;color:#555;">醫師 / 診所顧問</td><td style="padding:9px 12px;font-size:12px;color:#7d8c87;">診所開業</td><td style="padding:9px 12px;font-size:11px;color:#aaa;">2026-05-26 · 2026-05-28 · 2026-05-29</td></tr><tr style="border-bottom:1px solid #f0f4f2;"><td style="padding:9px 12px;">  <a href="https://www.threads.com/@lawkibuffalo" target="_blank" style="color:#1F362C;font-weight:600;text-decoration:none;">@lawkibuffalo</a> <span style="background:#c8e6c9;color:#1F362C;font-size:10px;padding:1px 6px;border-radius:10px;font-weight:600;">8 次</span></td><td style="padding:9px 12px;font-size:12px;color:#555;">律師 / 一般人</td><td style="padding:9px 12px;font-size:12px;color:#7d8c87;">勞基法</td><td style="padding:9px 12px;font-size:11px;color:#aaa;">2026-05-14 · 2026-05-16 · 2026-05-25</td></tr><tr style="border-bottom:1px solid #f0f4f2;"><td style="padding:9px 12px;">  <a href="https://www.threads.com/@lifedr.188" target="_blank" style="color:#1F362C;font-weight:600;text-decoration:none;">@lifedr.188</a> <span style="background:#c8e6c9;color:#1F362C;font-size:10px;padding:1px 6px;border-radius:10px;font-weight:600;">8 次</span></td><td style="padding:9px 12px;font-size:12px;color:#555;">醫師</td><td style="padding:9px 12px;font-size:12px;color:#7d8c87;">診所開業 · 診所經營 · 診所</td><td style="padding:9px 12px;font-size:11px;color:#aaa;">2026-05-24 · 2026-05-28 · 2026-05-29</td></tr><tr style="border-bottom:1px solid #f0f4f2;"><td style="padding:9px 12px;">  <a href="https://www.threads.com/@dr.kylederma" target="_blank" style="color:#1F362C;font-weight:600;text-decoration:none;">@dr.kylederma</a> <span style="background:#c8e6c9;color:#1F362C;font-size:10px;padding:1px 6px;border-radius:10px;font-weight:600;">6 次</span></td><td style="padding:9px 12px;font-size:12px;color:#555;">醫師</td><td style="padding:9px 12px;font-size:12px;color:#7d8c87;">診所行銷 · 診所經營</td><td style="padding:9px 12px;font-size:11px;color:#aaa;">2026-05-13 · 2026-05-23 · 2026-05-26</td></tr><tr style="border-bottom:1px solid #f0f4f2;"><td style="padding:9px 12px;">  <a href="https://www.threads.com/@deng_tist" target="_blank" style="color:#1F362C;font-weight:600;text-decoration:none;">@deng_tist</a> <span style="background:#c8e6c9;color:#1F362C;font-size:10px;padding:1px 6px;border-radius:10px;font-weight:600;">6 次</span></td><td style="padding:9px 12px;font-size:12px;color:#555;">醫師</td><td style="padding:9px 12px;font-size:12px;color:#7d8c87;">節稅</td><td style="padding:9px 12px;font-size:11px;color:#aaa;">2026-05-25 · 2026-05-28 · 2026-05-29</td></tr><tr style="border-bottom:1px solid #f0f4f2;"><td style="padding:9px 12px;">  <a href="https://www.threads.com/@aiajeremy" target="_blank" style="color:#1F362C;font-weight:600;text-decoration:none;">@aiajeremy</a> <span style="background:#c8e6c9;color:#1F362C;font-size:10px;padding:1px 6px;border-radius:10px;font-weight:600;">5 次</span></td><td style="padding:9px 12px;font-size:12px;color:#555;">診所顧問</td><td style="padding:9px 12px;font-size:12px;color:#7d8c87;">診所經營</td><td style="padding:9px 12px;font-size:11px;color:#aaa;">2026-05-11 · 2026-05-12 · 2026-05-16</td></tr><tr style="border-bottom:1px solid #f0f4f2;"><td style="padding:9px 12px;">  <a href="https://www.threads.com/@mountaineering.dentist" target="_blank" style="color:#1F362C;font-weight:600;text-decoration:none;">@mountaineering.dentist</a> <span style="background:#c8e6c9;color:#1F362C;font-size:10px;padding:1px 6px;border-radius:10px;font-weight:600;">5 次</span></td><td style="padding:9px 12px;font-size:12px;color:#555;">醫師</td><td style="padding:9px 12px;font-size:12px;color:#7d8c87;">診所開業</td><td style="padding:9px 12px;font-size:11px;color:#aaa;">2026-05-21 · 2026-05-22 · 2026-05-28</td></tr><tr style="border-bottom:1px solid #f0f4f2;"><td style="padding:9px 12px;">  <a href="https://www.threads.com/@can_hsiang" target="_blank" style="color:#1F362C;font-weight:600;text-decoration:none;">@can_hsiang</a> <span style="background:#c8e6c9;color:#1F362C;font-size:10px;padding:1px 6px;border-radius:10px;font-weight:600;">5 次</span></td><td style="padding:9px 12px;font-size:12px;color:#555;">一般人</td><td style="padding:9px 12px;font-size:12px;color:#7d8c87;">醫療糾紛</td><td style="padding:9px 12px;font-size:11px;color:#aaa;">2026-05-19 · 2026-05-20 · 2026-05-21</td></tr><tr style="border-bottom:1px solid #f0f4f2;"><td style="padding:9px 12px;">  <a href="https://www.threads.com/@0606linda" target="_blank" style="color:#1F362C;font-weight:600;text-decoration:none;">@0606linda</a> <span style="background:#c8e6c9;color:#1F362C;font-size:10px;padding:1px 6px;border-radius:10px;font-weight:600;">5 次</span></td><td style="padding:9px 12px;font-size:12px;color:#555;">一般人 / 診所顧問</td><td style="padding:9px 12px;font-size:12px;color:#7d8c87;">診所經營</td><td style="padding:9px 12px;font-size:11px;color:#aaa;">2026-05-21 · 2026-05-23 · 2026-05-28</td></tr><tr style="border-bottom:1px solid #f0f4f2;"><td style="padding:9px 12px;">  <a href="https://www.threads.com/@markleecanhelp" target="_blank" style="color:#1F362C;font-weight:600;text-decoration:none;">@markleecanhelp</a> <span style="background:#c8e6c9;color:#1F362C;font-size:10px;padding:1px 6px;border-radius:10px;font-weight:600;">4 次</span></td><td style="padding:9px 12px;font-size:12px;color:#555;">律師</td><td style="padding:9px 12px;font-size:12px;color:#7d8c87;">律師</td><td style="padding:9px 12px;font-size:11px;color:#aaa;">2026-05-12 · 2026-05-13 · 2026-05-14</td></tr><tr style="border-bottom:1px solid #f0f4f2;"><td style="padding:9px 12px;">  <a href="https://www.threads.com/@della521521" target="_blank" style="color:#1F362C;font-weight:600;text-decoration:none;">@della521521</a> <span style="background:#c8e6c9;color:#1F362C;font-size:10px;padding:1px 6px;border-radius:10px;font-weight:600;">4 次</span></td><td style="padding:9px 12px;font-size:12px;color:#555;">一般人</td><td style="padding:9px 12px;font-size:12px;color:#7d8c87;">會計師日常 · 會計師</td><td style="padding:9px 12px;font-size:11px;color:#aaa;">2026-05-12 · 2026-05-13 · 2026-05-14</td></tr><tr style="border-bottom:1px solid #f0f4f2;"><td style="padding:9px 12px;">  <a href="https://www.threads.com/@chuangstella" target="_blank" style="color:#1F362C;font-weight:600;text-decoration:none;">@chuangstella</a> <span style="background:#c8e6c9;color:#1F362C;font-size:10px;padding:1px 6px;border-radius:10px;font-weight:600;">4 次</span></td><td style="padding:9px 12px;font-size:12px;color:#555;">一般人</td><td style="padding:9px 12px;font-size:12px;color:#7d8c87;">診所日常 · 診所經營 · 診所開業</td><td style="padding:9px 12px;font-size:11px;color:#aaa;">2026-05-15 · 2026-05-16 · 2026-05-19</td></tr><tr style="border-bottom:1px solid #f0f4f2;"><td style="padding:9px 12px;">  <a href="https://www.threads.com/@aidea.med" target="_blank" style="color:#1F362C;font-weight:600;text-decoration:none;">@aidea.med</a> <span style="background:#c8e6c9;color:#1F362C;font-size:10px;padding:1px 6px;border-radius:10px;font-weight:600;">4 次</span></td><td style="padding:9px 12px;font-size:12px;color:#555;">診所顧問</td><td style="padding:9px 12px;font-size:12px;color:#7d8c87;">診所開業 · 診所經營</td><td style="padding:9px 12px;font-size:11px;color:#aaa;">2026-05-17 · 2026-05-18 · 2026-05-23</td></tr><tr style="border-bottom:1px solid #f0f4f2;"><td style="padding:9px 12px;">  <a href="https://www.threads.com/@bboo_qqion" target="_blank" style="color:#1F362C;font-weight:600;text-decoration:none;">@bboo_qqion</a> <span style="background:#c8e6c9;color:#1F362C;font-size:10px;padding:1px 6px;border-radius:10px;font-weight:600;">4 次</span></td><td style="padding:9px 12px;font-size:12px;color:#555;">一般人</td><td style="padding:9px 12px;font-size:12px;color:#7d8c87;">診所日常</td><td style="padding:9px 12px;font-size:11px;color:#aaa;">2026-05-16 · 2026-05-19 · 2026-05-26</td></tr><tr style="border-bottom:1px solid #f0f4f2;"><td style="padding:9px 12px;">  <a href="https://www.threads.com/@iamcynthiachen" target="_blank" style="color:#1F362C;font-weight:600;text-decoration:none;">@iamcynthiachen</a> <span style="background:#c8e6c9;color:#1F362C;font-size:10px;padding:1px 6px;border-radius:10px;font-weight:600;">4 次</span></td><td style="padding:9px 12px;font-size:12px;color:#555;">律師</td><td style="padding:9px 12px;font-size:12px;color:#7d8c87;">醫療糾紛 · 律師日常</td><td style="padding:9px 12px;font-size:11px;color:#aaa;">2026-05-17 · 2026-05-19 · 2026-05-24</td></tr><tr style="border-bottom:1px solid #f0f4f2;"><td style="padding:9px 12px;">  <a href="https://www.threads.com/@lawyer_zizi" target="_blank" style="color:#1F362C;font-weight:600;text-decoration:none;">@lawyer_zizi</a> <span style="background:#c8e6c9;color:#1F362C;font-size:10px;padding:1px 6px;border-radius:10px;font-weight:600;">3 次</span></td><td style="padding:9px 12px;font-size:12px;color:#555;">律師</td><td style="padding:9px 12px;font-size:12px;color:#7d8c87;">律師 · 律師日常</td><td style="padding:9px 12px;font-size:11px;color:#aaa;">2026-05-09 · 2026-05-21 · 2026-05-26</td></tr><tr style="border-bottom:1px solid #f0f4f2;"><td style="padding:9px 12px;">  <a href="https://www.threads.com/@dr.tsen_vision" target="_blank" style="color:#1F362C;font-weight:600;text-decoration:none;">@dr.tsen_vision</a> <span style="background:#c8e6c9;color:#1F362C;font-size:10px;padding:1px 6px;border-radius:10px;font-weight:600;">3 次</span></td><td style="padding:9px 12px;font-size:12px;color:#555;">醫師</td><td style="padding:9px 12px;font-size:12px;color:#7d8c87;">醫師 · 診所 · 醫療行銷</td><td style="padding:9px 12px;font-size:11px;color:#aaa;">2026-05-09 · 2026-05-11 · 2026-05-12</td></tr><tr style="border-bottom:1px solid #f0f4f2;"><td style="padding:9px 12px;">  <a href="https://www.threads.com/@staraware_xinjian" target="_blank" style="color:#1F362C;font-weight:600;text-decoration:none;">@staraware_xinjian</a> <span style="background:#c8e6c9;color:#1F362C;font-size:10px;padding:1px 6px;border-radius:10px;font-weight:600;">3 次</span></td><td style="padding:9px 12px;font-size:12px;color:#555;">診所顧問 / 一般人</td><td style="padding:9px 12px;font-size:12px;color:#7d8c87;">診所經營 · 稅務規劃</td><td style="padding:9px 12px;font-size:11px;color:#aaa;">2026-05-09 · 2026-05-10 · 2026-05-12</td></tr><tr style="border-bottom:1px solid #f0f4f2;"><td style="padding:9px 12px;">  <a href="https://www.threads.com/@dr_lawbot" target="_blank" style="color:#1F362C;font-weight:600;text-decoration:none;">@dr_lawbot</a> <span style="background:#c8e6c9;color:#1F362C;font-size:10px;padding:1px 6px;border-radius:10px;font-weight:600;">3 次</span></td><td style="padding:9px 12px;font-size:12px;color:#555;">律師</td><td style="padding:9px 12px;font-size:12px;color:#7d8c87;">醫療糾紛</td><td style="padding:9px 12px;font-size:11px;color:#aaa;">2026-05-09 · 2026-05-10 · 2026-05-17</td></tr><tr style="border-bottom:1px solid #f0f4f2;"><td style="padding:9px 12px;">  <a href="https://www.threads.com/@kao_minheng" target="_blank" style="color:#1F362C;font-weight:600;text-decoration:none;">@kao_minheng</a> <span style="background:#c8e6c9;color:#1F362C;font-size:10px;padding:1px 6px;border-radius:10px;font-weight:600;">3 次</span></td><td style="padding:9px 12px;font-size:12px;color:#555;">醫師</td><td style="padding:9px 12px;font-size:12px;color:#7d8c87;">診所 · 診所開業 · 診所經營</td><td style="padding:9px 12px;font-size:11px;color:#aaa;">2026-05-09 · 2026-05-10 · 2026-05-15</td></tr></tbody>
+  </table>
+  </div>
+</div>
+  <div class="section-label">精選帖子</div>
+  
+<div class="card post-card">
+  <div style="font-size:11px;letter-spacing:.1em;color:#7d8c87;margin-bottom:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+    <span style="background:#1F362C;color:#fff;font-size:10px;padding:2px 7px;border-radius:2px;">#1</span>
+    <span>@yuchinchang</span>
+    <span style="color:#5a8a72;">#醫療糾紛</span>
+    <span style="color:#7d8c87;">🕐 20:01</span>
+    
+  </div>
+  <h2 style="font-family:'Noto Serif TC',serif;font-size:17px;font-weight:700;margin:8px 0;">醫療糾紛告的是活著的家屬</h2>
+  <p style="font-size:13px;color:#555;line-height:1.8;margin-bottom:12px;">yuchinchang 2024-8-25 不然脆來專門發黑暗文字好了 「出醫療糾紛的時候，會告你的不是死人，是活著的家屬」 這是我還是醫學生的時候，對於老師上課講過記憶最深的話。</p>
+  <div style="display:flex;gap:16px;font-size:12px;color:#7d8c87;margin-bottom:12px;">
+    <span>❤ 665</span>
+    <span>💬 19</span>
+    <span>↗ 9</span>
+  </div>
+  <div style="background:#f6f9f7;border-radius:6px;padding:12px;margin-bottom:10px;border-left:3px solid #1F362C;">
+    <div style="font-size:11px;font-weight:600;color:#1F362C;margin-bottom:4px;">🎯 策略學習點</div>
+    <div style="font-size:13px;color:#3d6b57;">用一句令人僵住的話當開頭，引發醫師恐懼共鳴，律師帳號直接引用此句延伸「你有沒有準備好被告」</div>
+  </div>
+  <div style="background:#e8f5ee;border-radius:6px;padding:12px;margin-bottom:10px;"><div style="font-size:11px;font-weight:600;color:#1F362C;margin-bottom:4px;">👤 身份觀察 · 醫師</div><div style="font-size:13px;color:#3d6b57;">醫師自發的恐懼金句天然帶流量，律師帳號優先接這個話題，用「你知道誰會告你嗎」做延伸開篇</div></div>
+  <a href="https://www.threads.com/@yuchinchang/post/C_F5azBygwI" target="_blank" style="display:inline-block;background:#1F362C;color:#fff;font-size:12px;padding:7px 16px;border-radius:4px;text-decoration:none;">查看原文 →</a>
+</div>
+<div class="card post-card">
+  <div style="font-size:11px;letter-spacing:.1em;color:#7d8c87;margin-bottom:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+    <span style="background:#1F362C;color:#fff;font-size:10px;padding:2px 7px;border-radius:2px;">#2</span>
+    <span>@deng_tist</span>
+    <span style="color:#5a8a72;">#節稅</span>
+    <span style="color:#7d8c87;">🕐 10:18</span>
+    <span style="background:#e67e22;color:#fff;font-size:10px;padding:2px 7px;border-radius:2px;">🔁 出現 5 次 · 首見 05-13</span>
+  </div>
+  <h2 style="font-family:'Noto Serif TC',serif;font-size:17px;font-weight:700;margin:8px 0;">牙醫聽完財務講座只想做醫美</h2>
+  <p style="font-size:13px;color:#555;line-height:1.8;margin-bottom:12px;">deng_tist 牙醫日常 2025-7-21 昨天受邀去聽了一場財務顧問公司的講座 內容涵蓋現金流、所得稅、節稅等 聽完我只有兩個念頭 1. 我賺太少，不值得他們煩惱 2. 錢拿去做醫美比較看得見成效 🙃</p>
+  <div style="display:flex;gap:16px;font-size:12px;color:#7d8c87;margin-bottom:12px;">
+    <span>❤ 126</span>
+    <span>💬 31</span>
+    <span>↗ 17</span>
+  </div>
+  <div style="background:#f6f9f7;border-radius:6px;padding:12px;margin-bottom:10px;border-left:3px solid #1F362C;">
+    <div style="font-size:11px;font-weight:600;color:#1F362C;margin-bottom:4px;">🎯 策略學習點</div>
+    <div style="font-size:13px;color:#3d6b57;">用醫師親口說「我賺太少不值得被煩惱」來踩痛點，財務顧問帳號可以反轉這句話做開頭引流</div>
+  </div>
+  <div style="background:#e8f5ee;border-radius:6px;padding:12px;margin-bottom:10px;"><div style="font-size:11px;font-weight:600;color:#1F362C;margin-bottom:4px;">👤 身份觀察 · 醫師</div><div style="font-size:13px;color:#3d6b57;">牙醫自嘲收入不夠格做財務規劃，說明醫師對財務顧問有距離感，財務顧問帳號優先發「其實你賺的比你想的更值得規劃」</div></div>
+  <a href="https://www.threads.com/@deng_tist/post/DMWlAddz4cP" target="_blank" style="display:inline-block;background:#1F362C;color:#fff;font-size:12px;padding:7px 16px;border-radius:4px;text-decoration:none;">查看原文 →</a>
+</div>
+<div class="card post-card">
+  <div style="font-size:11px;letter-spacing:.1em;color:#7d8c87;margin-bottom:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+    <span style="background:#1F362C;color:#fff;font-size:10px;padding:2px 7px;border-radius:2px;">#3</span>
+    <span>@ppeniss1982</span>
+    <span style="color:#5a8a72;">#診所經營</span>
+    <span style="color:#7d8c87;">🕐 09:27</span>
+    
+  </div>
+  <h2 style="font-family:'Noto Serif TC',serif;font-size:17px;font-weight:700;margin:8px 0;">診所醫師想開業被老婆打槍</h2>
+  <p style="font-size:13px;color:#555;line-height:1.8;margin-bottom:12px;">ppeniss1982 診所經營 2025-11-26 診所的老闆如果不是醫師，有時讓人心累心寒。 由於診所經營者並非醫療背景，其在管理理念與我個人的專業價值觀上存在一定落差。 一味追求利潤不是醫療的初衷。 不知道同業有沒有這種感覺🥲 想自己創業，但現在成本太高，競爭也很大。 昨天問老婆說：不然我自己來開診所，好嗎？ 老婆立馬打槍我：你不適合當老闆🤣</p>
+  <div style="display:flex;gap:16px;font-size:12px;color:#7d8c87;margin-bottom:12px;">
+    <span>❤ 302</span>
+    <span>💬 101</span>
+    <span>↗ 23</span>
+  </div>
+  <div style="background:#f6f9f7;border-radius:6px;padding:12px;margin-bottom:10px;border-left:3px solid #1F362C;">
+    <div style="font-size:11px;font-weight:600;color:#1F362C;margin-bottom:4px;">🎯 策略學習點</div>
+    <div style="font-size:13px;color:#3d6b57;">用「老婆說你不適合當老闆」這種家庭對話場景做情緒切入，財務顧問帳號可複製此格式談開業成本現實</div>
+  </div>
+  <div style="background:#e8f5ee;border-radius:6px;padding:12px;margin-bottom:10px;"><div style="font-size:11px;font-weight:600;color:#1F362C;margin-bottom:4px;">👤 身份觀察 · 醫師</div><div style="font-size:13px;color:#3d6b57;">醫師身份自述開業兩難情緒共鳴強，財務顧問帳號用「想開業但怕燒錢？先看這個」接這個話題效果最佳</div></div>
+  <a href="https://www.threads.com/@ppeniss1982/post/DRgE-pZEzao" target="_blank" style="display:inline-block;background:#1F362C;color:#fff;font-size:12px;padding:7px 16px;border-radius:4px;text-decoration:none;">查看原文 →</a>
+</div>
+<div class="card post-card">
+  <div style="font-size:11px;letter-spacing:.1em;color:#7d8c87;margin-bottom:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+    <span style="background:#1F362C;color:#fff;font-size:10px;padding:2px 7px;border-radius:2px;">#4</span>
+    <span>@dr.jeffyang</span>
+    <span style="color:#5a8a72;">#診所經營</span>
+    <span style="color:#7d8c87;">🕐 13:08</span>
+    
+  </div>
+  <h2 style="font-family:'Noto Serif TC',serif;font-size:17px;font-weight:700;margin:8px 0;">醫美診所200萬才損益兩平</h2>
+  <p style="font-size:13px;color:#555;line-height:1.8;margin-bottom:12px;">dr.jeffyang 醫師日常 2025-8-15 為什麼醫師們總說醫美診所不好經營 銷貨成本：耗材30%、醫師技術費25%、業務提成10% = 毛利35% 固定成本：租金、人事、機器攤提（粗估70萬/月） 營業額大概要200萬/月才能打平⋯⋯⋯ 那為什麼大家都說做醫美好賺呢？ 因為相對其他服務類產業來說 醫美診所的客單價高很多 比較容易衝高營業額～～</p>
+  <div style="display:flex;gap:16px;font-size:12px;color:#7d8c87;margin-bottom:12px;">
+    <span>❤ 197</span>
+    <span>💬 104</span>
+    <span>↗ 4</span>
+  </div>
+  <div style="background:#f6f9f7;border-radius:6px;padding:12px;margin-bottom:10px;border-left:3px solid #1F362C;">
+    <div style="font-size:11px;font-weight:600;color:#1F362C;margin-bottom:4px;">🎯 策略學習點</div>
+    <div style="font-size:13px;color:#3d6b57;">用具體數字拆解成本結構（耗材30%+技術費25%+業務10%），會計師帳號可複製此格式做診所財務健檢科普</div>
+  </div>
+  <div style="background:#e8f5ee;border-radius:6px;padding:12px;margin-bottom:10px;"><div style="font-size:11px;font-weight:600;color:#1F362C;margin-bottom:4px;">👤 身份觀察 · 醫師</div><div style="font-size:13px;color:#3d6b57;">醫師自己拆財務數字最有說服力，會計師帳號優先用同樣格式做「你的診所現金流健康嗎」系列</div></div>
+  <a href="https://www.threads.com/@dr.jeffyang/post/DNXQXUkSbRT" target="_blank" style="display:inline-block;background:#1F362C;color:#fff;font-size:12px;padding:7px 16px;border-radius:4px;text-decoration:none;">查看原文 →</a>
+</div>
+<div class="card post-card">
+  <div style="font-size:11px;letter-spacing:.1em;color:#7d8c87;margin-bottom:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+    <span style="background:#1F362C;color:#fff;font-size:10px;padding:2px 7px;border-radius:2px;">#5</span>
+    <span>@cmpengpa</span>
+    <span style="color:#5a8a72;">#診所經營</span>
+    <span style="color:#7d8c87;">🕐 22:34</span>
+    
+  </div>
+  <h2 style="font-family:'Noto Serif TC',serif;font-size:17px;font-weight:700;margin:8px 0;">中醫開業咖啡小聚揪人交流</h2>
+  <p style="font-size:13px;color:#555;line-height:1.8;margin-bottom:12px;">cmpengpa 3天 揪看看大家有沒有興趣。 回想當初自己開業，雖然業務幫了不少忙，但還真的很多事不知道能問誰。 健保申報、勞資關係、診所稅務、經營業績⋯難道初次開業沒背景的小中醫就要一路撞牆踩雷？ So，想來開一場【開業中醫咖啡小聚】☕️ 不聊學術、不業配。找間chill的咖啡店，純聊天交流。 時間：6/7（日）上午 地點：台中 低消飲料一杯、中醫師（含實習）限定、最多收6位。 已經開業想交流吐苦水、或準備開業的夥伴，歡迎私訊。 #中醫師 #中醫診所 #開業 #台中咖啡廳 #小聚</p>
+  <div style="display:flex;gap:16px;font-size:12px;color:#7d8c87;margin-bottom:12px;">
+    <span>❤ 35</span>
+    <span>💬 8</span>
+    <span>↗ 9</span>
+  </div>
+  <div style="background:#f6f9f7;border-radius:6px;padding:12px;margin-bottom:10px;border-left:3px solid #1F362C;">
+    <div style="font-size:11px;font-weight:600;color:#1F362C;margin-bottom:4px;">🎯 策略學習點</div>
+    <div style="font-size:13px;color:#3d6b57;">用「健保申報、勞資、稅務、業績，沒人能問」踩出開業醫師孤立無援的痛點，可直接用此描述做我們帳號的定位宣言</div>
+  </div>
+  <div style="background:#e8f5ee;border-radius:6px;padding:12px;margin-bottom:10px;"><div style="font-size:11px;font-weight:600;color:#1F362C;margin-bottom:4px;">👤 身份觀察 · 醫師</div><div style="font-size:13px;color:#3d6b57;">中醫師自發揪團說明開業醫師強烈需要同儕與顧問支持，診所顧問帳號優先用「開業第一年你都在摸索什麼」做系列</div></div>
+  <a href="https://www.threads.com/@cmpengpa/post/DYw-H9PkoKS" target="_blank" style="display:inline-block;background:#1F362C;color:#fff;font-size:12px;padding:7px 16px;border-radius:4px;text-decoration:none;">查看原文 →</a>
+</div>
+<div class="card post-card">
+  <div style="font-size:11px;letter-spacing:.1em;color:#7d8c87;margin-bottom:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+    <span style="background:#1F362C;color:#fff;font-size:10px;padding:2px 7px;border-radius:2px;">#6</span>
+    <span>@lifedr.188</span>
+    <span style="color:#5a8a72;">#診所經營</span>
+    <span style="color:#7d8c87;">🕐 14:49</span>
+    <span style="background:#e67e22;color:#fff;font-size:10px;padding:2px 7px;border-radius:2px;">🔁 出現 8 次 · 首見 05-16</span>
+  </div>
+  <h2 style="font-family:'Noto Serif TC',serif;font-size:17px;font-weight:700;margin:8px 0;">新診所沒生意燒的都是錢</h2>
+  <p style="font-size:13px;color:#555;line-height:1.8;margin-bottom:12px;">lifedr.188 開業 2024-7-8 在還沒接觸經營新診所前，一直對於將來開診所有憧憬，希望有一家自己的診所，無論是經營模式或各種天馬行空的想法都層出不窮 但在實際上了幾診新診所的診之後，才了解為什麼會有這麼多診所在草創期就匆匆下課一鞠躬。因為沒生意時燒的都是錢啊😓 開業</p>
+  <div style="display:flex;gap:16px;font-size:12px;color:#7d8c87;margin-bottom:12px;">
+    <span>❤ 42</span>
+    <span>💬 7</span>
+    <span>↗ 1</span>
+  </div>
+  <div style="background:#f6f9f7;border-radius:6px;padding:12px;margin-bottom:10px;border-left:3px solid #1F362C;">
+    <div style="font-size:11px;font-weight:600;color:#1F362C;margin-bottom:4px;">🎯 策略學習點</div>
+    <div style="font-size:13px;color:#3d6b57;">「沒生意時燒的都是錢」這句話直接點出草創期現金流焦慮，財務顧問帳號用此做標題發開業前現金流規劃貼文</div>
+  </div>
+  <div style="background:#e8f5ee;border-radius:6px;padding:12px;margin-bottom:10px;"><div style="font-size:11px;font-weight:600;color:#1F362C;margin-bottom:4px;">👤 身份觀察 · 醫師</div><div style="font-size:13px;color:#3d6b57;">開業醫師親身恐懼描述帶天然情緒，財務顧問帳號接「開業前你要準備多少現金儲備」最能精準命中受眾</div></div>
+  <a href="https://www.threads.com/@lifedr.188/post/C9JvnElPIL3" target="_blank" style="display:inline-block;background:#1F362C;color:#fff;font-size:12px;padding:7px 16px;border-radius:4px;text-decoration:none;">查看原文 →</a>
+</div>
+<div class="card post-card">
+  <div style="font-size:11px;letter-spacing:.1em;color:#7d8c87;margin-bottom:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+    <span style="background:#1F362C;color:#fff;font-size:10px;padding:2px 7px;border-radius:2px;">#7</span>
+    <span>@alanwulaw</span>
+    <span style="color:#5a8a72;">#律師</span>
+    <span style="color:#7d8c87;">🕐 10:04</span>
+    
+  </div>
+  <h2 style="font-family:'Noto Serif TC',serif;font-size:17px;font-weight:700;margin:8px 0;">律師拒絕器官販賣主謀辯護</h2>
+  <p style="font-size:13px;color:#555;line-height:1.8;margin-bottom:12px;">alanwulaw 2026-4-26 當律師十幾年，有一個字讓我整個人僵在那裡。 「拆」。 那天在警局做筆錄，對話截圖裡出現這個字。 那不是在講貨——是人蛇集團把人騙去東南亞之後，把這個人「拆」掉，器官分開賣。 看完截圖，我才發現坐在我旁邊的，是主謀。 我跟他說「很抱歉，我無法繼續為你辯護」，然後我離開了。 很多事情，在該說不的時候說不，才對得起自己的良心。</p>
+  <div style="display:flex;gap:16px;font-size:12px;color:#7d8c87;margin-bottom:12px;">
+    <span>❤ 8,044</span>
+    <span>💬 245</span>
+    <span>↗ 297</span>
+  </div>
+  <div style="background:#f6f9f7;border-radius:6px;padding:12px;margin-bottom:10px;border-left:3px solid #1F362C;">
+    <div style="font-size:11px;font-weight:600;color:#1F362C;margin-bottom:4px;">🎯 策略學習點</div>
+    <div style="font-size:13px;color:#3d6b57;">用「有一個字讓我整個人僵在那裡」製造懸念開頭，律師帳號可複製此格式談「接過最讓我不安的醫糾案」</div>
+  </div>
+  <div style="background:#e8f5ee;border-radius:6px;padding:12px;margin-bottom:10px;"><div style="font-size:11px;font-weight:600;color:#1F362C;margin-bottom:4px;">👤 身份觀察 · 律師</div><div style="font-size:13px;color:#3d6b57;">律師親身說故事格式帶出8千讚，律師帳號優先複製懸念開頭＋道德抉擇結尾的格式，切入醫糾案件場景</div></div>
+  <a href="https://www.threads.com/@alanwulaw/post/DXk9M1Nn_wS" target="_blank" style="display:inline-block;background:#1F362C;color:#fff;font-size:12px;padding:7px 16px;border-radius:4px;text-decoration:none;">查看原文 →</a>
+</div>
+<div class="card post-card">
+  <div style="font-size:11px;letter-spacing:.1em;color:#7d8c87;margin-bottom:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+    <span style="background:#1F362C;color:#fff;font-size:10px;padding:2px 7px;border-radius:2px;">#8</span>
+    <span>@yunjaylin</span>
+    <span style="color:#5a8a72;">#律師日常</span>
+    <span style="color:#7d8c87;">🕐 08:37</span>
+    
+  </div>
+  <h2 style="font-family:'Noto Serif TC',serif;font-size:17px;font-weight:700;margin:8px 0;">律師忘帶法袍開庭對手也沒帶</h2>
+  <p style="font-size:13px;color:#555;line-height:1.8;margin-bottom:12px;">yunjaylin 律師 2025-7-25 有次某案第一次開庭 匆忙中忘了帶法袍 趕快到律師休息室跟公會借 運氣好 剩最後一件😚 拿著法袍正在填寫資料時 又進來一位律師👨‍💼 👨‍💼：不好意思，我要借法袍😐 公會人員🙎‍♀️：沒有法袍了喔😐 👨‍💼：😯 旁邊的我😏 上庭後 看到對面坐著的竟然就是…… 沒穿法袍的那個他👨‍💼🤨 法官👩‍⚖️：大律師，第一次開庭就沒帶法袍啊～🙄 👨‍💼：庭上……抱歉😓 依稀記得那天開庭對方大律師特別嗆…… #飛特律師</p>
+  <div style="display:flex;gap:16px;font-size:12px;color:#7d8c87;margin-bottom:12px;">
+    <span>❤ 1,204</span>
+    <span>💬 32</span>
+    <span>↗ 28</span>
+  </div>
+  <div style="background:#f6f9f7;border-radius:6px;padding:12px;margin-bottom:10px;border-left:3px solid #1F362C;">
+    <div style="font-size:11px;font-weight:600;color:#1F362C;margin-bottom:4px;">🎯 策略學習點</div>
+    <div style="font-size:13px;color:#3d6b57;">用對話劇本格式（emoji分角色）寫職場小故事，讓讀者有追劇感，律師帳號可複製此格式寫診所勞資調解現場</div>
+  </div>
+  <div style="background:#e8f5ee;border-radius:6px;padding:12px;margin-bottom:10px;"><div style="font-size:11px;font-weight:600;color:#1F362C;margin-bottom:4px;">👤 身份觀察 · 律師</div><div style="font-size:13px;color:#3d6b57;">律師日常小故事用對話劇本格式帶出1200讚，律師帳號立即複製此格式寫「我見過最讓院長冷汗的一場勞資調解」</div></div>
+  <a href="https://www.threads.com/@yunjaylin/post/DMgssEjTE4j" target="_blank" style="display:inline-block;background:#1F362C;color:#fff;font-size:12px;padding:7px 16px;border-radius:4px;text-decoration:none;">查看原文 →</a>
+</div>
+<div class="card post-card">
+  <div style="font-size:11px;letter-spacing:.1em;color:#7d8c87;margin-bottom:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+    <span style="background:#1F362C;color:#fff;font-size:10px;padding:2px 7px;border-radius:2px;">#9</span>
+    <span>@kasuga_lawfirm</span>
+    <span style="color:#5a8a72;">#律師日常</span>
+    <span style="color:#7d8c87;">🕐 12:50</span>
+    <span style="background:#e67e22;color:#fff;font-size:10px;padding:2px 7px;border-radius:2px;">🔁 出現 2 次 · 首見 05-24</span>
+  </div>
+  <h2 style="font-family:'Noto Serif TC',serif;font-size:17px;font-weight:700;margin:8px 0;">法扶備註親和律師讓人暖心</h2>
+  <p style="font-size:13px;color:#555;line-height:1.8;margin-bottom:12px;">kasuga_lawfirm 2025-12-31 年末，接到法扶的電話，問我能不能接案，我說好啊沒問題。打開派案的檔案之後，發現指定律師欄位寫了「親和的律師」。謝謝法扶的專員看到這個備註想到我。 祝大家新年快樂，希望你們在冷冷的天氣都是身心安穩地被愛著。 （在threads 上潛水很久，終於發了第一篇文。）</p>
+  <div style="display:flex;gap:16px;font-size:12px;color:#7d8c87;margin-bottom:12px;">
+    <span>❤ 1,427</span>
+    <span>💬 27</span>
+    <span>↗ 1</span>
+  </div>
+  <div style="background:#f6f9f7;border-radius:6px;padding:12px;margin-bottom:10px;border-left:3px solid #1F362C;">
+    <div style="font-size:11px;font-weight:600;color:#1F362C;margin-bottom:4px;">🎯 策略學習點</div>
+    <div style="font-size:13px;color:#3d6b57;">用溫度感的小細節（備註欄寫「親和的律師」）結尾，讓帳號形象從「專業」升級為「懂人心」，適合律師帳號建立信任感</div>
+  </div>
+  <div style="background:#e8f5ee;border-radius:6px;padding:12px;margin-bottom:10px;"><div style="font-size:11px;font-weight:600;color:#1F362C;margin-bottom:4px;">👤 身份觀察 · 律師</div><div style="font-size:13px;color:#3d6b57;">親和形象律師帳號帶出1400讚說明溫度比專業更吸引人，律師帳號在每篇結尾加一句有人性的話效果顯著</div></div>
+  <a href="https://www.threads.com/@kasuga_lawfirm/post/DS6kCzTk7UY" target="_blank" style="display:inline-block;background:#1F362C;color:#fff;font-size:12px;padding:7px 16px;border-radius:4px;text-decoration:none;">查看原文 →</a>
+</div>
+<div class="card post-card">
+  <div style="font-size:11px;letter-spacing:.1em;color:#7d8c87;margin-bottom:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+    <span style="background:#1F362C;color:#fff;font-size:10px;padding:2px 7px;border-radius:2px;">#10</span>
+    <span>@huangrh1980</span>
+    <span style="color:#5a8a72;">#診所開業</span>
+    <span style="color:#7d8c87;">🕐 16:33</span>
+    <span style="background:#e67e22;color:#fff;font-size:10px;padding:2px 7px;border-radius:2px;">🔁 出現 8 次 · 首見 05-16</span>
+  </div>
+  <h2 style="font-family:'Noto Serif TC',serif;font-size:17px;font-weight:700;margin:8px 0;">基層診所開業生存率有研究數據</h2>
+  <p style="font-size:13px;color:#555;line-height:1.8;margin-bottom:12px;">huangrh1980 2026-4-26 明明基層診所的開業生存率是有研究的 我還被說唬爛數據 這種資料拿出來 說我唬爛的要不要道歉….</p>
+  <div style="display:flex;gap:16px;font-size:12px;color:#7d8c87;margin-bottom:12px;">
+    <span>❤ 272</span>
+    <span>💬 34</span>
+    <span>↗ 4</span>
+  </div>
+  <div style="background:#f6f9f7;border-radius:6px;padding:12px;margin-bottom:10px;border-left:3px solid #1F362C;">
+    <div style="font-size:11px;font-weight:600;color:#1F362C;margin-bottom:4px;">🎯 策略學習點</div>
+    <div style="font-size:13px;color:#3d6b57;">用「明明有研究數據還被說唬爛」製造憤慨感，診所顧問帳號可直接發「診所開業3年存活率是多少」數據貼文引爭議</div>
+  </div>
+  <div style="background:#e8f5ee;border-radius:6px;padding:12px;margin-bottom:10px;"><div style="font-size:11px;font-weight:600;color:#1F362C;margin-bottom:4px;">👤 身份觀察 · 醫師</div><div style="font-size:13px;color:#3d6b57;">醫師對開業存活率數據有強烈反應，診所顧問帳號用「你知道診所開業第幾年最危險嗎」做流量引爆點</div></div>
+  <a href="https://www.threads.com/@huangrh1980/post/DXlpvluk8k4" target="_blank" style="display:inline-block;background:#1F362C;color:#fff;font-size:12px;padding:7px 16px;border-radius:4px;text-decoration:none;">查看原文 →</a>
+</div>
+<div class="card post-card">
+  <div style="font-size:11px;letter-spacing:.1em;color:#7d8c87;margin-bottom:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+    <span style="background:#1F362C;color:#fff;font-size:10px;padding:2px 7px;border-radius:2px;">#11</span>
+    <span>@dr_huangry_</span>
+    <span style="color:#5a8a72;">#醫療糾紛</span>
+    <span style="color:#7d8c87;">🕐 17:43</span>
+    
+  </div>
+  <h2 style="font-family:'Noto Serif TC',serif;font-size:17px;font-weight:700;margin:8px 0;">醫師的權利誰來保障</h2>
+  <p style="font-size:13px;color:#555;line-height:1.8;margin-bottom:12px;">dr_huangry_ 2025-11-9 所以醫師的權利誰來保障🥲</p>
+  <div style="display:flex;gap:16px;font-size:12px;color:#7d8c87;margin-bottom:12px;">
+    <span>❤ 387</span>
+    <span>💬 76</span>
+    <span>↗ 8</span>
+  </div>
+  <div style="background:#f6f9f7;border-radius:6px;padding:12px;margin-bottom:10px;border-left:3px solid #1F362C;">
+    <div style="font-size:11px;font-weight:600;color:#1F362C;margin-bottom:4px;">🎯 策略學習點</div>
+    <div style="font-size:13px;color:#3d6b57;">用反問句「醫師的權利誰來保障」引發醫師群體共鳴，律師帳號接這個問句做「三種醫師最常被忽視的法律權利」</div>
+  </div>
+  <div style="background:#e8f5ee;border-radius:6px;padding:12px;margin-bottom:10px;"><div style="font-size:11px;font-weight:600;color:#1F362C;margin-bottom:4px;">👤 身份觀察 · 醫師</div><div style="font-size:13px;color:#3d6b57;">醫師自發權益焦慮帶出387讚，律師帳號優先發「醫師被病患或員工告之前，你需要知道這三件事」</div></div>
+  <a href="https://www.threads.com/@dr_huangry_/post/DQ1MKKugYNP" target="_blank" style="display:inline-block;background:#1F362C;color:#fff;font-size:12px;padding:7px 16px;border-radius:4px;text-decoration:none;">查看原文 →</a>
+</div>
+<div class="card post-card">
+  <div style="font-size:11px;letter-spacing:.1em;color:#7d8c87;margin-bottom:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+    <span style="background:#1F362C;color:#fff;font-size:10px;padding:2px 7px;border-radius:2px;">#12</span>
+    <span>@nubilu5437</span>
+    <span style="color:#5a8a72;">#勞基法</span>
+    <span style="color:#7d8c87;">🕐 16:10</span>
+    
+  </div>
+  <h2 style="font-family:'Noto Serif TC',serif;font-size:17px;font-weight:700;margin:8px 0;">檢舉公司違法會被查出是誰嗎</h2>
+  <p style="font-size:13px;color:#555;line-height:1.8;margin-bottom:12px;">nubilu5437 勞基法 2026-5-17 想請問大家 上班公司不符合勞基法工時 每天上班超過8小時沒給加班費 聽說跟勞工局檢舉 如果資方有人脈也會查到是誰去檢舉的 是真的查的到嗎？</p>
+  <div style="display:flex;gap:16px;font-size:12px;color:#7d8c87;margin-bottom:12px;">
+    <span>❤ 199</span>
+    <span>💬 62</span>
+    <span>↗ 19</span>
+  </div>
+  <div style="background:#f6f9f7;border-radius:6px;padding:12px;margin-bottom:10px;border-left:3px solid #1F362C;">
+    <div style="font-size:11px;font-weight:600;color:#1F362C;margin-bottom:4px;">🎯 策略學習點</div>
+    <div style="font-size:13px;color:#3d6b57;">用員工視角的法律恐懼問題（檢舉人身份會曝光嗎）來帶流量，律師帳號可翻面做「院長角度：員工檢舉你會怎樣」</div>
+  </div>
+  <div style="background:#e8f5ee;border-radius:6px;padding:12px;margin-bottom:10px;"><div style="font-size:11px;font-weight:600;color:#1F362C;margin-bottom:4px;">👤 身份觀察 · 一般人</div><div style="font-size:13px;color:#3d6b57;">勞基法檢舉恐懼話題帶199讚留言62則，律師帳號翻轉成診所院長視角「員工匿名檢舉你，你有多少時間應對」效果更強</div></div>
+  <a href="https://www.threads.com/@nubilu5437/post/DYbrylMFEUV" target="_blank" style="display:inline-block;background:#1F362C;color:#fff;font-size:12px;padding:7px 16px;border-radius:4px;text-decoration:none;">查看原文 →</a>
+</div>
+<div class="card post-card">
+  <div style="font-size:11px;letter-spacing:.1em;color:#7d8c87;margin-bottom:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+    <span style="background:#1F362C;color:#fff;font-size:10px;padding:2px 7px;border-radius:2px;">#13</span>
+    <span>@liz_._.11</span>
+    <span style="color:#5a8a72;">#勞資糾紛</span>
+    <span style="color:#7d8c87;">🕐 20:47</span>
+    
+  </div>
+  <h2 style="font-family:'Noto Serif TC',serif;font-size:17px;font-weight:700;margin:8px 0;">申請加班費被拒隔天就被資遣</h2>
+  <p style="font-size:13px;color:#555;line-height:1.8;margin-bottom:12px;">liz_._.11 勞資糾紛 2025-1-9 申請加班費被拒絕 問了原因，得到的回覆是別人可以如期完成你為什麼不行、你新進來能力不足對公司沒有任何產值不應該要求加班費 我質疑有加班事實為什麼不能申請 當天就被資遣了 直接撕破臉要求補回前兩個月的加班費 被老闆威脅他有律師而且不會去調解也不會出庭😁 勞資糾紛 /</p>
+  <div style="display:flex;gap:16px;font-size:12px;color:#7d8c87;margin-bottom:12px;">
+    <span>❤ 1</span>
+    <span>💬 0</span>
+    <span>↗ 4</span>
+  </div>
+  <div style="background:#f6f9f7;border-radius:6px;padding:12px;margin-bottom:10px;border-left:3px solid #1F362C;">
+    <div style="font-size:11px;font-weight:600;color:#1F362C;margin-bottom:4px;">🎯 策略學習點</div>
+    <div style="font-size:13px;color:#3d6b57;">用「老闆說他有律師所以不會出庭」這個具體細節，律師帳號可發「對方說有律師就能嚇倒你？先看這個」反直覺貼文</div>
+  </div>
+  <div style="background:#e8f5ee;border-radius:6px;padding:12px;margin-bottom:10px;"><div style="font-size:11px;font-weight:600;color:#1F362C;margin-bottom:4px;">👤 身份觀察 · 一般人</div><div style="font-size:13px;color:#3d6b57;">勞資糾紛受害者故事情緒張力強，律師帳號用「診所員工最常問我的5個勞資問題」接此話題精準觸達院長與員工雙方</div></div>
+  <a href="https://www.threads.com/@liz_._.11/post/DEmvkmQB0z2" target="_blank" style="display:inline-block;background:#1F362C;color:#fff;font-size:12px;padding:7px 16px;border-radius:4px;text-decoration:none;">查看原文 →</a>
+</div>
+<div class="card post-card">
+  <div style="font-size:11px;letter-spacing:.1em;color:#7d8c87;margin-bottom:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+    <span style="background:#1F362C;color:#fff;font-size:10px;padding:2px 7px;border-radius:2px;">#14</span>
+    <span>@cherry40_2</span>
+    <span style="color:#5a8a72;">#診所日常</span>
+    <span style="color:#7d8c87;">🕐 13:20</span>
+    
+  </div>
+  <h2 style="font-family:'Noto Serif TC',serif;font-size:17px;font-weight:700;margin:8px 0;">媽媽叫孩子不用撿診所會掃</h2>
+  <p style="font-size:13px;color:#555;line-height:1.8;margin-bottom:12px;">cherry40_2 診所日常 2025-5-12 上次有個大孩子串珠手鍊散掉了整個診間地板都是 她猶豫著要不要撿 媽媽看著她說：不用撿啦反正阿姨會掃地 小的看不下去默默蹲下來撿珠子 媽媽又說：幹嘛撿啦地板那麼髒 跟診的我站在旁邊輕聲的說：媽媽要撿起來喔 如果之後有小朋友踩到滑倒責任要算誰的 媽媽跟大的才趕快蹲下來撿 當然我是站在旁邊看 只意思意思的撿了我腳邊的兩顆🙂 你們弄掉了不應該是你們撿嗎 最討厭那種明明小孩弄掉了東西聲音那麼大 家長還能一動不動 只是坐在那邊看著我們很屈辱的彎腰在他們腳邊幫忙撿東西 診所日常</p>
+  <div style="display:flex;gap:16px;font-size:12px;color:#7d8c87;margin-bottom:12px;">
+    <span>❤ 1,114</span>
+    <span>💬 11</span>
+    <span>↗ 2</span>
+  </div>
+  <div style="background:#f6f9f7;border-radius:6px;padding:12px;margin-bottom:10px;border-left:3px solid #1F362C;">
+    <div style="font-size:11px;font-weight:600;color:#1F362C;margin-bottom:4px;">🎯 策略學習點</div>
+    <div style="font-size:13px;color:#3d6b57;">用具體場景＋情緒壓抑的結尾（只撿了腳邊兩顆）做共鳴，診所顧問帳號可借此格式談「診所員工離職最常見的真實原因」</div>
+  </div>
+  <div style="background:#e8f5ee;border-radius:6px;padding:12px;margin-bottom:10px;"><div style="font-size:11px;font-weight:600;color:#1F362C;margin-bottom:4px;">👤 身份觀察 · 一般人</div><div style="font-size:13px;color:#3d6b57;">診所日常小故事1100讚說明診所工作情緒共鳴極強，診所顧問帳號用員工視角談「為什麼好員工留不住」帶出院長焦慮</div></div>
+  <a href="https://www.threads.com/@cherry40_2/post/DJiqRUdvHxE" target="_blank" style="display:inline-block;background:#1F362C;color:#fff;font-size:12px;padding:7px 16px;border-radius:4px;text-decoration:none;">查看原文 →</a>
+</div>
+<div class="card post-card">
+  <div style="font-size:11px;letter-spacing:.1em;color:#7d8c87;margin-bottom:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+    <span style="background:#1F362C;color:#fff;font-size:10px;padding:2px 7px;border-radius:2px;">#15</span>
+    <span>@tony_jhan</span>
+    <span style="color:#5a8a72;">#診所行銷</span>
+    <span style="color:#7d8c87;">🕐 14:01</span>
+    
+  </div>
+  <h2 style="font-family:'Noto Serif TC',serif;font-size:17px;font-weight:700;margin:8px 0;">行銷公司開口先問預算讓人不信任</h2>
+  <p style="font-size:13px;color:#555;line-height:1.8;margin-bottom:12px;">tony_jhan 2025-7-9 有件事我一直覺得怪怪的。 每次遇到行銷公司來提案，開場第一句不是聊需求、不是了解我們的目標，而是：「請問你們每月的行銷預算大約多少？」 我知道他們可能是想抓個範圍，好對症下藥。 但老實說，這樣的開場給我的感覺不是「想幫我解決問題」，而是「想知道我有多少錢可以花」，甚至有點像是：我預算說多一點，他們就報高一點。 對我來說，真正專業的行銷夥伴，應該是先理解我們的需求和目標，再提供適合的解法與專案組合。 你可以有基本方案、延伸方案、進階方案，讓我依照預算和期望彈性選擇，而不是直接問預算、然後往上靠。 預算不是不能談，但不應該成為對話的起點。 先了解問題，再來談資</p>
+  <div style="display:flex;gap:16px;font-size:12px;color:#7d8c87;margin-bottom:12px;">
+    <span>❤ 637</span>
+    <span>💬 213</span>
+    <span>↗ 16</span>
+  </div>
+  <div style="background:#f6f9f7;border-radius:6px;padding:12px;margin-bottom:10px;border-left:3px solid #1F362C;">
+    <div style="font-size:11px;font-weight:600;color:#1F362C;margin-bottom:4px;">🎯 策略學習點</div>
+    <div style="font-size:13px;color:#3d6b57;">用「第一句話先問預算讓我覺得你只想賺我錢」做反面教材，診所顧問帳號可發「我們第一次見院長從不問預算」建立信任差異化</div>
+  </div>
+  <div style="background:#e8f5ee;border-radius:6px;padding:12px;margin-bottom:10px;"><div style="font-size:11px;font-weight:600;color:#1F362C;margin-bottom:4px;">👤 身份觀察 · 一般人</div><div style="font-size:13px;color:#3d6b57;">637讚的顧問信任危機貼文說明醫師對顧問有高度戒心，診所顧問帳號優先發「第一次諮詢我只問你在怕什麼」作為帳號定位宣言</div></div>
+  <a href="https://www.threads.com/@tony_jhan/post/DL4FExJxLZo" target="_blank" style="display:inline-block;background:#1F362C;color:#fff;font-size:12px;padding:7px 16px;border-radius:4px;text-decoration:none;">查看原文 →</a>
+</div>
+</div>
+<footer class="site-footer">由 游泰仁 自動生成 · Duna You · 每日更新</footer>
+</body>
+</html>
