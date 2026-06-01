@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>游泰仁系統 — 2026 年 5 月 外部服務用量報告</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Helvetica Neue", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    background: #f7f9f8;
+    color: #1a1a1a;
+    padding: 48px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 2.5px solid #1F362C;
+    padding-bottom: 16px;
+    margin-bottom: 32px;
+  }
+  .header-left h1 { font-size: 22px; font-weight: 700; color: #1F362C; letter-spacing: 0.5px; }
+  .header-left p { font-size: 12px; color: #7d8c87; margin-top: 4px; }
+  .header-right { text-align: right; font-size: 12px; color: #7d8c87; }
+  .header-right .date { font-size: 14px; font-weight: 600; color: #1F362C; }
+  .summary-row { display: flex; gap: 16px; margin-bottom: 32px; }
+  .summary-card {
+    flex: 1; background: white; border-radius: 10px;
+    border: 1px solid #dde7e2; padding: 20px; text-align: center;
+  }
+  .summary-card .label {
+    font-size: 11px; color: #7d8c87; text-transform: uppercase;
+    letter-spacing: 0.8px; margin-bottom: 8px;
+  }
+  .summary-card .amount { font-size: 26px; font-weight: 700; color: #1F362C; }
+  .summary-card .sub { font-size: 11px; color: #7d8c87; margin-top: 4px; }
+  .summary-card.highlight { background: #1F362C; }
+  .summary-card.highlight .label,
+  .summary-card.highlight .sub { color: #a8c4b8; }
+  .summary-card.highlight .amount { color: #ffffff; }
+  .section {
+    background: white; border-radius: 10px;
+    border: 1px solid #dde7e2; margin-bottom: 20px; overflow: hidden;
+  }
+  .section-header {
+    display: flex; align-items: center; gap: 10px;
+    padding: 16px 20px; border-bottom: 1px solid #f0f4f2;
+  }
+  .section-icon {
+    width: 32px; height: 32px; border-radius: 8px; background: #eef4f1;
+    display: flex; align-items: center; justify-content: center; font-size: 16px;
+  }
+  .section-title { font-size: 15px; font-weight: 600; color: #1F362C; }
+  .section-badge {
+    margin-left: auto; padding: 3px 10px;
+    border-radius: 20px; font-size: 11px; font-weight: 600;
+  }
+  .badge-free { background: #e8f5e9; color: #2e7d32; }
+  .badge-paid { background: #fff3e0; color: #e65100; }
+  .section table { width: 100%; border-collapse: collapse; }
+  .section table th {
+    background: #f7f9f8; padding: 10px 20px; text-align: left;
+    font-size: 11px; font-weight: 600; color: #7d8c87;
+    text-transform: uppercase; letter-spacing: 0.5px;
+    border-bottom: 1px solid #eef2f0;
+  }
+  .section table td {
+    padding: 11px 20px; border-bottom: 1px solid #f5f8f6;
+    font-size: 13px; vertical-align: top;
+  }
+  .section table tr:last-child td { border-bottom: none; }
+  .section table td:first-child { color: #7d8c87; width: 36%; }
+  .val-highlight { font-weight: 600; color: #1F362C; }
+  .val-green { color: #2e7d32; font-weight: 600; }
+  .val-orange { color: #e65100; font-weight: 600; }
+  .val-muted { color: #aaa; font-size: 12px; }
+  .note-box {
+    background: #fff8e1; border-left: 3px solid #ffc107;
+    border-radius: 0 8px 8px 0; padding: 10px 16px;
+    margin: 12px 20px 16px; font-size: 12px; color: #5d4037; line-height: 1.7;
+  }
+  .reflection-box {
+    background: #eef4f1; border-left: 3px solid #1F362C;
+    border-radius: 0 8px 8px 0; padding: 12px 16px;
+    margin: 12px 20px 16px; font-size: 13px; color: #333; line-height: 1.8;
+  }
+  .footer {
+    margin-top: 32px; padding-top: 16px;
+    border-top: 1px solid #dde7e2;
+    display: flex; justify-content: space-between;
+    font-size: 11px; color: #bbb;
+  }
+  .back-link {
+    display: inline-block; margin-bottom: 24px;
+    font-size: 13px; color: #7d8c87; text-decoration: none;
+  }
+  .back-link:hover { color: #1F362C; }
+</style>
+</head>
+<body>
+
+<a href="../index.html" class="back-link">← 回游泰仁週報</a>
+
+<div class="header">
+  <div class="header-left">
+    <h1>游泰仁系統 — 外部服務用量報告</h1>
+    <p>涵蓋：早安機器人、LINE 全能助理、週報系統、AI 特助、醫責險要保書</p>
+  </div>
+  <div class="header-right">
+    <div class="date">2026 年 6 月 1 日</div>
+    <div>統計期間：2026 / 05 / 01 ～ 2026 / 05 / 31</div>
+  </div>
+</div>
+
+<div class="summary-row">
+  <div class="summary-card highlight">
+    <div class="label">目前每月支出</div>
+    <div class="amount">$0</div>
+    <div class="sub">所有 API 服務皆在免費額度內</div>
+  </div>
+  <div class="summary-card">
+    <div class="label">預估月費（調整後）</div>
+    <div class="amount">NT$65</div>
+    <div class="sub">約 1 個月後｜Anthropic 免費額度用完</div>
+  </div>
+  <div class="summary-card">
+    <div class="label">LINE 推播本月用量</div>
+    <div class="amount">0 則</div>
+    <div class="sub">上限 200 則｜剩餘 200 則</div>
+  </div>
+  <div class="summary-card">
+    <div class="label">Anthropic 剩餘額度</div>
+    <div class="amount">US$3.00</div>
+    <div class="sub">可再撐約 1 個月</div>
+  </div>
+</div>
+
+<!-- Claude Max -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon">🧠</div>
+    <div class="section-title">Claude Max（Anthropic 訂閱）</div>
+    <span class="section-badge badge-paid">付費 $100/月</span>
+  </div>
+  <table>
+    <tr><th>項目</th><th>數值</th></tr>
+    <tr><td>方案</td><td><span class="val-highlight">Claude Max $100/月</span></td></tr>
+    <tr><td>使用工具</td><td>Claude Code（CLI + VSCode 擴充）</td></tr>
+    <tr><td>主要模型</td><td>claude-sonnet-4-6（日常）/ claude-opus-4-7（高難度任務）</td></tr>
+    <tr><td>本月 Sessions</td><td><span class="val-highlight">129 個</span></td></tr>
+    <tr><td>費用</td><td><span class="val-orange">$100 USD / 月（固定）</span></td></tr>
+  </table>
+</div>
+
+<!-- LINE Messaging API -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon">💬</div>
+    <div class="section-title">LINE Messaging API</div>
+    <span class="section-badge badge-free">免費</span>
+  </div>
+  <table>
+    <tr><th>項目</th><th>數值</th></tr>
+    <tr><td>Bot 名稱</td><td><span class="val-highlight">淳の每日助理 (@320kziqv)</span></td></tr>
+    <tr><td>本月配額（上限）</td><td><span class="val-highlight">200 則</span> push message</td></tr>
+    <tr><td>本月已用</td><td><span class="val-highlight">0 則</span>　<span class="val-muted">(0%)</span></td></tr>
+    <tr><td>剩餘配額</td><td><span class="val-green">200 則</span></td></tr>
+    <tr><td>穩定月用量預估</td><td>早安 1 則/天 × 30 天 + 週報 4 則 + 月報 1 則 ＝ 約 <span class="val-highlight">35 則/月</span></td></tr>
+    <tr><td>對話回覆（reply）</td><td>不計入配額，完全免費</td></tr>
+    <tr><td>費用</td><td><span class="val-green">$0</span>｜用量遠低於 200 則上限</td></tr>
+  </table>
+  <div class="note-box">⚠️ GH_PAT 狀態：<span class="val-green">永不到期，無需處理</span>　LINE 全能助理 AI 對話功能依賴此 Token。</div>
+</div>
+
+<!-- Anthropic API -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon">🤖</div>
+    <div class="section-title">Anthropic API（週報生成）</div>
+    <span class="section-badge badge-paid">付費（目前吃免費額度）</span>
+  </div>
+  <table>
+    <tr><th>項目</th><th>數值</th></tr>
+    <tr><td>使用場景</td><td>週報自動生成（claude-sonnet-4-6）</td></tr>
+    <tr><td>免費 Credit grant</td><td>US$5.00（2026/5/1 發放，到期 2027/5/2）</td></tr>
+    <tr><td>剩餘額度（估）</td><td><span class="val-green">US$3.00</span>　<span class="val-muted">（請至 console.anthropic.com 確認實際數字）</span></td></tr>
+    <tr><td>免費額度用完後月費</td><td><span class="val-orange">約 US$2 / 月</span>，依實際呼叫次數計費</td></tr>
+    <tr><td>費用</td><td><span class="val-green">$0</span>（免費額度期間）</td></tr>
+    <tr><td>本月 Input Tokens</td><td><span class="val-highlight">63,068</span>　<span class="val-muted">（自動記錄，來源：API response）</span></td></tr>
+    <tr><td>本月 Output Tokens</td><td><span class="val-highlight">26,304</span></td></tr>
+    <tr><td>本月 API 實際費用</td><td><span class="val-highlight">US$0.5838</span>　<span class="val-muted">（Sonnet 4.6：Input $3/MTok、Output $15/MTok）</span></td></tr>
+  </table>
+  <div class="note-box">📌 Token 用量為自動記錄的精確數字（來源：每次 API call response）。Anthropic 免費額度剩餘為估算值，實際請至 console.anthropic.com → Usage 確認。</div>
+</div>
+
+<!-- GitHub -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon">⚙️</div>
+    <div class="section-title">GitHub（Actions + Pages + Models）</div>
+    <span class="section-badge badge-free">免費</span>
+  </div>
+  <table>
+    <tr><th>項目</th><th>數值</th></tr>
+    <tr><td>週報系統</td><td>DunaYou/weekly-report（每週日 12:00 執行）</td></tr>
+    <tr><td>LINE 全能助理</td><td>DunaYou/line-assistant（Render 部署）</td></tr>
+    <tr><td>本月預估 Actions 用量</td><td>週報 4 次 + 月報 1 次 ≈ 約 <span class="val-highlight">1.5 分鐘/月</span></td></tr>
+    <tr><td>免費額度</td><td>2,000 分鐘 / 月</td></tr>
+    <tr><td>GitHub Models (gpt-4o-mini)</td><td>LINE 全能助理 AI 對話，免費</td></tr>
+    <tr><td>GH_PAT 狀態</td><td><span class="val-green">永不到期，無需處理</span></td></tr>
+    <tr><td>費用</td><td><span class="val-green">$0</span>｜用量不到免費額度的 1%</td></tr>
+  </table>
+</div>
+
+<!-- 其他免費服務 -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon">🔧</div>
+    <div class="section-title">其他服務（全部免費）</div>
+    <span class="section-badge badge-free">免費</span>
+  </div>
+  <table>
+    <tr><th>服務</th><th>用途</th><th>費用</th></tr>
+    <tr><td>Render.com</td><td>LINE 全能助理 Flask 伺服器（Free Tier）</td><td><span class="val-green">$0</span></td></tr>
+    <tr><td>cron-job.org</td><td>早安 08:30 觸發 + 週報 + 月報 + Render 防休眠 ping</td><td><span class="val-green">$0</span></td></tr>
+    <tr><td>Surge.sh</td><td>醫責險要保書（fbmmiclient / fbmmiensure）</td><td><span class="val-green">$0</span></td></tr>
+    <tr><td>Firecrawl</td><td>週報「值得偷學的案例」搜尋（500 次/月免費）</td><td><span class="val-green">$0</span></td></tr>
+    <tr><td>Notion API</td><td>待辦、客戶、靈感庫、工作日誌等資料庫讀寫</td><td><span class="val-green">$0</span></td></tr>
+    <tr><td>Open-Meteo</td><td>早安機器人台北天氣</td><td><span class="val-green">$0</span></td></tr>
+    <tr><td>Google Calendar API</td><td>早安行程、全能助理查行程</td><td><span class="val-green">$0</span></td></tr>
+  </table>
+</div>
+
+<!-- 本月 AI 工時分佈 -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon">📊</div>
+    <div class="section-title">本月 AI 工時分佈</div>
+    <span class="section-badge badge-free">工作紀錄</span>
+  </div>
+  <table>
+    <tr><th>專案</th><th>工時</th><th>佔比</th></tr>
+    <tr>
+      <td>LINE 全能助理</td>
+      <td><span class="val-highlight">70.2h</span></td>
+      <td><span class="val-muted">29%</span></td>
+    </tr><tr>
+      <td>AI 學習地圖</td>
+      <td><span class="val-highlight">46.0h</span></td>
+      <td><span class="val-muted">19%</span></td>
+    </tr><tr>
+      <td>duna-skills</td>
+      <td><span class="val-highlight">41.3h</span></td>
+      <td><span class="val-muted">17%</span></td>
+    </tr><tr>
+      <td>記憶系統</td>
+      <td><span class="val-highlight">23.5h</span></td>
+      <td><span class="val-muted">10%</span></td>
+    </tr><tr>
+      <td>CLAUDE.md</td>
+      <td><span class="val-highlight">22.5h</span></td>
+      <td><span class="val-muted">9%</span></td>
+    </tr><tr>
+      <td>Claude Code 入門地圖</td>
+      <td><span class="val-highlight">21.8h</span></td>
+      <td><span class="val-muted">9%</span></td>
+    </tr><tr>
+      <td>週報系統</td>
+      <td><span class="val-highlight">21.6h</span></td>
+      <td><span class="val-muted">9%</span></td>
+    </tr><tr>
+      <td>游泰仁週報系統</td>
+      <td><span class="val-highlight">21.3h</span></td>
+      <td><span class="val-muted">9%</span></td>
+    </tr>
+  </table>
+  <div class="reflection-box">五月是我目前最密集的一個月，39 個專案、239 小時，光看數字自己都嚇到。LINE 全能助理這個月幾乎天天在動，從 bug fix 到靈感庫、自然語言偵測、早安機器人整合，邊修邊長大，有點像養孩子。週報系統也大改版了兩三次，每次都以為「這次真的好了」。醫責險投保流程終於把 UI 和 Notion 串起來，算是一個讓我比較安心的里程碑。AI 特助 Agents 第一階段完成，感覺打開了一扇門，但門後面還有很長的路。</div>
+</div>
+
+<!-- 近期注意事項 -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon">📌</div>
+    <div class="section-title">近期需要注意的事</div>
+  </div>
+  <table>
+    <tr><th>截止日</th><th>項目</th><th>說明</th></tr>
+    <tr><td colspan="3" style="color:#2e7d32;font-weight:600;padding:12px 20px;">✓ 本月無需處理的事項</td></tr>
+  </table>
+</div>
+
+<div class="footer">
+  <div>游泰仁 AI 特助系統 — 自動生成報告</div>
+  <div>盈爍財務顧問 × 瑞爍品牌顧問</div>
+</div>
+
+</body>
+</html>
